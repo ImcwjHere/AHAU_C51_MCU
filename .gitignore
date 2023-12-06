@@ -1,4 +1,5 @@
-
+# 根目录
+.vscode
 
 # SDCC 文件夹
 # 忽略 SDCC/build/Debug 文件夹内的所有文件
