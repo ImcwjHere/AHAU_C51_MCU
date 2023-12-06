@@ -1,24 +1,4 @@
-#include "../utils/LCD1602.h"
-#include "../utils/DELAY.h"
-#include "../utils/AT24C02.h"
-#include "../utils/FUNCTIONS.h"
-
-
-#define SETTING_BUTTON P37
-#define ADD_BUTTON P36
-#define SUB_BUTTON P35
-#define APPLY_BUTTON P34
-#define RST_BUTTON P33
-#define DEBUG_BUTTON P32
-
-// 全局变量
-extern int highestTemperature;
-extern int lowestTemperature;
-extern xdata unsigned char *onScreenHighestTemperature;
-extern xdata unsigned char *onScreenLowestTemperature;
-extern xdata unsigned char firstLine[];
-extern xdata unsigned char secondLine[];
-extern void alartScreen(unsigned char text[]);
+#include "settingScreen.h"
 
 void settingScreen() {
     bit currentCursor=0, prevCursor=0;    // 当前/上一个光标位置，0表示控制最高温度，1表示控制最低温度

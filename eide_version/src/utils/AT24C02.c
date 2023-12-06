@@ -1,5 +1,4 @@
 #include "AT24C02.h"
-#include "DELAY.h"
 
 // 往AT24C02的一个地址写入一个数据
 // AT24C02 共 2K bit, 32页 x 8 Byte/页, 共256Byte

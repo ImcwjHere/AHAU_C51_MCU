@@ -1,5 +1,4 @@
-#include "../utils/DELAY.h"
-#include "../utils/LCD1602.h"
+#include "startupScreen.h"
 
 // ¿ª»ú»­Ãæ
 void startupScreen() {

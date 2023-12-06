@@ -1,9 +1,4 @@
 #include "IIC.h"
-#include "delay.h"
-
-// I2C的接口配置
-#define SCL P16
-#define SDA P17
 
 // 起始信号，SCL时钟信号在高电平期间SDA信号产生一个下降沿
 void startIIC(void) {

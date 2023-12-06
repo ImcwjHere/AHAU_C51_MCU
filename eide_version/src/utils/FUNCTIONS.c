@@ -1,12 +1,4 @@
-#include "reg52.h"
-
-#define BEEP P14
-#define LED P20
-#define FAN P27
-
-extern void initializeFan();
-extern void initializeLCD1602();
-extern void initializeDS18B20();
+#include "FUNCTIONS.h"
 
 // 读取温度值, 转换为字符串, 并赋值给全局变量
 // (unsigned char) temperature: 读取的温度值

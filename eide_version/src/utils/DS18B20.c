@@ -1,7 +1,4 @@
 #include "DS18B20.h"
-#include "DELAY.h"
-
-#define DSPORT P15
 
 // 初始化DS18B20
 // 返回值：1成功，0失败

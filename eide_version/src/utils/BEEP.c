@@ -1,10 +1,4 @@
-#include <reg52.h>
-#include "DELAY.h"
-
-#define BEEP P14
-
-//播放速度，值为四分音符的时长(ms)
-#define SPEED	500
+#include "BEEP.h"
 
 //音符与索引对应表，P：休止符，L：低音，M：中音，H：高音，下划线：升半音符号#
 #define P	0

@@ -1,10 +1,4 @@
-#include "reg52.h"
-
-#define FAN P27
-
-extern unsigned char fanState[4];
-extern int TH_INIT;
-extern int TL_INIT;
+#include "FAN_PWM.h"
 
 void initializeFan() {
     // ƒ¨»œπÿ±’∑Á…»

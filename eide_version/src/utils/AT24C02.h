@@ -2,6 +2,7 @@
 #define __AT24C02_H
 
 #include "IIC.h"
+#include "DELAY.h"
 
 // EEPROMµÄµØÖ·
 #define AT24C02_ADD 0xA0
