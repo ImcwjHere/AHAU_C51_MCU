@@ -1,8 +1,8 @@
 #include "reg52.h"
 
-sbit BEEP = P1^4;
-sbit LED = P2^0;
-sbit FAN = P2^7;
+#define BEEP P14
+#define LED P20
+#define FAN P27
 
 extern void initializeFan();
 extern void initializeLCD1602();

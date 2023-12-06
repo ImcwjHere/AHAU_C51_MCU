@@ -2,9 +2,9 @@
 
 #define LCD1602_DATAPINS P0
 
-sbit LCD1602_E =  P1^2;
-sbit LCD1602_RW = P1^1;
-sbit LCD1602_RS = P1^0;
+#define LCD1602_E P12
+#define LCD1602_RW P11
+#define LCD1602_RS P10
 
 // 向LCD写入一个字节
 void __writeComOnLCD1602(unsigned char com)	{	//写入命令

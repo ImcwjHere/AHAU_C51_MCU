@@ -1,6 +1,6 @@
 #include "reg52.h"
 
-sbit FAN = P2^7;
+#define FAN P27
 
 extern unsigned char fanState[4];
 extern int TH_INIT;

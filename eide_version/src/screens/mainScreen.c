@@ -3,8 +3,8 @@
 #include "../utils/LCD1602.h"
 #include "../utils/FUNCTIONS.h"
 
-sbit LED = P2^0;
-sbit BEEP = P1^4;
+#define LED P20
+#define BEEP P14
 
 // 全局变量
 extern unsigned char fanLevel;

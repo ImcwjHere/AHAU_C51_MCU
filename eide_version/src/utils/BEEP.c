@@ -1,7 +1,7 @@
 #include <reg52.h>
 #include "DELAY.h"
 
-sbit BEEP = P1^4;
+#define BEEP P14
 
 //播放速度，值为四分音符的时长(ms)
 #define SPEED	500
