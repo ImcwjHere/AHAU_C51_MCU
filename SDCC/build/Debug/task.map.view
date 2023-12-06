@@ -1,3 +1,0 @@
-tool: SDCC
-fileName: task.map
-elfName: task.ihx
