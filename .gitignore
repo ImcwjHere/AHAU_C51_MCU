@@ -1,5 +1,7 @@
 # dot files
-eide_version/.vscode/*
-eide_version/.eide/*
+eide_version/.vscode
+eide_version/.eide
 eide_version/build
 eide_version/tools
+eide_version/.clang-format
+eide_version/.eide.usr.ctx.json
