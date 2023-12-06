@@ -1,29 +1,29 @@
-#include "DELAY.h"
-#include "LCD1602.h"
+#include "../utils/DELAY.h"
+#include "../utils/LCD1602.h"
 
-// å¼€æœºç”»é¢
+// ¿ª»ú»­Ãæ
 void startupScreen() {
     unsigned char i=0, j=0;
-    unsigned int delay_ms=50;  // åŠ¨æ€æ˜¾ç¤ºçš„å»¶æ—¶ï¼Œå•ä½ä¸ºæ¯«ç§’
+    unsigned int delay_ms=50;  // ¶¯Ì¬ÏÔÊ¾µÄÑÓÊ±£¬µ¥Î»ÎªºÁÃë
     xdata unsigned char line_1[] = "Welcome to AAUCS";
     xdata unsigned char line_2[] = "     No. 31     ";
-    // åŠ¨æ€é€ä¸ªæ˜¾ç¤ºä¸¤è¡Œå­—ç¬¦
+    // ¶¯Ì¬Öğ¸öÏÔÊ¾Á½ĞĞ×Ö·û
     for (i = 0; i < 16; i++) {
         writeCharOnLCD1602(0, i, line_1[i]);
         if (i < 7) writeCharOnLCD1602(1, i+5, line_2[i+5]);
         delayOneMillisecond(delay_ms);
     }
     delayOneSecond(1);
-    // æ•´ä½“å‘å·¦ç§»åŠ¨ç›´è‡³æ¶ˆå¤±
+    // ÕûÌåÏò×óÒÆ¶¯Ö±ÖÁÏûÊ§
     for (i = 0; i < 16; i++) {
-        // å°†æ‰€æœ‰æ–‡å­—å‘å·¦ç§»åŠ¨ä¸€æ ¼ï¼Œæœ€åä¸€æ ¼æ”¹ä¸ºç©ºæ ¼
+        // ½«ËùÓĞÎÄ×ÖÏò×óÒÆ¶¯Ò»¸ñ£¬×îºóÒ»¸ñ¸ÄÎª¿Õ¸ñ
         for (j = 0; j < 16; j++) {
             line_1[j] = line_1[j+1];
             line_2[j] = line_2[j+1];
         }
         line_1[15] = ' ';
         line_2[15] = ' ';
-        // å°†ç§»åŠ¨åçš„æ–‡å­—å†™å…¥ LCD1602
+        // ½«ÒÆ¶¯ºóµÄÎÄ×ÖĞ´Èë LCD1602
         putStringOnLCD1602(0, 0, line_1);
         putStringOnLCD1602(1, 0, line_2);
         delayOneMillisecond(delay_ms/2);

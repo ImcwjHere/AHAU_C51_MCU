@@ -1,12 +1,12 @@
-#include "DS18B20.h"
-#include "AT24C02.h"
-#include "LCD1602.h"
-#include "FUNCTIONS.h"
+#include "../utils/DS18B20.h"
+#include "../utils/AT24C02.h"
+#include "../utils/LCD1602.h"
+#include "../utils/FUNCTIONS.h"
 
-#define LED P20
-#define BEEP P14
+sbit LED = P2^0;
+sbit BEEP = P1^4;
 
-// å…¨å±€å˜é‡
+// È«¾Ö±äÁ¿
 extern unsigned char fanLevel;
 extern unsigned char fanState[4];
 extern float currentTemperature;
@@ -19,22 +19,24 @@ extern xdata unsigned char *onScreenFanLevel;
 extern xdata unsigned char firstLine[];
 extern xdata unsigned char secondLine[];
 
-// ä¸»å±å¹•
+// Ö÷ÆÁÄ»
 void mainScreen() {
-    // å¤„ç†å­˜å‚¨çš„æœ€é«˜/æœ€ä½æ¸©åº¦
+    int temp = 0;
+	
+	// ´¦Àí´æ´¢µÄ×î¸ß/×îµÍÎÂ¶È
     prepareReadTemperature(readAT24C02(0x00), onScreenHighestTemperature, &highestTemperature);
     prepareReadTemperature(readAT24C02(0x01), onScreenLowestTemperature, &lowestTemperature);
-    // å¤„ç†å½“å‰æ¸©åº¦
+    // ´¦Àíµ±Ç°ÎÂ¶È
     getTemperatureOfDS18B20(onScreenCurrentTemperature, &currentTemperature);
-    // å¤„ç†é£æ‰‡æ¡£ä½
+    // ´¦Àí·çÉÈµµÎ»
     *onScreenFanLevel = (unsigned char)('0' + fanLevel);
     
-    // å¦‚æœå½“å‰æ¸©åº¦å°äºæœ€ä½æ¸©åº¦ï¼Œåˆ™LEDç¯äº®
+    // Èç¹ûµ±Ç°ÎÂ¶ÈĞ¡ÓÚ×îµÍÎÂ¶È£¬ÔòLEDµÆÁÁ
     LED = !(currentTemperature < lowestTemperature);
-    // å¦‚æœå½“å‰æ¸©åº¦è¶…è¿‡æœ€é«˜æ¸©åº¦æˆ–ä½äºæœ€ä½æ¸©åº¦ï¼Œåˆ™èœ‚é¸£å™¨å“
+    // Èç¹ûµ±Ç°ÎÂ¶È³¬¹ı×î¸ßÎÂ¶È»òµÍÓÚ×îµÍÎÂ¶È£¬Ôò·äÃùÆ÷Ïì
     // BEEP = ((currentTemperature <= highestTemperature) && (currentTemperature >= lowestTemperature));
-    // æ¯è¶…è¿‡æœ€é«˜æ¸©åº¦2åº¦ï¼Œé£æ‰‡ç­‰çº§å¢åŠ ä¸€çº§ï¼Œæœ€é«˜ä¸‰çº§
-    int temp = currentTemperature - highestTemperature;
+    // Ã¿³¬¹ı×î¸ßÎÂ¶È2¶È£¬·çÉÈµÈ¼¶Ôö¼ÓÒ»¼¶£¬×î¸ßÈı¼¶
+    temp = currentTemperature - highestTemperature;
     if (temp >= 6) {
         fanLevel = 3;
         fanState[0] = 1;
@@ -61,7 +63,7 @@ void mainScreen() {
         fanState[3] = 0;
     }
 
-    // æ˜¾ç¤º
+    // ÏÔÊ¾
     putStringOnLCD1602(0, 0, firstLine);
     putStringOnLCD1602(1, 0, secondLine);
 }

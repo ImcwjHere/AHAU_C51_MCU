@@ -8,83 +8,97 @@
 
 #include <reg52.h>
 #include <stdio.h>
-#include "delay.h"
-#include "LCD1602.h"
-#include "AT24C02.h"
-#include "DS18B20.h"
-#include "FUNCTIONS.h"
-#include "FAN.h"
-#include "BEEP.h"
+#include "./utils/delay.h"
+#include "./utils/FUNCTIONS.h"
+#include "./utils/LCD1602.h"
+#include "./utils/AT24C02.h"
+#include "./utils/DS18B20.h"
+#include "./utils/FAN_PWM.h"
+#include "./utils/BEEP.h"
 
-#include "startupScreen.c"
-#include "alartScreen.c"
-#include "settingScreen.c"
-#include "mainScreen.c"
+#include "./screens/startupScreen.h"
+#include "./screens/alartScreen.h"
+#include "./screens/settingScreen.h"
+#include "./screens/mainScreen.h"
 
-// å¼•è„š
-#define SETTING_BUTTON P37
-#define ADD_BUTTON P36
-#define SUB_BUTTON P35
-#define APPLY_BUTTON P34
-#define RST_BUTTON P33
-#define DEBUG_BUTTON P32
-#define BEEP P14
-#define LED P20
-#define FAN P27
+// Òı½Å
+sbit SETTING_BUTTON = P3^7;
+sbit ADD_BUTTON = P3^6;
+sbit SUB_BUTTON = P3^5;
+sbit APPLY_BUTTON = P3^4;
+sbit RST_BUTTON = P3^3;
+sbit DEBUG_BUTTON = P3^2;
+sbit BEEP = P1^4;
+sbit LED = P2^0;
+sbit FAN = P2^7;
 
-// TODO: æœ‰bug
-// å®šæ—¶å™¨åˆå€¼(10ms)
-// #define TH_INIT (65535-(1/1200)*12000000)/256
-// #define TL_INIT (65535-(1/1200)*12000000)%256
-
-// å…¨å±€å˜é‡
-int TH_INIT = 0x8E; // å®šæ—¶å™¨åˆå€¼
-int TL_INIT = 0x8E; // å®šæ—¶å™¨åˆå€¼
-unsigned char fanLevel = 0; // é£æ‰‡æ¡£ä½ï¼Œ0æ¡£: 0%è½¬é€Ÿï¼Œ1æ¡£: 50%è½¬é€Ÿ, 2æ¡£: 75%è½¬é€Ÿ, 3æ¡£: 100%è½¬é€Ÿ
-unsigned char fanState[4] = {0, 0, 0, 0}; // ç”¨äºæ§åˆ¶é£æ‰‡è½¬é€Ÿï¼ˆ0: å…³é—­, 1: æ‰“å¼€ï¼‰
-float currentTemperature = 0.0; // å½“å‰æ¸©åº¦
-int highestTemperature = 0.0; // æœ€é«˜æ¸©åº¦
-int lowestTemperature = 0.0; // æœ€ä½æ¸©åº¦
+// È«¾Ö±äÁ¿
+int TH_INIT = 0x8E; // ¶¨Ê±Æ÷³õÖµ
+int TL_INIT = 0x8E; // ¶¨Ê±Æ÷³õÖµ
+unsigned char fanLevel = 0; // ·çÉÈµµÎ»£¬0µµ: 0%×ªËÙ£¬1µµ: 50%×ªËÙ, 2µµ: 75%×ªËÙ, 3µµ: 100%×ªËÙ
+unsigned char fanState[4] = {0, 0, 0, 0}; // ÓÃÓÚ¿ØÖÆ·çÉÈ×ªËÙ£¨0: ¹Ø±Õ, 1: ´ò¿ª£©
+float currentTemperature = 0.0; // µ±Ç°ÎÂ¶È
+int highestTemperature = 0; // ×î¸ßÎÂ¶È
+int lowestTemperature = 0; // ×îµÍÎÂ¶È
 xdata unsigned char firstLine[] = {'H', ':', 'x', 'x', 'x', (unsigned char)(0xDF), 'C', ' ', ' ', 'L', ':', 'x', 'x', 'x', (unsigned char)(0xDF), 'C', '\0'};
 xdata unsigned char secondLine[] = {'T', ':', 'x', 'x', 'x', '.', 'x', (unsigned char)(0xDF), 'C', ' ', ' ', 'F', 'A', 'N', ':', 'x', '\0'};
-xdata unsigned char *onScreenHighestTemperature = &firstLine[2]; // å±å¹•ä¸Šæ˜¾ç¤ºçš„æœ€é«˜æ¸©åº¦æŒ‡é’ˆ, å ç”¨ 3 ä¸ªå­—èŠ‚
-xdata unsigned char *onScreenLowestTemperature = &firstLine[11]; // å±å¹•ä¸Šæ˜¾ç¤ºçš„æœ€ä½æ¸©åº¦æŒ‡é’ˆ, å ç”¨ 3 ä¸ªå­—èŠ‚
-xdata unsigned char *onScreenCurrentTemperature = &secondLine[2]; // å±å¹•ä¸Šæ˜¾ç¤ºçš„å½“å‰æ¸©åº¦æŒ‡é’ˆ, å ç”¨ 7 ä¸ªå­—èŠ‚
-xdata unsigned char *onScreenFanLevel = &secondLine[15]; // å±å¹•ä¸Šæ˜¾ç¤ºçš„é£æ‰‡æ¡£ä½æŒ‡é’ˆ, å ç”¨ 1 ä¸ªå­—èŠ‚
+xdata unsigned char *onScreenHighestTemperature = &firstLine[2]; // ÆÁÄ»ÉÏÏÔÊ¾µÄ×î¸ßÎÂ¶ÈÖ¸Õë, Õ¼ÓÃ 3 ¸ö×Ö½Ú
+xdata unsigned char *onScreenLowestTemperature = &firstLine[11]; // ÆÁÄ»ÉÏÏÔÊ¾µÄ×îµÍÎÂ¶ÈÖ¸Õë, Õ¼ÓÃ 3 ¸ö×Ö½Ú
+xdata unsigned char *onScreenCurrentTemperature = &secondLine[2]; // ÆÁÄ»ÉÏÏÔÊ¾µÄµ±Ç°ÎÂ¶ÈÖ¸Õë, Õ¼ÓÃ 7 ¸ö×Ö½Ú
+xdata unsigned char *onScreenFanLevel = &secondLine[15]; // ÆÁÄ»ÉÏÏÔÊ¾µÄ·çÉÈµµÎ»Ö¸Õë, Õ¼ÓÃ 1 ¸ö×Ö½Ú
+
 
 void main() {
-    initializeEverything();
+    
+	initializeEverything();
     startupScreen();
-    alartScreen("Starting...", 300);
+    alartScreen("Starting...");
 
     while (1) {
         
-        // å¦‚æœæŒ‰ä¸‹å¤ä½é”®ï¼Œå°†æœ€é«˜/æœ€ä½æ¸©åº¦æ¢å¤ä¸ºé»˜è®¤å€¼
+        // Èç¹û°´ÏÂ¸´Î»¼ü£¬½«×î¸ß/×îµÍÎÂ¶È»Ö¸´ÎªÄ¬ÈÏÖµ
         if (!RST_BUTTON) {
-            while (!RST_BUTTON);    // ç­‰å¾…æŒ‰é”®é‡Šæ”¾
-            alartScreen("Resetting...", 300);
+            while (!RST_BUTTON);    // µÈ´ı°´¼üÊÍ·Å
+            alartScreen("Resetting...");
             writeAT24C02(0x00, (unsigned char)(22));
             writeAT24C02(0x01, (unsigned char)(20));
         }
 
-        // å¦‚æœæŒ‰ä¸‹è°ƒè¯•é”®
+        // Èç¹û°´ÏÂµ÷ÊÔ¼ü
         if (!DEBUG_BUTTON) {
-            while (!DEBUG_BUTTON);    // ç­‰å¾…æŒ‰é”®é‡Šæ”¾
-            alartScreen("Debugging...", 300);
+            while (!DEBUG_BUTTON);    // µÈ´ı°´¼üÊÍ·Å
+            alartScreen("Debugging...");
             initializeBeeper();
             doBeep();
         }
 
-        // å¦‚æœæŒ‰ä¸‹è®¾ç½®é”®ï¼Œè·³è½¬åˆ°è®¾ç½®ç•Œé¢
+        // Èç¹û°´ÏÂÉèÖÃ¼ü£¬Ìø×ªµ½ÉèÖÃ½çÃæ
         if (!SETTING_BUTTON) {
-            while (!SETTING_BUTTON);    // ç­‰å¾…æŒ‰é”®é‡Šæ”¾
+            while (!SETTING_BUTTON);    // µÈ´ı°´¼üÊÍ·Å
             settingScreen();
         }
 
-        // æ˜¾ç¤ºä¸»å±å¹•
+        // ÏÔÊ¾Ö÷ÆÁÄ»
         mainScreen();
 
-        // å»¶æ—¶ 100ms
+        // ÑÓÊ± 100ms
         // delayOneMillisecond(100);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

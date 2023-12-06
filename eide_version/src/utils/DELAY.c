@@ -1,19 +1,19 @@
 #include "delay.h"
 
-// æ™¶æŒ¯ 12.0000MHz ä¸‹çš„å»¶æ—¶å‡½æ•°
+// ¾§Õñ 12.0000MHz ÏÂµÄÑÓÊ±º¯Êý
 
-// å»¶æ—¶ n æ¯«ç§’, è¯¯å·® 5%
+// ÑÓÊ± n ºÁÃë, Îó²î 5%
 void delayOneMillisecond(unsigned int n) {
 	unsigned int i;
 	for(;n > 0;n --) for(i = 0;i < 123;i ++);
 }
 
-// å»¶æ—¶ n ç§’, è¯¯å·® 5%
+// ÑÓÊ± n Ãë, Îó²î 5%
 void delayOneSecond(unsigned int n) {
 	for(;n > 0;n --) delayOneMillisecond(1000);
 }
 
-// å»¶æ—¶ n * 10 å¾®ç§’, è¯¯å·® 80%
+// ÑÓÊ± n * 10 Î¢Ãë, Îó²î 80%
 void delayTenMicroseconds(unsigned int n) {
 	while(n --);
 }
