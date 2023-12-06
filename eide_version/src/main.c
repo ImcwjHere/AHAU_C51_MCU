@@ -6,8 +6,6 @@
  * DATE: 2023-11-30
 */
 
-#define EIDE_MODE
-
 #include <reg52.h>
 #include <stdio.h>
 #include "./utils/delay.h"
