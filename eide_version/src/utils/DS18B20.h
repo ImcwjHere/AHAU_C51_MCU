@@ -5,14 +5,6 @@
 #include "DELAY.h"
 #include "../CONFIGS.h"
 
-// 引脚
-#ifdef EIDE_MODE
-    #define DSPORT P15
-#endif
-#ifdef KEIL_MODE
-    sbit DSPORT = P1^5;
-#endif
-
 unsigned char initializeDS18B20(void);  //DS18B20初始化
 void writeByteToDS18B20(unsigned char com); //写一个字节
 unsigned char readByteFromDS18B20(void);    //读取一个字节

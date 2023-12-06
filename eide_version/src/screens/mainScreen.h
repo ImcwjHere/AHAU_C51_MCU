@@ -7,16 +7,6 @@
 #include "../utils/FUNCTIONS.h"
 #include "../CONFIGS.h"
 
-// 引脚
-#ifdef EIDE_MODE
-    #define BEEP P14
-    #define LED P20
-#endif
-#ifdef KEIL_MODE
-    sbit BEEP = P1^4;
-    sbit LED = P2^0;
-#endif
-
 // 全局变量
 extern unsigned char fanLevel;
 extern unsigned char fanState[4];

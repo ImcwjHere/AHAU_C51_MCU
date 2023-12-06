@@ -5,16 +5,6 @@
 #include "./DELAY.h"
 #include "../CONFIGS.h"
 
-// I2C的接口配置
-#ifdef EIDE_MODE
-    #define SDA P17
-    #define SCL P16
-#endif
-#ifdef KEIL_MODE
-    sbit SDA = P1^7;
-    sbit SCL = P1^6;
-#endif
-
 // I2C时序延时宏定义，STC89C52速度慢所以直接宏定义一个空的延时
 #define I2c_Delay
 

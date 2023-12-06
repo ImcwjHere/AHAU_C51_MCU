@@ -6,10 +6,6 @@
 #include "../CONFIGS.h"
 
 #define LineLength  16  //16x2
-#define LCD1602_DATAPINS P0 // LCD1602数据引脚
-#define LCD1602_E P12   // LCD1602使能引脚
-#define LCD1602_RW P11  // LCD1602读写引脚
-#define LCD1602_RS P10  // LCD1602选择引脚
 
 void __writeComOnLCD1602(unsigned char com);    //LCD1602写入8位命令子函数	
 void __writeDataOnLCD1602(unsigned char dat);   //LCD1602写入8位数据子函数

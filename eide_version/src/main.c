@@ -48,7 +48,6 @@
     sbit FAN = P2^7;
 #endif
 
-
 // 全局变量
 // 定时器初值
 int TH_INIT = 0x8E; // 定时器高位初值
