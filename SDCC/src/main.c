@@ -1,9 +1,9 @@
 /**
- * CPU: AT89C52
+ * CPU: STC89C52RC
  * FREQ: 12.0000 MHz
  * XTAL: 12.0000 MHz
  * AUTHOR: Wenjun Chen
- * DATE: 2023-11-30
+ * DATE: 2023-12-06
 */
 
 #include <reg52.h>
@@ -53,7 +53,7 @@ xdata unsigned char *onScreenFanLevel = &secondLine[15];
 void main() {
     
 	initializeEverything();
-    
+
     startupScreen();
     alartScreen("Starting...");
 
