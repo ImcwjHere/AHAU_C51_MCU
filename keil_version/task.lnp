@@ -1,0 +1,15 @@
+"alartScreen.obj",
+"mainScreen.obj",
+"settingScreen.obj",
+"startupScreen.obj",
+"AT24C02.obj",
+"BEEP.obj",
+"DELAY.obj",
+"DS18B20.obj",
+"FUNCTIONS.obj",
+"IIC.obj",
+"LCD1602.obj",
+"FAN_PWM.obj",
+"main.obj" 
+TO "task" 
+RAMSIZE(256) 

@@ -1,0 +1,109 @@
+C51 COMPILER V9.01   IIC                                                                   12/05/2023 20:31:00 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE IIC
+OBJECT MODULE PLACED IN IIC.obj
+COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE src\utils\IIC.c ROM(COMPACT) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\IIC.lst) OBJECT(IIC.obj)
+
+line level    source
+
+   1          #include "IIC.h"
+   2          #include "delay.h"
+   3          
+   4          // I2C的接口配置
+   5          sbit SCL = P1^6;
+   6          sbit SDA = P1^7;
+   7          
+   8          // 起始信号，SCL时钟信号在高电平期间SDA信号产生一个下降沿
+   9          void startIIC(void) {
+  10   1              SDA = 1;
+  11   1              I2c_Delay;
+  12   1              SCL = 1;
+  13   1              I2c_Delay;      //建立时间是SDA保持时间>4.7us
+  14   1              SDA = 0;
+  15   1              I2c_Delay;      //保持时间是>4us
+  16   1              SCL = 0;                        
+  17   1              I2c_Delay;              
+  18   1      }
+  19          
+  20          // 终止信号，SCL时钟信号在高电平期间SDA信号产生一个上升沿，IIC的停止函数
+  21          void stopIIC(void) {
+  22   1              SDA = 0;
+  23   1              I2c_Delay;
+  24   1              SCL = 1;
+  25   1              I2c_Delay;      //建立时间大于4.7us
+  26   1              SDA = 1;
+  27   1              I2c_Delay;              
+  28   1      }
+  29          
+  30          // 通过I2C发送一个字节。在SCL时钟信号高电平期间，保持发送信号SDA保持稳定
+  31          // 发送完一个字节SCL=0, SDA=1
+  32          // 返回值为0或1。发送成功返回1，发送失败返回0
+  33          unsigned char sendByteToIIC(unsigned char dat) {
+  34   1              unsigned char a=0, b=0; //最大255，一个机器周期为1us，最大延时255us
+  35   1      
+  36   1              for(a = 0;a < 8;a ++) { //要发送8位，从最高位开始
+  37   2                      SDA = dat >> 7; //起始信号之后SCL=0，所以可以直接改变SDA信号
+  38   2                      dat = dat << 1;
+  39   2                      I2c_Delay;
+  40   2                      SCL = 1;
+  41   2                      I2c_Delay;      //建立时间>4.7us
+  42   2                      SCL = 0;
+  43   2                      I2c_Delay;      //时间大于4us           
+  44   2              }
+  45   1              
+  46   1              SDA = 1;
+  47   1              I2c_Delay;
+  48   1              SCL = 1;
+  49   1              
+  50   1              while(SDA) {    //等待应答，也就是等待从设备把SDA拉低
+  51   2                      b ++;
+  52   2                      if(b > 200) {   //如果超过2000us没有应答发送失败，或者为非应答，表示接收结束
+  53   3                              SCL = 0;
+  54   3                              I2c_Delay;
+C51 COMPILER V9.01   IIC                                                                   12/05/2023 20:31:00 PAGE 2   
+
+  55   3                              return 0;
+  56   3                      }
+  57   2              }
+  58   1              
+  59   1              SCL = 0;
+  60   1              I2c_Delay;
+  61   1              return 1;               
+  62   1      }
+  63          
+  64          // 读取一个字节，从最高位开始，读完一个字节之后SCL=0，SDA=1
+  65          // 返回值为读取到的字节
+  66          unsigned char readByteFromIIC(void) {
+  67   1              unsigned char a, dat=0;
+  68   1              
+  69   1              SDA = 1;        //起始和发送一个字节之后SCL都是0
+  70   1              I2c_Delay;
+  71   1              
+  72   1              for(a = 0;a < 8;a ++) { //接收8个字节
+  73   2                      SCL = 1;
+  74   2                      I2c_Delay;
+  75   2                      dat <<= 1;
+  76   2                      dat |= SDA;
+  77   2                      I2c_Delay;
+  78   2                      SCL = 0;
+  79   2                      I2c_Delay;
+  80   2              }
+  81   1              
+  82   1              return dat;             
+  83   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     90    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

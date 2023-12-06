@@ -1,0 +1,95 @@
+C51 COMPILER V9.01   MAINSCREEN                                                            12/05/2023 20:30:59 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAINSCREEN
+OBJECT MODULE PLACED IN mainScreen.obj
+COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE src\screens\mainScreen.c ROM(COMPACT) BROWSE DEBUG OBJECTEXTE
+                    -ND PRINT(.\mainScreen.lst) OBJECT(mainScreen.obj)
+
+line level    source
+
+   1          #include "../utils/DS18B20.h"
+   2          #include "../utils/AT24C02.h"
+   3          #include "../utils/LCD1602.h"
+   4          #include "../utils/FUNCTIONS.h"
+   5          
+   6          sbit LED = P2^0;
+   7          sbit BEEP = P1^4;
+   8          
+   9          // 全局变量
+  10          extern unsigned char fanLevel;
+  11          extern unsigned char fanState[4];
+  12          extern float currentTemperature;
+  13          extern int highestTemperature;
+  14          extern int lowestTemperature;
+  15          extern xdata unsigned char *onScreenHighestTemperature;
+  16          extern xdata unsigned char *onScreenLowestTemperature;
+  17          extern xdata unsigned char *onScreenCurrentTemperature;
+  18          extern xdata unsigned char *onScreenFanLevel;
+  19          extern xdata unsigned char firstLine[];
+  20          extern xdata unsigned char secondLine[];
+  21          
+  22          // 主屏幕
+  23          void mainScreen() {
+  24   1          int temp = 0;
+  25   1              
+  26   1              // 处理存储的最高/最低温度
+  27   1          prepareReadTemperature(readAT24C02(0x00), onScreenHighestTemperature, &highestTemperature);
+  28   1          prepareReadTemperature(readAT24C02(0x01), onScreenLowestTemperature, &lowestTemperature);
+  29   1          // 处理当前温度
+  30   1          getTemperatureOfDS18B20(onScreenCurrentTemperature, &currentTemperature);
+  31   1          // 处理风扇档位
+  32   1          *onScreenFanLevel = (unsigned char)('0' + fanLevel);
+  33   1          
+  34   1          // 如果当前温度小于最低温度，则LED灯亮
+  35   1          LED = !(currentTemperature < lowestTemperature);
+  36   1          // 如果当前温度超过最高温度或低于最低温度，则蜂鸣器响
+  37   1          // BEEP = ((currentTemperature <= highestTemperature) && (currentTemperature >= lowestTemperature));
+  38   1          // 每超过最高温度2度，风扇等级增加一级，最高三级
+  39   1          temp = currentTemperature - highestTemperature;
+  40   1          if (temp >= 6) {
+  41   2              fanLevel = 3;
+  42   2              fanState[0] = 1;
+  43   2              fanState[1] = 1;
+  44   2              fanState[2] = 1;
+  45   2              fanState[3] = 1;
+  46   2          } else if (temp >= 4) {
+  47   2              fanLevel = 2;
+  48   2              fanState[0] = 1;
+  49   2              fanState[1] = 1;
+  50   2              fanState[2] = 1;
+  51   2              fanState[3] = 0;
+  52   2          } else if (temp >= 2) {
+  53   2              fanLevel = 1;
+  54   2              fanState[0] = 1;
+C51 COMPILER V9.01   MAINSCREEN                                                            12/05/2023 20:30:59 PAGE 2   
+
+  55   2              fanState[1] = 1;
+  56   2              fanState[2] = 0;
+  57   2              fanState[3] = 0;
+  58   2          } else {
+  59   2              fanLevel = 0;
+  60   2              fanState[0] = 0;
+  61   2              fanState[1] = 0;
+  62   2              fanState[2] = 0;
+  63   2              fanState[3] = 0;
+  64   2          }
+  65   1      
+  66   1          // 显示
+  67   1          putStringOnLCD1602(0, 0, firstLine);
+  68   1          putStringOnLCD1602(1, 0, secondLine);
+  69   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    285    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

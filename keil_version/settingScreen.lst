@@ -1,0 +1,120 @@
+C51 COMPILER V9.01   SETTINGSCREEN                                                         12/05/2023 20:30:59 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE SETTINGSCREEN
+OBJECT MODULE PLACED IN settingScreen.obj
+COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE src\screens\settingScreen.c ROM(COMPACT) BROWSE DEBUG OBJECTE
+                    -XTEND PRINT(.\settingScreen.lst) OBJECT(settingScreen.obj)
+
+line level    source
+
+   1          #include "../utils/LCD1602.h"
+   2          #include "../utils/DELAY.h"
+   3          #include "../utils/AT24C02.h"
+   4          #include "../utils/FUNCTIONS.h"
+   5          
+   6          
+   7          sbit SETTING_BUTTON = P3^7;
+   8          sbit ADD_BUTTON = P3^6;
+   9          sbit SUB_BUTTON = P3^5;
+  10          sbit APPLY_BUTTON = P3^4;
+  11          sbit RST_BUTTON = P3^3;
+  12          sbit DEBUG_BUTTON = P3^2;
+  13          
+  14          // 全局变量
+  15          extern int highestTemperature;
+  16          extern int lowestTemperature;
+  17          extern xdata unsigned char *onScreenHighestTemperature;
+  18          extern xdata unsigned char *onScreenLowestTemperature;
+  19          extern xdata unsigned char firstLine[];
+  20          extern xdata unsigned char secondLine[];
+  21          extern void alartScreen(unsigned char text[]);
+  22          
+  23          void settingScreen() {
+  24   1          bit currentCursor=0, prevCursor=0;    // 当前/上一个光标位置，0表示控制最高温度，1表示控制最低温度
+  25   1          bit splashState=0;  // 闪烁光标状态，0表示显示温度，1表示显示空格
+  26   1          unsigned char blankspaceText[] = "   ";    // 空格
+  27   1      
+  28   1              
+  29   1              
+  30   1              while (!SETTING_BUTTON);    // 等待按键释放
+  31   1          alartScreen("Setting...");
+  32   1      
+  33   1          
+  34   1          // 如果按下APPLY_BUTTON则退出设置界面
+  35   1          while (APPLY_BUTTON) {
+  36   2              
+  37   2              // 如果光标位置发生变化，则重新显示屏幕画面（防止之前的光标还处于空格状态）
+  38   2              if (currentCursor != prevCursor) {
+  39   3                  putStringOnLCD1602(0, 0, firstLine);
+  40   3                  prevCursor = currentCursor;
+  41   3              }
+  42   2      
+  43   2              // 再次按下SETTING_BUTTON切换光标位置
+  44   2              if (!SETTING_BUTTON) {
+  45   3                  while (!SETTING_BUTTON);    // 等待按键释放
+  46   3                  currentCursor = !currentCursor;
+  47   3              }
+  48   2      
+  49   2              // 根据光标位置判断控制哪个温度
+  50   2              if (!currentCursor) {   // 控制最高温度
+  51   3                  // 闪烁光标: 在空格和温度之间切换, splashState为bit变量，在0和1之间反复横跳
+  52   3                              splashState = !splashState;
+  53   3                  splashState?putStringOnLCD1602(0, 2, blankspaceText):putStringOnLCD1602(0, 0, firstLine);
+  54   3                  if (!ADD_BUTTON) {  // 如果按下ADD_BUTTON则增加最高温度（不超过128摄氏度）
+C51 COMPILER V9.01   SETTINGSCREEN                                                         12/05/2023 20:30:59 PAGE 2   
+
+  55   4                      while (!ADD_BUTTON);    // 等待按键释放
+  56   4                      highestTemperature ++;
+  57   4                      if (highestTemperature > 128) highestTemperature = 128;
+  58   4                      // 将int记录的最高温度转换为字符串, 修改对应屏幕显示内容
+  59   4                      floatToText(highestTemperature, onScreenHighestTemperature);
+  60   4                  }
+  61   3                  if (!SUB_BUTTON) {  // 如果按下SUB_BUTTON则减少最高温度（不低于最低温度）
+  62   4                      while (!SUB_BUTTON);    // 等待按键释放
+  63   4                      highestTemperature --;
+  64   4                      if (highestTemperature < lowestTemperature) highestTemperature = lowestTemperature;
+  65   4                      // 将int记录的最高温度转换为字符串, 修改对应屏幕显示内容
+  66   4                      floatToText(highestTemperature, onScreenHighestTemperature);
+  67   4                  }
+  68   3              } else {    // 控制最低温度
+  69   3                  // 闪烁光标: 在空格和温度之间切换, splashState为bit变量，在0和1之间反复横跳
+  70   3                  splashState = !splashState;
+  71   3                              splashState?putStringOnLCD1602(0, 11, blankspaceText):putStringOnLCD1602(0, 0, firstLine);
+  72   3                  if (!ADD_BUTTON) {  // 如果按下ADD_BUTTON则增加最低温度（不高于最高温度）
+  73   4                      while (!ADD_BUTTON);    // 等待按键释放
+  74   4                      lowestTemperature ++;
+  75   4                      if (lowestTemperature > highestTemperature) lowestTemperature = highestTemperature;
+  76   4                      // 将int记录的最高温度转换为字符串, 修改对应屏幕显示内容
+  77   4                      floatToText(lowestTemperature, onScreenLowestTemperature);
+  78   4                  }
+  79   3                  if (!SUB_BUTTON) {  // 如果按下SUB_BUTTON则减少最低温度（不低于-55摄氏度）
+  80   4                      while (!SUB_BUTTON);    // 等待按键释放
+  81   4                      lowestTemperature --;
+  82   4                      if (lowestTemperature < -55) lowestTemperature = -55;
+  83   4                      // 将int记录的最高温度转换为字符串, 修改对应屏幕显示内容
+  84   4                      floatToText(lowestTemperature, onScreenLowestTemperature);
+  85   4                  }
+  86   3              }
+  87   2              delayOneMillisecond(300);
+  88   2          }
+  89   1      
+  90   1          // 保存设置
+  91   1          alartScreen("Writing...");
+  92   1          writeAT24C02(0x00, (unsigned char)(highestTemperature));
+  93   1          writeAT24C02(0x01, (unsigned char)(lowestTemperature));
+  94   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    376    ----
+   CONSTANT SIZE    =     26    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       3
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
