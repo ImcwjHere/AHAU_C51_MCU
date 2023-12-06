@@ -329,3 +329,15 @@ In the future, I will try my best to use English comments in the code. For some 
       #### 注意事项
 
  - 在使用这个函数时，需要确保所有设备已经正确连接到相应的端口，并且所有设备的初始化函数已经被正确实现。
+
+<br><br>
+
+# AGPL-3.0 License
+
+ - 这个[OSI 批准](https://opensource.org/licenses/)的开源许可证非常适合学生和爱好者，可以推动开放的协作和知识分享。请查看[LICENSE](https://www.gnu.org/licenses/agpl-3.0.en.html) 文件以了解更多细节。
+
+<br><br>
+
+# Contact me
+
+ - E-mail: imcwj@stu.ahau.edu.cn
