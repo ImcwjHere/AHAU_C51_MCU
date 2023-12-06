@@ -23,31 +23,6 @@
 #include "./screens/settingScreen.h"
 #include "./screens/mainScreen.h"
 
-// 引脚
-#ifdef EIDE_MODE
-    #define SETTING_BUTTON P37
-    #define ADD_BUTTON P36
-    #define SUB_BUTTON P35
-    #define APPLY_BUTTON P34
-    #define RST_BUTTON P33
-    #define DEBUG_BUTTON P32
-    #define BEEP P14
-    #define LED P20
-    #define FAN P27
-#endif
-
-#ifdef KEIL_MODE
-    sbit SETTING_BUTTON = P3^7;
-    sbit ADD_BUTTON = P3^6;
-    sbit SUB_BUTTON = P3^5;
-    sbit APPLY_BUTTON = P3^4;
-    sbit RST_BUTTON = P3^3;
-    sbit DEBUG_BUTTON = P3^2;
-    sbit BEEP = P1^4;
-    sbit LED = P2^0;
-    sbit FAN = P2^7;
-#endif
-
 // 全局变量
 // 定时器初值
 int TH_INIT = 0x8E; // 定时器高位初值
