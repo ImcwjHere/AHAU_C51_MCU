@@ -39,8 +39,6 @@ void stopIIC(void) {
 // 发送完一个字节SCL=0, SDA=1
 // 返回值为0或1。发送成功返回1，发送失败返回0
 
-0000 1010
-
 unsigned char sendByteToIIC(unsigned char dat) {
 	unsigned char a=0, b=0;	//最大255，一个机器周期为1us，最大延时255us
 

@@ -37,11 +37,10 @@ float currentTemperature = 0.0; // 当前温度
 int highestTemperature = 0;
 // 最低温度
 int lowestTemperature = 0;
-// 屏幕上显示的最高温度指针, 占用 3 个字节
+
 xdata unsigned char firstLine[] = {'H', ':', 'x', 'x', 'x', (unsigned char)(0xDF), 'C', ' ', ' ', 'L', ':', 'x', 'x', 'x', (unsigned char)(0xDF), 'C', '\0'};
-// 屏幕上显示的最低温度指针, 占用 3 个字节
 xdata unsigned char secondLine[] = {'T', ':', 'x', 'x', 'x', '.', 'x', (unsigned char)(0xDF), 'C', ' ', ' ', 'F', 'A', 'N', ':', 'x', '\0'};
-// 屏幕上显示的当前温度指针, 占用 7 个字节
+// 屏幕上显示的当前温度指针, 占用 3 个字节
 xdata unsigned char *onScreenHighestTemperature = &firstLine[2];
 // 屏幕上显示的最低温度指针, 占用 3 个字节
 xdata unsigned char *onScreenLowestTemperature = &firstLine[11];
@@ -54,6 +53,7 @@ xdata unsigned char *onScreenFanLevel = &secondLine[15];
 void main() {
     
 	initializeEverything();
+    
     startupScreen();
     alartScreen("Starting...");
 

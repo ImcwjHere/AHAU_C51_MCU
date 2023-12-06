@@ -54,6 +54,7 @@ void floatToText(int num, unsigned char *buf) {
 }
 
 void initializeEverything() {
+    
     // д╛хо╧ь╠у
     BEEP=1;
     FAN=0;

@@ -349,42 +349,42 @@
             <File>
               <FileName>alartScreen.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\screens\alartScreen.c</FilePath>
+              <FilePath>..\SDCC\src\screens\alartScreen.c</FilePath>
             </File>
             <File>
               <FileName>alartScreen.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\screens\alartScreen.h</FilePath>
+              <FilePath>..\SDCC\src\screens\alartScreen.h</FilePath>
             </File>
             <File>
               <FileName>mainScreen.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\screens\mainScreen.c</FilePath>
+              <FilePath>..\SDCC\src\screens\mainScreen.c</FilePath>
             </File>
             <File>
               <FileName>mainScreen.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\screens\mainScreen.h</FilePath>
+              <FilePath>..\SDCC\src\screens\mainScreen.h</FilePath>
             </File>
             <File>
               <FileName>settingScreen.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\screens\settingScreen.c</FilePath>
+              <FilePath>..\SDCC\src\screens\settingScreen.c</FilePath>
             </File>
             <File>
               <FileName>settingScreen.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\screens\settingScreen.h</FilePath>
+              <FilePath>..\SDCC\src\screens\settingScreen.h</FilePath>
             </File>
             <File>
               <FileName>startupScreen.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\screens\startupScreen.c</FilePath>
+              <FilePath>..\SDCC\src\screens\startupScreen.c</FilePath>
             </File>
             <File>
               <FileName>startupScreen.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\screens\startupScreen.h</FilePath>
+              <FilePath>..\SDCC\src\screens\startupScreen.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -394,82 +394,82 @@
             <File>
               <FileName>AT24C02.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\AT24C02.c</FilePath>
+              <FilePath>..\SDCC\src\utils\AT24C02.c</FilePath>
             </File>
             <File>
               <FileName>AT24C02.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\AT24C02.h</FilePath>
+              <FilePath>..\SDCC\src\utils\AT24C02.h</FilePath>
             </File>
             <File>
               <FileName>BEEP.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\BEEP.c</FilePath>
+              <FilePath>..\SDCC\src\utils\BEEP.c</FilePath>
             </File>
             <File>
               <FileName>BEEP.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\BEEP.h</FilePath>
+              <FilePath>..\SDCC\src\utils\BEEP.h</FilePath>
             </File>
             <File>
               <FileName>DELAY.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\DELAY.c</FilePath>
+              <FilePath>..\SDCC\src\utils\DELAY.c</FilePath>
             </File>
             <File>
               <FileName>DELAY.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\DELAY.h</FilePath>
+              <FilePath>..\SDCC\src\utils\DELAY.h</FilePath>
             </File>
             <File>
               <FileName>DS18B20.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\DS18B20.c</FilePath>
+              <FilePath>..\SDCC\src\utils\DS18B20.c</FilePath>
             </File>
             <File>
               <FileName>DS18B20.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\DS18B20.h</FilePath>
+              <FilePath>..\SDCC\src\utils\DS18B20.h</FilePath>
             </File>
             <File>
               <FileName>FAN_PWM.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\FAN_PWM.c</FilePath>
+              <FilePath>..\SDCC\src\utils\FAN_PWM.c</FilePath>
             </File>
             <File>
               <FileName>FAN_PWM.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\FAN_PWM.h</FilePath>
+              <FilePath>..\SDCC\src\utils\FAN_PWM.h</FilePath>
             </File>
             <File>
               <FileName>FUNCTIONS.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\FUNCTIONS.c</FilePath>
+              <FilePath>..\SDCC\src\utils\FUNCTIONS.c</FilePath>
             </File>
             <File>
               <FileName>FUNCTIONS.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\FUNCTIONS.h</FilePath>
+              <FilePath>..\SDCC\src\utils\FUNCTIONS.h</FilePath>
             </File>
             <File>
               <FileName>IIC.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\IIC.c</FilePath>
+              <FilePath>..\SDCC\src\utils\IIC.c</FilePath>
             </File>
             <File>
               <FileName>IIC.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\IIC.h</FilePath>
+              <FilePath>..\SDCC\src\utils\IIC.h</FilePath>
             </File>
             <File>
               <FileName>LCD1602.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\utils\LCD1602.c</FilePath>
+              <FilePath>..\SDCC\src\utils\LCD1602.c</FilePath>
             </File>
             <File>
               <FileName>LCD1602.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\utils\LCD1602.h</FilePath>
+              <FilePath>..\SDCC\src\utils\LCD1602.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -479,12 +479,12 @@
             <File>
               <FileName>CONFIGS.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\eide\src\CONFIGS.h</FilePath>
+              <FilePath>..\SDCC\src\CONFIGS.h</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\eide\src\main.c</FilePath>
+              <FilePath>..\SDCC\src\main.c</FilePath>
             </File>
           </Files>
         </Group>
