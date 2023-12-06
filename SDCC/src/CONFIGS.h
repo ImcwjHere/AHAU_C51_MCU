@@ -1,11 +1,11 @@
 #ifndef __CONFIGS_H_
 #define __CONFIGS_H_
 
-#define EIDE_MODE
+#define SDCC_MODE
 // #define KEIL_MODE
 
 // 按钮引脚
-#ifdef EIDE_MODE
+#ifdef SDCC_MODE
     #define SETTING_BUTTON P37
     #define ADD_BUTTON P36
     #define SUB_BUTTON P35
@@ -23,7 +23,7 @@
 #endif
 
 // 硬件引脚
-#ifdef EIDE_MODE
+#ifdef SDCC_MODE
     #define BEEP P14
     #define LED P20
     #define FAN P27
@@ -36,7 +36,7 @@
 
 // LCD1602的引脚
 #define LCD1602_DATAPINS P0 // LCD1602数据引脚
-#ifdef EIDE_MODE
+#ifdef SDCC_MODE
     #define LCD1602_E P12   // LCD1602使能引脚
     #define LCD1602_RW P11  // LCD1602读写引脚
     #define LCD1602_RS P10  // LCD1602选择引脚
@@ -48,7 +48,7 @@
 #endif
 
 // IIC的引脚
-#ifdef EIDE_MODE
+#ifdef SDCC_MODE
     #define SDA P17
     #define SCL P16
 #endif
@@ -58,7 +58,7 @@
 #endif
 
 // DS18B20的引脚
-#ifdef EIDE_MODE
+#ifdef SDCC_MODE
     #define DSPORT P15
 #endif
 #ifdef KEIL_MODE
