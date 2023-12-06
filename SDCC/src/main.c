@@ -54,8 +54,8 @@ xdata unsigned char *onScreenFanLevel = &secondLine[15];
 void main() {
     
 	initializeEverything();
-    // startupScreen();
-    // alartScreen("Starting...");
+    startupScreen();
+    alartScreen("Starting...");
 
     while (1) {
         
