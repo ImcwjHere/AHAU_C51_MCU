@@ -20,4 +20,3 @@ Keil/*
 # 但不忽略 Keil 文件夹内的 *.uvproj 和 *.hex 文件
 !Keil/*.uvproj
 !Keil/*.hex
-Keil/AT24C02.lst
