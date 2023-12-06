@@ -1,8 +1,6 @@
 # dot files
-/.vscode/launch.json
-/.settings
-/.eide/log
-/.eide.usr.ctx.json
+eide_version/.vscode
+eide_version/.eide
 
 # project out
 /build

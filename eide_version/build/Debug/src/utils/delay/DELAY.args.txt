@@ -1,0 +1,1 @@
+-c --std-c99 -Iinc -Isrc -Isrc/utils/LCD1602 -Isrc/utils/IIC -Isrc/utils/FUNCTIONS -Isrc/utils/FAN -Isrc/utils/DS18B20 -Isrc/utils/DELAY -Isrc/utils/BEEP -Isrc/utils/AT24C02 -Isrc/screen -mmcs51 --opt-code-speed --iram-size 256 --xram-size 4096 --code-size 8192 -MMD -o .\build\Debug\src\utils\DELAY\DELAY.rel .\src\utils\DELAY\DELAY.c

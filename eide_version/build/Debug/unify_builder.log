@@ -1,0 +1,175 @@
+[2023-12-04 01:08:51]	[done]
+	build successfully !
+
+[2023-12-04 01:10:14]	[done]
+	build successfully !
+
+[2023-12-04 01:14:03]	[done]
+	build successfully !
+
+[2023-12-04 01:19:19]	compilation failed at : "d:\OneDrive\课程\单片机接口与技术综合实践\app\src\utils\BEEP\BEEP.c", exit code: 1
+command: 
+  "C:\Users\bjwcw\.eide\tools\sdcc\bin\sdcc.exe" -c --std-c99 -Iinc -Isrc -Isrc/screen -Isrc/utils/LCD1602 -Isrc/utils/IIC -Isrc/utils/FUNCTIONS -Isrc/utils/FAN -Isrc/utils/DS18B20 -Isrc/utils/DELAY -Isrc/utils/AT24C02 -Isrc/utils/BEEP -mmcs51 --opt-code-speed --iram-size 256 --xram-size 4096 --code-size 8192 -MMD -o .\build\Debug\src\utils\BEEP\BEEP.rel .\src\utils\BEEP\BEEP.c
+   at unify_builder.Program.Main(String[] args_)
+---
+.\src\utils\BEEP\BEEP.c:5: error 226: no type specifier for 'musicDelay'
+
+[2023-12-04 01:19:31]	[done]
+	build successfully !
+
+[2023-12-04 01:25:11]	compilation failed at : "d:\OneDrive\课程\单片机接口与技术综合实践\app\src\utils\BEEP\BEEP.c", exit code: 1
+command: 
+  "C:\Users\bjwcw\.eide\tools\sdcc\bin\sdcc.exe" -c --std-c99 -Iinc -Isrc -Isrc/screen -Isrc/utils/LCD1602 -Isrc/utils/IIC -Isrc/utils/FUNCTIONS -Isrc/utils/FAN -Isrc/utils/DS18B20 -Isrc/utils/DELAY -Isrc/utils/AT24C02 -Isrc/utils/BEEP -mmcs51 --opt-code-speed --iram-size 256 --xram-size 4096 --code-size 8192 -MMD -o .\build\Debug\src\utils\BEEP\BEEP.rel .\src\utils\BEEP\BEEP.c
+   at unify_builder.Program.Main(String[] args_)
+---
+.\src\utils\BEEP\BEEP.c:237: error 20: Undefined identifier 'TR'
+.\src\utils\BEEP\BEEP.c:239: error 20: Undefined identifier 'TR'
+
+[2023-12-04 01:25:21]	[done]
+	build successfully !
+
+[2023-12-04 01:27:29]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+?ASlink-Error-Could not get 76 consecutive bytes in internal RAM for area DSEG.
+
+
+[2023-12-04 01:27:48]	compilation failed at : "d:\OneDrive\课程\单片机接口与技术综合实践\app\src\utils\BEEP\BEEP.c", exit code: 1
+command: 
+  "C:\Users\bjwcw\.eide\tools\sdcc\bin\sdcc.exe" -c --std-c99 -Iinc -Isrc -Isrc/screen -Isrc/utils/LCD1602 -Isrc/utils/IIC -Isrc/utils/FUNCTIONS -Isrc/utils/FAN -Isrc/utils/DS18B20 -Isrc/utils/DELAY -Isrc/utils/AT24C02 -Isrc/utils/BEEP -mmcs51 --opt-code-speed --iram-size 256 --xram-size 4096 --code-size 8192 -MMD -o .\build\Debug\src\utils\BEEP\BEEP.rel .\src\utils\BEEP\BEEP.c
+   at unify_builder.Program.Main(String[] args_)
+---
+.\src\utils\BEEP\BEEP.c:57: error 146: two or more storage classes in declaration for 'type_specifier_qualifier declaration_specifiers - skipped'
+
+[2023-12-04 01:27:59]	[done]
+	build successfully !
+
+[2023-12-04 01:30:45]	[done]
+	build successfully !
+
+[2023-12-04 01:31:45]	[done]
+	build successfully !
+
+[2023-12-04 01:31:51]	[done]
+	build successfully !
+
+[2023-12-04 01:43:03]	[done]
+	build successfully !
+
+[2023-12-04 01:43:08]	[done]
+	build successfully !
+
+[2023-12-04 01:45:51]	[done]
+	build successfully !
+
+[2023-12-04 01:46:46]	[done]
+	build successfully !
+
+[2023-12-04 01:48:35]	[done]
+	build successfully !
+
+[2023-12-04 01:49:33]	[done]
+	build successfully !
+
+[2023-12-04 01:50:02]	[done]
+	build successfully !
+
+[2023-12-04 01:50:21]	[done]
+	build successfully !
+
+[2023-12-04 01:50:34]	[done]
+	build successfully !
+
+[2023-12-04 01:53:17]	[done]
+	build successfully !
+
+[2023-12-04 01:53:53]	[done]
+	build successfully !
+
+[2023-12-04 01:54:20]	[done]
+	build successfully !
+
+[2023-12-04 01:54:41]	[done]
+	build successfully !
+
+[2023-12-04 01:55:02]	[done]
+	build successfully !
+
+[2023-12-04 01:59:00]	compilation failed at : "d:\OneDrive\课程\单片机接口与技术综合实践\app\src\utils\BEEP\BEEP.c", exit code: 1
+command: 
+  "C:\Users\bjwcw\.eide\tools\sdcc\bin\sdcc.exe" -c --std-c99 -Iinc -Isrc -Isrc/screen -Isrc/utils/LCD1602 -Isrc/utils/IIC -Isrc/utils/FUNCTIONS -Isrc/utils/FAN -Isrc/utils/DS18B20 -Isrc/utils/DELAY -Isrc/utils/AT24C02 -Isrc/utils/BEEP -mmcs51 --opt-code-speed --iram-size 256 --xram-size 4096 --code-size 8192 -MMD -o .\build\Debug\src\utils\BEEP\BEEP.rel .\src\utils\BEEP\BEEP.c
+   at unify_builder.Program.Main(String[] args_)
+---
+.\src\utils\BEEP\BEEP.c:151: error 20: Undefined identifier 'p'
+.\src\utils\BEEP\BEEP.c:58: error 2: Initializer element is not a constant expression
+.\src\utils\BEEP\BEEP.c:151: error 2: Initializer element is not a constant expression
+.\src\utils\BEEP\BEEP.c:204: error 2: Initializer element is not a constant expression
+
+[2023-12-04 01:59:11]	[done]
+	build successfully !
+
+[2023-12-04 02:00:06]	[done]
+	build successfully !
+
+[2023-12-04 02:01:56]	[done]
+	build successfully !
+
+[2023-12-04 02:04:21]	[done]
+	build successfully !
+
+[2023-12-04 02:05:07]	[done]
+	build successfully !
+
+[2023-12-04 02:08:46]	[done]
+	build successfully !
+
+[2023-12-04 02:09:17]	[done]
+	build successfully !
+
+[2023-12-04 02:10:28]	[done]
+	build successfully !
+
+[2023-12-04 09:34:49]	link failed !, exit code: 1
+   at unify_builder.Program.Main(String[] args_)
+---
+?ASlink-Error-Could not get 65 consecutive bytes in internal RAM for area DSEG.
+
+
+[2023-12-04 09:35:04]	[done]
+	build successfully !
+
+[2023-12-04 09:39:07]	[done]
+	build successfully !
+
+[2023-12-04 09:40:42]	[done]
+	build successfully !
+
+[2023-12-04 09:42:51]	[done]
+	build successfully !
+
+[2023-12-04 09:53:05]	compilation failed at : "d:\OneDrive\课程\单片机接口与技术综合实践\app\src\main.c", exit code: 1
+command: 
+  "C:\Users\bjwcw\.eide\tools\sdcc\bin\sdcc.exe" -c --std-c99 -Iinc -Isrc -Isrc/utils/LCD1602 -Isrc/utils/IIC -Isrc/utils/FUNCTIONS -Isrc/utils/FAN -Isrc/utils/DS18B20 -Isrc/utils/DELAY -Isrc/utils/BEEP -Isrc/utils/AT24C02 -Isrc/screen -mmcs51 --opt-code-speed --iram-size 256 --xram-size 4096 --code-size 8192 -MMD -o .\build\Debug\src\main.rel .\src\main.c
+   at unify_builder.Program.Main(String[] args_)
+---
+.\src\main.c:73: syntax error: token -> ')' ; column 40
+.\src\main.c:90: syntax error: token -> '}' ; column 1
+
+[2023-12-04 09:53:24]	[done]
+	build successfully !
+
+[2023-12-04 09:54:42]	[done]
+	build successfully !
+
+[2023-12-04 09:56:51]	[done]
+	build successfully !
+
+[2023-12-04 09:58:04]	[done]
+	build successfully !
+
+[2023-12-04 10:00:13]	[done]
+	build successfully !
+
+[2023-12-04 11:26:07]	[done]
+	build successfully !
+

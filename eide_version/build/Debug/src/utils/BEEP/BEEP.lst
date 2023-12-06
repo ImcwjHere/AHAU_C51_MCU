@@ -1,0 +1,671 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module BEEP
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _doBeep
+                                     12 	.globl _BEEPER
+                                     13 	.globl _initializeBeeper
+                                     14 	.globl _delayOneMillisecond
+                                     15 	.globl _CP_RL2
+                                     16 	.globl _C_T2
+                                     17 	.globl _TR2
+                                     18 	.globl _EXEN2
+                                     19 	.globl _TCLK
+                                     20 	.globl _RCLK
+                                     21 	.globl _EXF2
+                                     22 	.globl _TF2
+                                     23 	.globl _T2
+                                     24 	.globl _T2EX
+                                     25 	.globl _RI
+                                     26 	.globl _TI
+                                     27 	.globl _RB8
+                                     28 	.globl _TB8
+                                     29 	.globl _REN
+                                     30 	.globl _SM2
+                                     31 	.globl _SM1
+                                     32 	.globl _SM0
+                                     33 	.globl _RXD
+                                     34 	.globl _TXD
+                                     35 	.globl _INT0
+                                     36 	.globl _INT1
+                                     37 	.globl _T0
+                                     38 	.globl _T1
+                                     39 	.globl _WR
+                                     40 	.globl _RD
+                                     41 	.globl _PX0
+                                     42 	.globl _PT0
+                                     43 	.globl _PX1
+                                     44 	.globl _PT1
+                                     45 	.globl _PS
+                                     46 	.globl _PT2
+                                     47 	.globl _EX0
+                                     48 	.globl _ET0
+                                     49 	.globl _EX1
+                                     50 	.globl _ET1
+                                     51 	.globl _ES
+                                     52 	.globl _ET2
+                                     53 	.globl _EA
+                                     54 	.globl _IT0
+                                     55 	.globl _IE0
+                                     56 	.globl _IT1
+                                     57 	.globl _IE1
+                                     58 	.globl _TR0
+                                     59 	.globl _TF0
+                                     60 	.globl _TR1
+                                     61 	.globl _TF1
+                                     62 	.globl _P
+                                     63 	.globl _OV
+                                     64 	.globl _RS0
+                                     65 	.globl _RS1
+                                     66 	.globl _F0
+                                     67 	.globl _AC
+                                     68 	.globl _CY
+                                     69 	.globl _P37
+                                     70 	.globl _P36
+                                     71 	.globl _P35
+                                     72 	.globl _P34
+                                     73 	.globl _P33
+                                     74 	.globl _P32
+                                     75 	.globl _P31
+                                     76 	.globl _P30
+                                     77 	.globl _P27
+                                     78 	.globl _P26
+                                     79 	.globl _P25
+                                     80 	.globl _P24
+                                     81 	.globl _P23
+                                     82 	.globl _P22
+                                     83 	.globl _P21
+                                     84 	.globl _P20
+                                     85 	.globl _P17
+                                     86 	.globl _P16
+                                     87 	.globl _P15
+                                     88 	.globl _P14
+                                     89 	.globl _P13
+                                     90 	.globl _P12
+                                     91 	.globl _P11
+                                     92 	.globl _P10
+                                     93 	.globl _P07
+                                     94 	.globl _P06
+                                     95 	.globl _P05
+                                     96 	.globl _P04
+                                     97 	.globl _P03
+                                     98 	.globl _P02
+                                     99 	.globl _P01
+                                    100 	.globl _P00
+                                    101 	.globl _TH2
+                                    102 	.globl _TL2
+                                    103 	.globl _RCAP2H
+                                    104 	.globl _RCAP2L
+                                    105 	.globl _T2CON
+                                    106 	.globl _SBUF
+                                    107 	.globl _SCON
+                                    108 	.globl _IP
+                                    109 	.globl _IE
+                                    110 	.globl _TH1
+                                    111 	.globl _TH0
+                                    112 	.globl _TL1
+                                    113 	.globl _TL0
+                                    114 	.globl _TMOD
+                                    115 	.globl _TCON
+                                    116 	.globl _PCON
+                                    117 	.globl _DPH
+                                    118 	.globl _DPL
+                                    119 	.globl _SP
+                                    120 	.globl _B
+                                    121 	.globl _ACC
+                                    122 	.globl _PSW
+                                    123 	.globl _P3
+                                    124 	.globl _P2
+                                    125 	.globl _P1
+                                    126 	.globl _P0
+                                    127 	.globl _Music
+                                    128 	.globl _FreqTable
+                                    129 	.globl _MusicSelect
+                                    130 	.globl _FreqSelect
+                                    131 ;--------------------------------------------------------
+                                    132 ; special function registers
+                                    133 ;--------------------------------------------------------
+                                    134 	.area RSEG    (ABS,DATA)
+      000000                        135 	.org 0x0000
+                           000080   136 _P0	=	0x0080
+                           000090   137 _P1	=	0x0090
+                           0000A0   138 _P2	=	0x00a0
+                           0000B0   139 _P3	=	0x00b0
+                           0000D0   140 _PSW	=	0x00d0
+                           0000E0   141 _ACC	=	0x00e0
+                           0000F0   142 _B	=	0x00f0
+                           000081   143 _SP	=	0x0081
+                           000082   144 _DPL	=	0x0082
+                           000083   145 _DPH	=	0x0083
+                           000087   146 _PCON	=	0x0087
+                           000088   147 _TCON	=	0x0088
+                           000089   148 _TMOD	=	0x0089
+                           00008A   149 _TL0	=	0x008a
+                           00008B   150 _TL1	=	0x008b
+                           00008C   151 _TH0	=	0x008c
+                           00008D   152 _TH1	=	0x008d
+                           0000A8   153 _IE	=	0x00a8
+                           0000B8   154 _IP	=	0x00b8
+                           000098   155 _SCON	=	0x0098
+                           000099   156 _SBUF	=	0x0099
+                           0000C8   157 _T2CON	=	0x00c8
+                           0000CA   158 _RCAP2L	=	0x00ca
+                           0000CB   159 _RCAP2H	=	0x00cb
+                           0000CC   160 _TL2	=	0x00cc
+                           0000CD   161 _TH2	=	0x00cd
+                                    162 ;--------------------------------------------------------
+                                    163 ; special function bits
+                                    164 ;--------------------------------------------------------
+                                    165 	.area RSEG    (ABS,DATA)
+      000000                        166 	.org 0x0000
+                           000080   167 _P00	=	0x0080
+                           000081   168 _P01	=	0x0081
+                           000082   169 _P02	=	0x0082
+                           000083   170 _P03	=	0x0083
+                           000084   171 _P04	=	0x0084
+                           000085   172 _P05	=	0x0085
+                           000086   173 _P06	=	0x0086
+                           000087   174 _P07	=	0x0087
+                           000090   175 _P10	=	0x0090
+                           000091   176 _P11	=	0x0091
+                           000092   177 _P12	=	0x0092
+                           000093   178 _P13	=	0x0093
+                           000094   179 _P14	=	0x0094
+                           000095   180 _P15	=	0x0095
+                           000096   181 _P16	=	0x0096
+                           000097   182 _P17	=	0x0097
+                           0000A0   183 _P20	=	0x00a0
+                           0000A1   184 _P21	=	0x00a1
+                           0000A2   185 _P22	=	0x00a2
+                           0000A3   186 _P23	=	0x00a3
+                           0000A4   187 _P24	=	0x00a4
+                           0000A5   188 _P25	=	0x00a5
+                           0000A6   189 _P26	=	0x00a6
+                           0000A7   190 _P27	=	0x00a7
+                           0000B0   191 _P30	=	0x00b0
+                           0000B1   192 _P31	=	0x00b1
+                           0000B2   193 _P32	=	0x00b2
+                           0000B3   194 _P33	=	0x00b3
+                           0000B4   195 _P34	=	0x00b4
+                           0000B5   196 _P35	=	0x00b5
+                           0000B6   197 _P36	=	0x00b6
+                           0000B7   198 _P37	=	0x00b7
+                           0000D7   199 _CY	=	0x00d7
+                           0000D6   200 _AC	=	0x00d6
+                           0000D5   201 _F0	=	0x00d5
+                           0000D4   202 _RS1	=	0x00d4
+                           0000D3   203 _RS0	=	0x00d3
+                           0000D2   204 _OV	=	0x00d2
+                           0000D0   205 _P	=	0x00d0
+                           00008F   206 _TF1	=	0x008f
+                           00008E   207 _TR1	=	0x008e
+                           00008D   208 _TF0	=	0x008d
+                           00008C   209 _TR0	=	0x008c
+                           00008B   210 _IE1	=	0x008b
+                           00008A   211 _IT1	=	0x008a
+                           000089   212 _IE0	=	0x0089
+                           000088   213 _IT0	=	0x0088
+                           0000AF   214 _EA	=	0x00af
+                           0000AD   215 _ET2	=	0x00ad
+                           0000AC   216 _ES	=	0x00ac
+                           0000AB   217 _ET1	=	0x00ab
+                           0000AA   218 _EX1	=	0x00aa
+                           0000A9   219 _ET0	=	0x00a9
+                           0000A8   220 _EX0	=	0x00a8
+                           0000BD   221 _PT2	=	0x00bd
+                           0000BC   222 _PS	=	0x00bc
+                           0000BB   223 _PT1	=	0x00bb
+                           0000BA   224 _PX1	=	0x00ba
+                           0000B9   225 _PT0	=	0x00b9
+                           0000B8   226 _PX0	=	0x00b8
+                           0000B7   227 _RD	=	0x00b7
+                           0000B6   228 _WR	=	0x00b6
+                           0000B5   229 _T1	=	0x00b5
+                           0000B4   230 _T0	=	0x00b4
+                           0000B3   231 _INT1	=	0x00b3
+                           0000B2   232 _INT0	=	0x00b2
+                           0000B1   233 _TXD	=	0x00b1
+                           0000B0   234 _RXD	=	0x00b0
+                           00009F   235 _SM0	=	0x009f
+                           00009E   236 _SM1	=	0x009e
+                           00009D   237 _SM2	=	0x009d
+                           00009C   238 _REN	=	0x009c
+                           00009B   239 _TB8	=	0x009b
+                           00009A   240 _RB8	=	0x009a
+                           000099   241 _TI	=	0x0099
+                           000098   242 _RI	=	0x0098
+                           000091   243 _T2EX	=	0x0091
+                           000090   244 _T2	=	0x0090
+                           0000CF   245 _TF2	=	0x00cf
+                           0000CE   246 _EXF2	=	0x00ce
+                           0000CD   247 _RCLK	=	0x00cd
+                           0000CC   248 _TCLK	=	0x00cc
+                           0000CB   249 _EXEN2	=	0x00cb
+                           0000CA   250 _TR2	=	0x00ca
+                           0000C9   251 _C_T2	=	0x00c9
+                           0000C8   252 _CP_RL2	=	0x00c8
+                                    253 ;--------------------------------------------------------
+                                    254 ; overlayable register banks
+                                    255 ;--------------------------------------------------------
+                                    256 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        257 	.ds 8
+                                    258 ;--------------------------------------------------------
+                                    259 ; internal ram data
+                                    260 ;--------------------------------------------------------
+                                    261 	.area DSEG    (DATA)
+      000000                        262 _FreqSelect::
+      000000                        263 	.ds 1
+      000001                        264 _MusicSelect::
+      000001                        265 	.ds 1
+                                    266 ;--------------------------------------------------------
+                                    267 ; overlayable items in internal ram
+                                    268 ;--------------------------------------------------------
+                                    269 ;--------------------------------------------------------
+                                    270 ; indirectly addressable internal ram data
+                                    271 ;--------------------------------------------------------
+                                    272 	.area ISEG    (DATA)
+                                    273 ;--------------------------------------------------------
+                                    274 ; absolute internal ram data
+                                    275 ;--------------------------------------------------------
+                                    276 	.area IABS    (ABS,DATA)
+                                    277 	.area IABS    (ABS,DATA)
+                                    278 ;--------------------------------------------------------
+                                    279 ; bit data
+                                    280 ;--------------------------------------------------------
+                                    281 	.area BSEG    (BIT)
+                                    282 ;--------------------------------------------------------
+                                    283 ; paged external ram data
+                                    284 ;--------------------------------------------------------
+                                    285 	.area PSEG    (PAG,XDATA)
+                                    286 ;--------------------------------------------------------
+                                    287 ; external ram data
+                                    288 ;--------------------------------------------------------
+                                    289 	.area XSEG    (XDATA)
+                                    290 ;--------------------------------------------------------
+                                    291 ; absolute external ram data
+                                    292 ;--------------------------------------------------------
+                                    293 	.area XABS    (ABS,XDATA)
+                                    294 ;--------------------------------------------------------
+                                    295 ; external initialized ram data
+                                    296 ;--------------------------------------------------------
+                                    297 	.area XISEG   (XDATA)
+      000000                        298 _FreqTable::
+      000000                        299 	.ds 74
+      00004A                        300 _Music::
+      00004A                        301 	.ds 139
+                                    302 	.area HOME    (CODE)
+                                    303 	.area GSINIT0 (CODE)
+                                    304 	.area GSINIT1 (CODE)
+                                    305 	.area GSINIT2 (CODE)
+                                    306 	.area GSINIT3 (CODE)
+                                    307 	.area GSINIT4 (CODE)
+                                    308 	.area GSINIT5 (CODE)
+                                    309 	.area GSINIT  (CODE)
+                                    310 	.area GSFINAL (CODE)
+                                    311 	.area CSEG    (CODE)
+                                    312 ;--------------------------------------------------------
+                                    313 ; global & static initialisations
+                                    314 ;--------------------------------------------------------
+                                    315 	.area HOME    (CODE)
+                                    316 	.area GSINIT  (CODE)
+                                    317 	.area GSFINAL (CODE)
+                                    318 	.area GSINIT  (CODE)
+                                    319 ;	.\src\utils\BEEP\BEEP.c:150: unsigned char FreqSelect=0, MusicSelect=0;
+      000000 75*00 00         [24]  320 	mov	_FreqSelect,#0x00
+                                    321 ;	.\src\utils\BEEP\BEEP.c:150: 
+      000003 75*01 00         [24]  322 	mov	_MusicSelect,#0x00
+                                    323 ;--------------------------------------------------------
+                                    324 ; Home
+                                    325 ;--------------------------------------------------------
+                                    326 	.area HOME    (CODE)
+                                    327 	.area HOME    (CODE)
+                                    328 ;--------------------------------------------------------
+                                    329 ; code
+                                    330 ;--------------------------------------------------------
+                                    331 	.area CSEG    (CODE)
+                                    332 ;------------------------------------------------------------
+                                    333 ;Allocation info for local variables in function 'initializeBeeper'
+                                    334 ;------------------------------------------------------------
+                                    335 ;	.\src\utils\BEEP\BEEP.c:152: void initializeBeeper() {
+                                    336 ;	-----------------------------------------
+                                    337 ;	 function initializeBeeper
+                                    338 ;	-----------------------------------------
+      000000                        339 _initializeBeeper:
+                           000007   340 	ar7 = 0x07
+                           000006   341 	ar6 = 0x06
+                           000005   342 	ar5 = 0x05
+                           000004   343 	ar4 = 0x04
+                           000003   344 	ar3 = 0x03
+                           000002   345 	ar2 = 0x02
+                           000001   346 	ar1 = 0x01
+                           000000   347 	ar0 = 0x00
+                                    348 ;	.\src\utils\BEEP\BEEP.c:154: BEEP = 1;
+                                    349 ;	assignBit
+      000000 D2 94            [12]  350 	setb	_P14
+                                    351 ;	.\src\utils\BEEP\BEEP.c:156: TMOD &= 0x0F;   // 清除定时器1模式位
+      000002 53 89 0F         [24]  352 	anl	_TMOD,#0x0f
+                                    353 ;	.\src\utils\BEEP\BEEP.c:157: TMOD |= 0x10;   // 设置定时器模式
+      000005 43 89 10         [24]  354 	orl	_TMOD,#0x10
+                                    355 ;	.\src\utils\BEEP\BEEP.c:158: TL1 = 0x00;  // 设置定时初值
+      000008 75 8B 00         [24]  356 	mov	_TL1,#0x00
+                                    357 ;	.\src\utils\BEEP\BEEP.c:159: TH1 = 0x00;  // 设置定时初值
+      00000B 75 8D 00         [24]  358 	mov	_TH1,#0x00
+                                    359 ;	.\src\utils\BEEP\BEEP.c:160: TF1 = 0;    // 清除TF1标志
+                                    360 ;	assignBit
+      00000E C2 8F            [12]  361 	clr	_TF1
+                                    362 ;	.\src\utils\BEEP\BEEP.c:161: TR1 = 1;    // 定时器1开始计时
+                                    363 ;	assignBit
+      000010 D2 8E            [12]  364 	setb	_TR1
+                                    365 ;	.\src\utils\BEEP\BEEP.c:162: ET1 = 1;    // 使能定时器1中断
+                                    366 ;	assignBit
+      000012 D2 AB            [12]  367 	setb	_ET1
+                                    368 ;	.\src\utils\BEEP\BEEP.c:163: EA = 1; // 开启总中断
+                                    369 ;	assignBit
+      000014 D2 AF            [12]  370 	setb	_EA
+                                    371 ;	.\src\utils\BEEP\BEEP.c:164: }
+      000016 22               [24]  372 	ret
+                                    373 ;------------------------------------------------------------
+                                    374 ;Allocation info for local variables in function 'BEEPER'
+                                    375 ;------------------------------------------------------------
+                                    376 ;	.\src\utils\BEEP\BEEP.c:166: void BEEPER () interrupt 3 {
+                                    377 ;	-----------------------------------------
+                                    378 ;	 function BEEPER
+                                    379 ;	-----------------------------------------
+      000017                        380 _BEEPER:
+      000017 C0 E0            [24]  381 	push	acc
+      000019 C0 F0            [24]  382 	push	b
+      00001B C0 82            [24]  383 	push	dpl
+      00001D C0 83            [24]  384 	push	dph
+      00001F C0 07            [24]  385 	push	ar7
+      000021 C0 06            [24]  386 	push	ar6
+      000023 C0 05            [24]  387 	push	ar5
+      000025 C0 04            [24]  388 	push	ar4
+      000027 C0 D0            [24]  389 	push	psw
+      000029 75 D0 00         [24]  390 	mov	psw,#0x00
+                                    391 ;	.\src\utils\BEEP\BEEP.c:167: if(FreqTable[FreqSelect]) { //如果不是休止符
+      00002C E5*00            [12]  392 	mov	a,_FreqSelect
+      00002E 75 F0 02         [24]  393 	mov	b,#0x02
+      000031 A4               [48]  394 	mul	ab
+      000032 24r00            [12]  395 	add	a,#_FreqTable
+      000034 F5 82            [12]  396 	mov	dpl,a
+      000036 74s00            [12]  397 	mov	a,#(_FreqTable >> 8)
+      000038 35 F0            [12]  398 	addc	a,b
+      00003A F5 83            [12]  399 	mov	dph,a
+      00003C E0               [24]  400 	movx	a,@dptr
+      00003D FE               [12]  401 	mov	r6,a
+      00003E A3               [24]  402 	inc	dptr
+      00003F E0               [24]  403 	movx	a,@dptr
+      000040 FF               [12]  404 	mov	r7,a
+      000041 4E               [12]  405 	orl	a,r6
+      000042 60 0E            [24]  406 	jz	00103$
+                                    407 ;	.\src\utils\BEEP\BEEP.c:169: TL1 = FreqTable[FreqSelect]%256;		//设置定时初值
+      000044 8E 04            [24]  408 	mov	ar4,r6
+      000046 7D 00            [12]  409 	mov	r5,#0x00
+      000048 8C 8B            [24]  410 	mov	_TL1,r4
+                                    411 ;	.\src\utils\BEEP\BEEP.c:170: TH1 = FreqTable[FreqSelect]/256;		//设置定时初值
+      00004A 8F 06            [24]  412 	mov	ar6,r7
+      00004C 7F 00            [12]  413 	mov	r7,#0x00
+      00004E 8E 8D            [24]  414 	mov	_TH1,r6
+                                    415 ;	.\src\utils\BEEP\BEEP.c:171: BEEP=!BEEP;	//翻转蜂鸣器IO口
+      000050 B2 94            [12]  416 	cpl	_P14
+      000052                        417 00103$:
+                                    418 ;	.\src\utils\BEEP\BEEP.c:173: }
+      000052 D0 D0            [24]  419 	pop	psw
+      000054 D0 04            [24]  420 	pop	ar4
+      000056 D0 05            [24]  421 	pop	ar5
+      000058 D0 06            [24]  422 	pop	ar6
+      00005A D0 07            [24]  423 	pop	ar7
+      00005C D0 83            [24]  424 	pop	dph
+      00005E D0 82            [24]  425 	pop	dpl
+      000060 D0 F0            [24]  426 	pop	b
+      000062 D0 E0            [24]  427 	pop	acc
+      000064 32               [24]  428 	reti
+                                    429 ;------------------------------------------------------------
+                                    430 ;Allocation info for local variables in function 'doBeep'
+                                    431 ;------------------------------------------------------------
+                                    432 ;	.\src\utils\BEEP\BEEP.c:175: void doBeep() {
+                                    433 ;	-----------------------------------------
+                                    434 ;	 function doBeep
+                                    435 ;	-----------------------------------------
+      000065                        436 _doBeep:
+                                    437 ;	.\src\utils\BEEP\BEEP.c:176: while(1) {
+      000065                        438 00105$:
+                                    439 ;	.\src\utils\BEEP\BEEP.c:177: if(Music[MusicSelect]!=0xFF) {  // 如果不是停止标志位
+      000065 E5*01            [12]  440 	mov	a,_MusicSelect
+      000067 24r4A            [12]  441 	add	a,#_Music
+      000069 F5 82            [12]  442 	mov	dpl,a
+      00006B E4               [12]  443 	clr	a
+      00006C 34s00            [12]  444 	addc	a,#(_Music >> 8)
+      00006E F5 83            [12]  445 	mov	dph,a
+      000070 E0               [24]  446 	movx	a,@dptr
+      000071 FF               [12]  447 	mov	r7,a
+      000072 BF FF 02         [24]  448 	cjne	r7,#0xff,00117$
+      000075 80 2A            [24]  449 	sjmp	00102$
+      000077                        450 00117$:
+                                    451 ;	.\src\utils\BEEP\BEEP.c:195: FreqSelect=Music[MusicSelect];  // 选择音符对应的频率
+      000077 8F*00            [24]  452 	mov	_FreqSelect,r7
+                                    453 ;	.\src\utils\BEEP\BEEP.c:196: MusicSelect++;
+      000079 05*01            [12]  454 	inc	_MusicSelect
+                                    455 ;	.\src\utils\BEEP\BEEP.c:197: delayOneMillisecond(SPEED/4*Music[MusicSelect]);  // 选择音符对应的时值
+      00007B E5*01            [12]  456 	mov	a,_MusicSelect
+      00007D 24r4A            [12]  457 	add	a,#_Music
+      00007F F5 82            [12]  458 	mov	dpl,a
+      000081 E4               [12]  459 	clr	a
+      000082 34s00            [12]  460 	addc	a,#(_Music >> 8)
+      000084 F5 83            [12]  461 	mov	dph,a
+      000086 E0               [24]  462 	movx	a,@dptr
+      000087 75 F0 7D         [24]  463 	mov	b,#0x7d
+      00008A A4               [48]  464 	mul	ab
+      00008B F5 82            [12]  465 	mov	dpl,a
+      00008D 85 F0 83         [24]  466 	mov	dph,b
+      000090 12r00r00         [24]  467 	lcall	_delayOneMillisecond
+                                    468 ;	.\src\utils\BEEP\BEEP.c:198: MusicSelect++;
+      000093 05*01            [12]  469 	inc	_MusicSelect
+                                    470 ;	.\src\utils\BEEP\BEEP.c:199: TR1 = 0;
+                                    471 ;	assignBit
+      000095 C2 8E            [12]  472 	clr	_TR1
+                                    473 ;	.\src\utils\BEEP\BEEP.c:200: delayOneMillisecond(5);	// 音符间短暂停顿
+      000097 90 00 05         [24]  474 	mov	dptr,#0x0005
+      00009A 12r00r00         [24]  475 	lcall	_delayOneMillisecond
+                                    476 ;	.\src\utils\BEEP\BEEP.c:201: TR1 = 1;
+                                    477 ;	assignBit
+      00009D D2 8E            [12]  478 	setb	_TR1
+      00009F 80 C4            [24]  479 	sjmp	00105$
+      0000A1                        480 00102$:
+                                    481 ;	.\src\utils\BEEP\BEEP.c:204: TR1 = 0;
+                                    482 ;	assignBit
+      0000A1 C2 8E            [12]  483 	clr	_TR1
+                                    484 ;	.\src\utils\BEEP\BEEP.c:205: BEEP = 1;
+                                    485 ;	assignBit
+      0000A3 D2 94            [12]  486 	setb	_P14
+                                    487 ;	.\src\utils\BEEP\BEEP.c:206: break;
+                                    488 ;	.\src\utils\BEEP\BEEP.c:209: }
+      0000A5 22               [24]  489 	ret
+                                    490 	.area CSEG    (CODE)
+                                    491 	.area CONST   (CODE)
+                                    492 	.area XINIT   (CODE)
+      000000                        493 __xinit__FreqTable:
+      000000 00 00                  494 	.byte #0x00, #0x00	; 0
+      000002 8C F8                  495 	.byte #0x8c, #0xf8	; 63628
+      000004 F3 F8                  496 	.byte #0xf3, #0xf8	; 63731
+      000006 5B F9                  497 	.byte #0x5b, #0xf9	; 63835
+      000008 B8 F9                  498 	.byte #0xb8, #0xf9	; 63928
+      00000A 15 FA                  499 	.byte #0x15, #0xfa	; 64021
+      00000C 67 FA                  500 	.byte #0x67, #0xfa	; 64103
+      00000E B9 FA                  501 	.byte #0xb9, #0xfa	; 64185
+      000010 04 FB                  502 	.byte #0x04, #0xfb	; 64260
+      000012 4B FB                  503 	.byte #0x4b, #0xfb	; 64331
+      000014 90 FB                  504 	.byte #0x90, #0xfb	; 64400
+      000016 CF FB                  505 	.byte #0xcf, #0xfb	; 64463
+      000018 10 FC                  506 	.byte #0x10, #0xfc	; 64528
+      00001A 44 FC                  507 	.byte #0x44, #0xfc	; 64580
+      00001C 79 FC                  508 	.byte #0x79, #0xfc	; 64633
+      00001E AC FC                  509 	.byte #0xac, #0xfc	; 64684
+      000020 DC FC                  510 	.byte #0xdc, #0xfc	; 64732
+      000022 09 FD                  511 	.byte #0x09, #0xfd	; 64777
+      000024 34 FD                  512 	.byte #0x34, #0xfd	; 64820
+      000026 5C FD                  513 	.byte #0x5c, #0xfd	; 64860
+      000028 82 FD                  514 	.byte #0x82, #0xfd	; 64898
+      00002A A6 FD                  515 	.byte #0xa6, #0xfd	; 64934
+      00002C C8 FD                  516 	.byte #0xc8, #0xfd	; 64968
+      00002E E8 FD                  517 	.byte #0xe8, #0xfd	; 65000
+      000030 06 FE                  518 	.byte #0x06, #0xfe	; 65030
+      000032 22 FE                  519 	.byte #0x22, #0xfe	; 65058
+      000034 3D FE                  520 	.byte #0x3d, #0xfe	; 65085
+      000036 56 FE                  521 	.byte #0x56, #0xfe	; 65110
+      000038 6E FE                  522 	.byte #0x6e, #0xfe	; 65134
+      00003A 85 FE                  523 	.byte #0x85, #0xfe	; 65157
+      00003C 9A FE                  524 	.byte #0x9a, #0xfe	; 65178
+      00003E AE FE                  525 	.byte #0xae, #0xfe	; 65198
+      000040 C1 FE                  526 	.byte #0xc1, #0xfe	; 65217
+      000042 D3 FE                  527 	.byte #0xd3, #0xfe	; 65235
+      000044 E4 FE                  528 	.byte #0xe4, #0xfe	; 65252
+      000046 F4 FE                  529 	.byte #0xf4, #0xfe	; 65268
+      000048 03 FF                  530 	.byte #0x03, #0xff	; 65283
+      00004A                        531 __xinit__Music:
+      00004A 19                     532 	.db #0x19	; 25
+      00004B 04                     533 	.db #0x04	; 4
+      00004C 1B                     534 	.db #0x1b	; 27
+      00004D 04                     535 	.db #0x04	; 4
+      00004E 14                     536 	.db #0x14	; 20
+      00004F 04                     537 	.db #0x04	; 4
+      000050 1B                     538 	.db #0x1b	; 27
+      000051 04                     539 	.db #0x04	; 4
+      000052 1D                     540 	.db #0x1d	; 29
+      000053 04                     541 	.db #0x04	; 4
+      000054 14                     542 	.db #0x14	; 20
+      000055 01                     543 	.db #0x01	; 1
+      000056 12                     544 	.db #0x12	; 18
+      000057 01                     545 	.db #0x01	; 1
+      000058 11                     546 	.db #0x11	; 17
+      000059 01                     547 	.db #0x01	; 1
+      00005A 0D                     548 	.db #0x0d	; 13
+      00005B 01                     549 	.db #0x01	; 1
+      00005C 19                     550 	.db #0x19	; 25
+      00005D 04                     551 	.db #0x04	; 4
+      00005E 1B                     552 	.db #0x1b	; 27
+      00005F 04                     553 	.db #0x04	; 4
+      000060 14                     554 	.db #0x14	; 20
+      000061 04                     555 	.db #0x04	; 4
+      000062 14                     556 	.db #0x14	; 20
+      000063 04                     557 	.db #0x04	; 4
+      000064 00                     558 	.db #0x00	; 0
+      000065 04                     559 	.db #0x04	; 4
+      000066 14                     560 	.db #0x14	; 20
+      000067 01                     561 	.db #0x01	; 1
+      000068 14                     562 	.db #0x14	; 20
+      000069 01                     563 	.db #0x01	; 1
+      00006A 14                     564 	.db #0x14	; 20
+      00006B 01                     565 	.db #0x01	; 1
+      00006C 16                     566 	.db #0x16	; 22
+      00006D 01                     567 	.db #0x01	; 1
+      00006E 0D                     568 	.db #0x0d	; 13
+      00006F 01                     569 	.db #0x01	; 1
+      000070 16                     570 	.db #0x16	; 22
+      000071 01                     571 	.db #0x01	; 1
+      000072 0D                     572 	.db #0x0d	; 13
+      000073 01                     573 	.db #0x01	; 1
+      000074 19                     574 	.db #0x19	; 25
+      000075 04                     575 	.db #0x04	; 4
+      000076 1B                     576 	.db #0x1b	; 27
+      000077 04                     577 	.db #0x04	; 4
+      000078 14                     578 	.db #0x14	; 20
+      000079 04                     579 	.db #0x04	; 4
+      00007A 1B                     580 	.db #0x1b	; 27
+      00007B 04                     581 	.db #0x04	; 4
+      00007C 1D                     582 	.db #0x1d	; 29
+      00007D 04                     583 	.db #0x04	; 4
+      00007E 14                     584 	.db #0x14	; 20
+      00007F 01                     585 	.db #0x01	; 1
+      000080 12                     586 	.db #0x12	; 18
+      000081 01                     587 	.db #0x01	; 1
+      000082 11                     588 	.db #0x11	; 17
+      000083 01                     589 	.db #0x01	; 1
+      000084 0D                     590 	.db #0x0d	; 13
+      000085 01                     591 	.db #0x01	; 1
+      000086 19                     592 	.db #0x19	; 25
+      000087 04                     593 	.db #0x04	; 4
+      000088 1B                     594 	.db #0x1b	; 27
+      000089 04                     595 	.db #0x04	; 4
+      00008A 14                     596 	.db #0x14	; 20
+      00008B 04                     597 	.db #0x04	; 4
+      00008C 14                     598 	.db #0x14	; 20
+      00008D 04                     599 	.db #0x04	; 4
+      00008E 00                     600 	.db #0x00	; 0
+      00008F 04                     601 	.db #0x04	; 4
+      000090 0D                     602 	.db #0x0d	; 13
+      000091 01                     603 	.db #0x01	; 1
+      000092 0D                     604 	.db #0x0d	; 13
+      000093 01                     605 	.db #0x01	; 1
+      000094 0C                     606 	.db #0x0c	; 12
+      000095 01                     607 	.db #0x01	; 1
+      000096 0D                     608 	.db #0x0d	; 13
+      000097 01                     609 	.db #0x01	; 1
+      000098 0C                     610 	.db #0x0c	; 12
+      000099 01                     611 	.db #0x01	; 1
+      00009A 0D                     612 	.db #0x0d	; 13
+      00009B 01                     613 	.db #0x01	; 1
+      00009C 14                     614 	.db #0x14	; 20
+      00009D 01                     615 	.db #0x01	; 1
+      00009E 16                     616 	.db #0x16	; 22
+      00009F 01                     617 	.db #0x01	; 1
+      0000A0 0D                     618 	.db #0x0d	; 13
+      0000A1 01                     619 	.db #0x01	; 1
+      0000A2 16                     620 	.db #0x16	; 22
+      0000A3 01                     621 	.db #0x01	; 1
+      0000A4 1D                     622 	.db #0x1d	; 29
+      0000A5 04                     623 	.db #0x04	; 4
+      0000A6 1D                     624 	.db #0x1d	; 29
+      0000A7 04                     625 	.db #0x04	; 4
+      0000A8 1B                     626 	.db #0x1b	; 27
+      0000A9 04                     627 	.db #0x04	; 4
+      0000AA 14                     628 	.db #0x14	; 20
+      0000AB 01                     629 	.db #0x01	; 1
+      0000AC 16                     630 	.db #0x16	; 22
+      0000AD 01                     631 	.db #0x01	; 1
+      0000AE 0D                     632 	.db #0x0d	; 13
+      0000AF 01                     633 	.db #0x01	; 1
+      0000B0 16                     634 	.db #0x16	; 22
+      0000B1 01                     635 	.db #0x01	; 1
+      0000B2 1B                     636 	.db #0x1b	; 27
+      0000B3 04                     637 	.db #0x04	; 4
+      0000B4 1B                     638 	.db #0x1b	; 27
+      0000B5 04                     639 	.db #0x04	; 4
+      0000B6 0D                     640 	.db #0x0d	; 13
+      0000B7 04                     641 	.db #0x04	; 4
+      0000B8 18                     642 	.db #0x18	; 24
+      0000B9 01                     643 	.db #0x01	; 1
+      0000BA 16                     644 	.db #0x16	; 22
+      0000BB 01                     645 	.db #0x01	; 1
+      0000BC 14                     646 	.db #0x14	; 20
+      0000BD 01                     647 	.db #0x01	; 1
+      0000BE 16                     648 	.db #0x16	; 22
+      0000BF 01                     649 	.db #0x01	; 1
+      0000C0 0D                     650 	.db #0x0d	; 13
+      0000C1 01                     651 	.db #0x01	; 1
+      0000C2 16                     652 	.db #0x16	; 22
+      0000C3 01                     653 	.db #0x01	; 1
+      0000C4 0D                     654 	.db #0x0d	; 13
+      0000C5 04                     655 	.db #0x04	; 4
+      0000C6 0F                     656 	.db #0x0f	; 15
+      0000C7 02                     657 	.db #0x02	; 2
+      0000C8 18                     658 	.db #0x18	; 24
+      0000C9 02                     659 	.db #0x02	; 2
+      0000CA 16                     660 	.db #0x16	; 22
+      0000CB 01                     661 	.db #0x01	; 1
+      0000CC 14                     662 	.db #0x14	; 20
+      0000CD 02                     663 	.db #0x02	; 2
+      0000CE 00                     664 	.db #0x00	; 0
+      0000CF 01                     665 	.db #0x01	; 1
+      0000D0 14                     666 	.db #0x14	; 20
+      0000D1 02                     667 	.db #0x02	; 2
+      0000D2 0F                     668 	.db #0x0f	; 15
+      0000D3 04                     669 	.db #0x04	; 4
+      0000D4 FF                     670 	.db #0xff	; 255
+                                    671 	.area CABS    (ABS,CODE)

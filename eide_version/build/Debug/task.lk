@@ -1,0 +1,21 @@
+-muwx
+-i .\build\Debug\task.ihx
+-M
+-I 0x0100
+-X 0x1000
+-C 0x2000
+-b HOME = 0x0000
+-b XSEG = 0x0001
+-b PSEG = 0x0001
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small
+-l .\build\Debug\no_entry_bundled.lib
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+.\build\Debug\src\main.rel
+
+-e

@@ -1,0 +1,196 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module DELAY
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _delayOneMillisecond
+                                     12 	.globl _delayOneSecond
+                                     13 	.globl _delayTenMicroseconds
+                                     14 ;--------------------------------------------------------
+                                     15 ; special function registers
+                                     16 ;--------------------------------------------------------
+                                     17 	.area RSEG    (ABS,DATA)
+      000000                         18 	.org 0x0000
+                                     19 ;--------------------------------------------------------
+                                     20 ; special function bits
+                                     21 ;--------------------------------------------------------
+                                     22 	.area RSEG    (ABS,DATA)
+      000000                         23 	.org 0x0000
+                                     24 ;--------------------------------------------------------
+                                     25 ; overlayable register banks
+                                     26 ;--------------------------------------------------------
+                                     27 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                         28 	.ds 8
+                                     29 ;--------------------------------------------------------
+                                     30 ; internal ram data
+                                     31 ;--------------------------------------------------------
+                                     32 	.area DSEG    (DATA)
+                                     33 ;--------------------------------------------------------
+                                     34 ; overlayable items in internal ram
+                                     35 ;--------------------------------------------------------
+                                     36 	.area	OSEG    (OVR,DATA)
+                                     37 	.area	OSEG    (OVR,DATA)
+                                     38 ;--------------------------------------------------------
+                                     39 ; indirectly addressable internal ram data
+                                     40 ;--------------------------------------------------------
+                                     41 	.area ISEG    (DATA)
+                                     42 ;--------------------------------------------------------
+                                     43 ; absolute internal ram data
+                                     44 ;--------------------------------------------------------
+                                     45 	.area IABS    (ABS,DATA)
+                                     46 	.area IABS    (ABS,DATA)
+                                     47 ;--------------------------------------------------------
+                                     48 ; bit data
+                                     49 ;--------------------------------------------------------
+                                     50 	.area BSEG    (BIT)
+                                     51 ;--------------------------------------------------------
+                                     52 ; paged external ram data
+                                     53 ;--------------------------------------------------------
+                                     54 	.area PSEG    (PAG,XDATA)
+                                     55 ;--------------------------------------------------------
+                                     56 ; external ram data
+                                     57 ;--------------------------------------------------------
+                                     58 	.area XSEG    (XDATA)
+                                     59 ;--------------------------------------------------------
+                                     60 ; absolute external ram data
+                                     61 ;--------------------------------------------------------
+                                     62 	.area XABS    (ABS,XDATA)
+                                     63 ;--------------------------------------------------------
+                                     64 ; external initialized ram data
+                                     65 ;--------------------------------------------------------
+                                     66 	.area XISEG   (XDATA)
+                                     67 	.area HOME    (CODE)
+                                     68 	.area GSINIT0 (CODE)
+                                     69 	.area GSINIT1 (CODE)
+                                     70 	.area GSINIT2 (CODE)
+                                     71 	.area GSINIT3 (CODE)
+                                     72 	.area GSINIT4 (CODE)
+                                     73 	.area GSINIT5 (CODE)
+                                     74 	.area GSINIT  (CODE)
+                                     75 	.area GSFINAL (CODE)
+                                     76 	.area CSEG    (CODE)
+                                     77 ;--------------------------------------------------------
+                                     78 ; global & static initialisations
+                                     79 ;--------------------------------------------------------
+                                     80 	.area HOME    (CODE)
+                                     81 	.area GSINIT  (CODE)
+                                     82 	.area GSFINAL (CODE)
+                                     83 	.area GSINIT  (CODE)
+                                     84 ;--------------------------------------------------------
+                                     85 ; Home
+                                     86 ;--------------------------------------------------------
+                                     87 	.area HOME    (CODE)
+                                     88 	.area HOME    (CODE)
+                                     89 ;--------------------------------------------------------
+                                     90 ; code
+                                     91 ;--------------------------------------------------------
+                                     92 	.area CSEG    (CODE)
+                                     93 ;------------------------------------------------------------
+                                     94 ;Allocation info for local variables in function 'delayOneMillisecond'
+                                     95 ;------------------------------------------------------------
+                                     96 ;n                         Allocated to registers 
+                                     97 ;i                         Allocated to registers r4 r5 
+                                     98 ;------------------------------------------------------------
+                                     99 ;	.\src\utils\DELAY\DELAY.c:6: void delayOneMillisecond(unsigned int n) {
+                                    100 ;	-----------------------------------------
+                                    101 ;	 function delayOneMillisecond
+                                    102 ;	-----------------------------------------
+      000000                        103 _delayOneMillisecond:
+                           000007   104 	ar7 = 0x07
+                           000006   105 	ar6 = 0x06
+                           000005   106 	ar5 = 0x05
+                           000004   107 	ar4 = 0x04
+                           000003   108 	ar3 = 0x03
+                           000002   109 	ar2 = 0x02
+                           000001   110 	ar1 = 0x01
+                           000000   111 	ar0 = 0x00
+      000000 AE 82            [24]  112 	mov	r6,dpl
+      000002 AF 83            [24]  113 	mov	r7,dph
+      000004                        114 00107$:
+                                    115 ;	.\src\utils\DELAY\DELAY.c:8: for(;n > 0;n --) for(i = 0;i < 123;i ++);
+      000004 EE               [12]  116 	mov	a,r6
+      000005 4F               [12]  117 	orl	a,r7
+      000006 60 14            [24]  118 	jz	00109$
+      000008 7C 7B            [12]  119 	mov	r4,#0x7b
+      00000A 7D 00            [12]  120 	mov	r5,#0x00
+      00000C                        121 00105$:
+      00000C 1C               [12]  122 	dec	r4
+      00000D BC FF 01         [24]  123 	cjne	r4,#0xff,00132$
+      000010 1D               [12]  124 	dec	r5
+      000011                        125 00132$:
+      000011 EC               [12]  126 	mov	a,r4
+      000012 4D               [12]  127 	orl	a,r5
+      000013 70 F7            [24]  128 	jnz	00105$
+      000015 1E               [12]  129 	dec	r6
+      000016 BE FF 01         [24]  130 	cjne	r6,#0xff,00134$
+      000019 1F               [12]  131 	dec	r7
+      00001A                        132 00134$:
+      00001A 80 E8            [24]  133 	sjmp	00107$
+      00001C                        134 00109$:
+                                    135 ;	.\src\utils\DELAY\DELAY.c:9: }
+      00001C 22               [24]  136 	ret
+                                    137 ;------------------------------------------------------------
+                                    138 ;Allocation info for local variables in function 'delayOneSecond'
+                                    139 ;------------------------------------------------------------
+                                    140 ;n                         Allocated to registers 
+                                    141 ;------------------------------------------------------------
+                                    142 ;	.\src\utils\DELAY\DELAY.c:12: void delayOneSecond(unsigned int n) {
+                                    143 ;	-----------------------------------------
+                                    144 ;	 function delayOneSecond
+                                    145 ;	-----------------------------------------
+      00001D                        146 _delayOneSecond:
+      00001D AE 82            [24]  147 	mov	r6,dpl
+      00001F AF 83            [24]  148 	mov	r7,dph
+      000021                        149 00103$:
+                                    150 ;	.\src\utils\DELAY\DELAY.c:13: for(;n > 0;n --) delayOneMillisecond(1000);
+      000021 EE               [12]  151 	mov	a,r6
+      000022 4F               [12]  152 	orl	a,r7
+      000023 60 15            [24]  153 	jz	00105$
+      000025 90 03 E8         [24]  154 	mov	dptr,#0x03e8
+      000028 C0 07            [24]  155 	push	ar7
+      00002A C0 06            [24]  156 	push	ar6
+      00002C 12r00r00         [24]  157 	lcall	_delayOneMillisecond
+      00002F D0 06            [24]  158 	pop	ar6
+      000031 D0 07            [24]  159 	pop	ar7
+      000033 1E               [12]  160 	dec	r6
+      000034 BE FF 01         [24]  161 	cjne	r6,#0xff,00119$
+      000037 1F               [12]  162 	dec	r7
+      000038                        163 00119$:
+      000038 80 E7            [24]  164 	sjmp	00103$
+      00003A                        165 00105$:
+                                    166 ;	.\src\utils\DELAY\DELAY.c:14: }
+      00003A 22               [24]  167 	ret
+                                    168 ;------------------------------------------------------------
+                                    169 ;Allocation info for local variables in function 'delayTenMicroseconds'
+                                    170 ;------------------------------------------------------------
+                                    171 ;n                         Allocated to registers 
+                                    172 ;------------------------------------------------------------
+                                    173 ;	.\src\utils\DELAY\DELAY.c:17: void delayTenMicroseconds(unsigned int n) {
+                                    174 ;	-----------------------------------------
+                                    175 ;	 function delayTenMicroseconds
+                                    176 ;	-----------------------------------------
+      00003B                        177 _delayTenMicroseconds:
+      00003B AE 82            [24]  178 	mov	r6,dpl
+      00003D AF 83            [24]  179 	mov	r7,dph
+                                    180 ;	.\src\utils\DELAY\DELAY.c:18: while(n --);
+      00003F                        181 00101$:
+      00003F 8E 04            [24]  182 	mov	ar4,r6
+      000041 8F 05            [24]  183 	mov	ar5,r7
+      000043 1E               [12]  184 	dec	r6
+      000044 BE FF 01         [24]  185 	cjne	r6,#0xff,00111$
+      000047 1F               [12]  186 	dec	r7
+      000048                        187 00111$:
+      000048 EC               [12]  188 	mov	a,r4
+      000049 4D               [12]  189 	orl	a,r5
+      00004A 70 F3            [24]  190 	jnz	00101$
+                                    191 ;	.\src\utils\DELAY\DELAY.c:19: }
+      00004C 22               [24]  192 	ret
+                                    193 	.area CSEG    (CODE)
+                                    194 	.area CONST   (CODE)
+                                    195 	.area XINIT   (CODE)
+                                    196 	.area CABS    (ABS,CODE)
