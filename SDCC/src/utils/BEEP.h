@@ -5,6 +5,10 @@
 #include "DELAY.h"
 #include "../CONFIGS.h"
 
+#ifdef SDCC_MODE
+    void BEEPER () interrupt 3;
+#endif
+
 //播放速度，值为四分音符的时长(ms)
 #define SPEED	500
 
