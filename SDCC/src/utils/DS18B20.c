@@ -21,15 +21,14 @@ unsigned char initializeDS18B20(void) {
 
 // 向DS18B20写入一个字节
 void writeByteToDS18B20(unsigned char dat) {
-	unsigned int i, j;
+	unsigned int i=0, j=0;
 
 	for(j = 0;j < 8;j ++) {
 		DSPORT = 0;	//每写入一位数据之前先把总线拉低1us
 		i ++;
 		DSPORT = dat & 0x01;	//然后写入一个数据，从最低位开始
 		
-		i = 6;
-		while(i --);	//延时68us，持续时间最少60us
+		delayTenMicroseconds(6);	//延时68us，持续时间最少60us
 		
 		DSPORT = 1;	//然后释放总线，至少1us给总线恢复时间才能接着写入第二个数值
 		dat >>= 1;
@@ -39,18 +38,18 @@ void writeByteToDS18B20(unsigned char dat) {
 // 读取一个字节的数据
 unsigned char readByteFromDS18B20(void) {
 	unsigned char byte=0, bi=0;
-	unsigned int i, j;	
+	unsigned int i=0, j=0;	
 	
 	for(j = 8;j > 0;j --) {
 		DSPORT = 0;	//先将总线拉低1us
-		i ++;
+		i++;
 		DSPORT = 1;	//然后释放总线
-		i ++;
-		i ++;	//延时6us等待数据稳定
+		delayTenMicroseconds(1);	//延时~10us等待数据稳定
 		bi = DSPORT;	//读取数据，从最低位开始读取
-		byte = (byte >> 1) | (bi << 7);	// 将byte左移一位，然后与上右移7位后的bi，注意移动之后移掉那位补0
-		i = 4;	//读取完之后等待48us再接着读取下一个数
-		while(i --);
+		bi <<= 7;	//然后把读到的数据放到最高位，然后依次放到byte的低位
+		byte >>= 1;	//然后将byte右移一位，为下一个数据的存放做准备
+		byte |= bi;	//然后把数据一个个的合并到byte中
+		delayTenMicroseconds(4);	//读取完之后等待~40us再接着读取下一个数
 	}			
 	
 	return byte;
@@ -65,8 +64,7 @@ void changeTemperatureCommandOfDS18B20(void) {
 }
 
 //发送读取温度命令
-void readTemperatureCommandOfDS18B20(void)
-{	
+void readTemperatureCommandOfDS18B20(void) {	
 	initializeDS18B20();
 	delayOneMillisecond(1);
 	writeByteToDS18B20(0xCC);	//跳过ROM操作命令
@@ -90,7 +88,7 @@ int readTemperatureOfDS18B20(void) {
 	return temp;
 }
 
-void getTemperatureOfDS18B20(unsigned char * buf, float * temperature) {
+ void getTemperatureOfDS18B20(unsigned char * buf, float * temperature) {
 	int temp=0;
     float tp=0;
     temp = readTemperatureOfDS18B20();
@@ -101,6 +99,7 @@ void getTemperatureOfDS18B20(unsigned char * buf, float * temperature) {
 		temp = ~temp;
 		tp = temp;
 		temp = tp * 0.0625 * 100 + 0.5;
+		// 0.0625是因为DS18B20的精度是0.0625，所以要乘以0.0625，然后*100是为了留两个小数点
         // 留两个小数点就*100，+0.5是四舍五入，因为C语言浮点数转换为整型的时候把小数点
 		// 后面的数自动去掉，不管是否大于0.5，而+0.5之后大于0.5的就是进1了，小于0.5的就
 		// 算加上0.5，还是在小数点后面。
