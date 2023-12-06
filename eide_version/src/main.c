@@ -5,8 +5,7 @@
  * AUTHOR: Wenjun Chen
  * DATE: 2023-11-30
 */
-// git config --global http.proxy http://127.0.0.1:7890
-// git config --global https.proxy http://127.0.0.1:7890
+
 #include <reg52.h>
 #include <stdio.h>
 #include "./utils/delay.h"
