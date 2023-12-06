@@ -15,7 +15,7 @@ void mainScreen() {
     // 如果当前温度小于最低温度，则LED灯亮
     LED = !(currentTemperature < lowestTemperature);
     // 如果当前温度超过最高温度或低于最低温度，则蜂鸣器响
-    BEEP = ((currentTemperature <= highestTemperature) && (currentTemperature >= lowestTemperature));
+    // BEEP = ((currentTemperature <= highestTemperature) && (currentTemperature >= lowestTemperature));
     // 每超过最高温度2度，风扇等级增加一级，最高三级
     temp = currentTemperature - highestTemperature;
     if (temp >= 6) {

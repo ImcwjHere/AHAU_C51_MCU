@@ -5,8 +5,8 @@
 unsigned char initializeDS18B20(void) {
 	int i=0;
 	
-	DSPORT = 0;	//将总线拉低480us~960us
-	delayTenMicroseconds(64);	//延时642us
+	DSPORT = 0;	
+	delayTenMicroseconds(64);	//将总线拉低480us~960us, 这里延时约640us
 	
 	DSPORT = 1;	//然后拉高总线，如果DS18B20做出反应会将在15us~60us后总线拉低
 	
@@ -28,7 +28,7 @@ void writeByteToDS18B20(unsigned char dat) {
 		i ++;
 		DSPORT = dat & 0x01;	//然后写入一个数据，从最低位开始
 		
-		delayTenMicroseconds(6);	//延时68us，持续时间最少60us
+		delayTenMicroseconds(7);	//延时68us，持续时间最少60us
 		
 		DSPORT = 1;	//然后释放总线，至少1us给总线恢复时间才能接着写入第二个数值
 		dat >>= 1;
@@ -44,12 +44,10 @@ unsigned char readByteFromDS18B20(void) {
 		DSPORT = 0;	//先将总线拉低1us
 		i++;
 		DSPORT = 1;	//然后释放总线
-		delayTenMicroseconds(1);	//延时~10us等待数据稳定
+		i++;i++;	//延时6us等待数据稳定
 		bi = DSPORT;	//读取数据，从最低位开始读取
-		bi <<= 7;	//然后把读到的数据放到最高位，然后依次放到byte的低位
-		byte >>= 1;	//然后将byte右移一位，为下一个数据的存放做准备
-		byte |= bi;	//然后把数据一个个的合并到byte中
-		delayTenMicroseconds(4);	//读取完之后等待~40us再接着读取下一个数
+		byte = (byte >> 1) | (bi << 7);	// 将byte左移一位，然后与上右移7位后的bi，注意移动之后移掉那位补0
+		delayTenMicroseconds(5);	//读取完之后等待48us再接着读取下一个数
 	}			
 	
 	return byte;
