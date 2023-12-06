@@ -17,5 +17,6 @@
 # Keil 文件夹
 # 忽略 Keil 文件夹内的所有文件
 ./Keil/*
-# 但不忽略 Keil 文件夹内的 *.uvproj 文件
+# 但不忽略 Keil 文件夹内的 *.uvproj 和 *.hex 文件
 !./Keil/*.uvproj
+!./Keil/*.hex
