@@ -1,93 +1,125 @@
-# <br>代码规范
+# 环境
 
-## 函数命名和调用
+   |项目|备注|
+   |:-:|:-:|
+   |开发环境|Keil uVision4 或 Embedded-IDE (SDCC)|
+   |MCU|STC89C52RC|
+   |编译选项|`--iram-size 256 --xram-size 4096 --code-size 8192`|
 
-- 主程序和被外部调用的函数和变量，一律使用lowerCamelCase命名格式。例如：
-  
-   - `startupScreen()`
+<!-- # IMPORTANT NOTICE
 
-   - `initializeEverything()`
+**This project is prohibited to use for commercial purposes! If needed, please contact me.**
 
-   - `highestTemperature`
+**禁止商业使用！如有需要请联系作者。**
 
-- 仅被本文件调用的函数和变量，可以随意, 建议使用 `__` 开头, 例如:
+**For reprinting, please indicate the author's information**
 
-   - `__writeComOnLCD1602()`
-  
-   - `__writeDataOnLCD1602()`
-  
-   - `__writeByteToDS18B20()`
+**转载请注明作者信息，谢谢！**
 
-- 主程序以外的文件, 使用全局变量或传递指针调用, 全局变量和传递指针的使用原则为:
-  
-  1. 只被读取或调用的变量或函数, 采用全局变量 `extern` 关键字声明, 例如:
+```
+In the future, I will try my best to use English comments in the code. For some Chinese comments in my previous code, please use translation software, I'm sorry for that. :(
+``` -->
+<br><br>
 
-   - `extern void initializeFan();`
-
-  2. 需要修改变量内容的位置, 采用传递指针调用, 例如: 
+# 代码规范
    
-   - `void writeAT24C02(unsigned char addr, unsigned char dat);`
+   - ### 函数命名和调用
 
-# <br>引脚/地址定义
+     - 主程序和被外部调用的函数和变量，一律使用lowerCamelCase命名格式。例如：
+     
+       - `startupScreen()`
 
-|变量|引脚/地址|功能|备注|
-|:-:|:-:|:-:|:-:|
-|SETTING_BUTTON|P3^7|设置按钮|S1键|
-|ADD_BUTTON|P3^6|加按钮|S2键|
-|SUB_BUTTON|P3^5|减按钮|S3键|
-|APPLY_BUTTON|P3^4|应用按钮|S4键|
-|RST_BUTTON|P3^3|复位按钮|S5键|
-|DEBUG_BUTTON|P3^2|调试按钮|S6键|
-|BEEP|P1^4|蜂鸣器|-|
-|LED|P2^0|LED灯|单片机上D7位置的LED灯|
-|FAN|P2^7|风扇|使用时注意跳线|
-|DSPORT|P1^5|DS18B20数据线|DS18B20内部变量|
-|SCL|P1^6|I2C时钟线|AT24C02内部变量|
-|SDA|P1^7|I2C数据线|AT24C02内部变量|
-|LCD1602_E|P1^2|LCD1602使能线|LCD1602内部变量|
-|LCD1602_RW|P1^1|LCD1602读/写选择线|LCD1602内部变量|
-|LCD1602_RS|P1^0|LCD1602寄存器选择线|LCD1602内部变量|
-|AT24C02_ADD|0xA0|AT24C02设备地址|AT24C02内部变量|
+       - `initializeEverything()`
 
-# <br><br>主程序
+       - `highestTemperature`
 
-- main.c
+     - 仅被本文件调用的函数和变量，可以随意, 建议使用 `__` 开头, 例如:
 
-#### 全局变量
+       - `__writeComOnLCD1602()`
+      
+       - `__writeDataOnLCD1602()`
+      
+       - `__writeByteToDS18B20()`
 
-- `SETTING_BUTTON`，`ADD_BUTTON`，`SUB_BUTTON`，`APPLY_BUTTON`，`RST_BUTTON`，`DEBUG_BUTTON`，`BEEP`，`LED`，`FAN`：这些是连接到P3和P1、P2端口的各种按钮和设备的引脚。
+     - 主程序以外的文件, 使用全局变量或传递指针调用, 全局变量和传递指针的使用原则为:
+     
+      1. 只被读取或调用的变量或函数, 采用全局变量 `extern` 关键字声明, 例如:
 
-- `TH_INIT`，`TL_INIT`：定时器初值。
+          - `extern void initializeFan();`
 
-- `fanLevel`：风扇档位，0档: 0%转速，1档: 50%转速, 2档: 75%转速, 3档: 100%转速。
+      2. 需要修改变量内容的位置, 采用传递指针调用, 例如: 
+          
+          - `void writeAT24C02(unsigned char addr, unsigned char dat);`
 
-- `fanState`：用于控制风扇转速（0: 关闭, 1: 打开）。
+<br><br>
 
-- `currentTemperature`：当前温度。
+# 引脚/地址定义
 
-- `highestTemperature`，`lowestTemperature`：最高和最低温度。
+   |变量|引脚/地址|功能|备注|
+   |:-:|:-:|:-:|:-:|
+   |SETTING_BUTTON|P3^7|设置按钮|S1键|
+   |ADD_BUTTON|P3^6|加按钮|S2键|
+   |SUB_BUTTON|P3^5|减按钮|S3键|
+   |APPLY_BUTTON|P3^4|应用按钮|S4键|
+   |RST_BUTTON|P3^3|复位按钮|S5键|
+   |DEBUG_BUTTON|P3^2|调试按钮|S6键|
+   |BEEP|P1^4|蜂鸣器|-|
+   |LED|P2^0|LED灯|单片机上D7位置的LED灯|
+   |FAN|P2^7|风扇|使用时注意跳线|
+   |DSPORT|P1^5|DS18B20数据线|DS18B20内部变量|
+   |SCL|P1^6|I2C时钟线|AT24C02内部变量|
+   |SDA|P1^7|I2C数据线|AT24C02内部变量|
+   |LCD1602_E|P1^2|LCD1602使能线|LCD1602内部变量|
+   |LCD1602_RW|P1^1|LCD1602读/写选择线|LCD1602内部变量|
+   |LCD1602_RS|P1^0|LCD1602寄存器选择线|LCD1602内部变量|
+   |AT24C02_ADD|0xA0|AT24C02设备地址|AT24C02内部变量|
 
-- `firstLine`，`secondLine`：用于在屏幕上显示的字符数组。
+<br><br>
 
-- `onScreenHighestTemperature`，`onScreenLowestTemperature`，`onScreenCurrentTemperature`，`onScreenFanLevel`：指向屏幕上显示的各种温度和风扇档位的指针。
+# 文件释义
 
-#### 主函数
+   - ## main.c
 
-- `main()`：程序的入口点。初始化所有设备，显示启动屏幕，然后进入主循环。在主循环中，检查复位按钮是否被按下，如果是，则重置最高和最低温度。
+      #### 全局变量
 
-# <br><br>屏幕
+ - `SETTING_BUTTON`，`ADD_BUTTON`，`SUB_BUTTON`，`APPLY_BUTTON`，`RST_BUTTON`，`DEBUG_BUTTON`，`BEEP`，`LED`，`FAN`：这些是连接到P3和P1、P2端口的各种按钮和设备的引脚。
 
-## <br>开机启动屏幕
+ - `TH_INIT`，`TL_INIT`：定时器初值。
 
-- startupScreen.c
+ - `fanLevel`：风扇档位，0档: 0%转速，1档: 50%转速, 2档: 75%转速, 3档: 100%转速。
 
-#### 函数
+ - `fanState`：用于控制风扇转速（0: 关闭, 1: 打开）。
 
-- `startupScreen()`：显示开机画面。首先定义两行字符，然后逐个显示这两行字符，每显示一个字符后延时50毫秒，显示完所有字符后延时1秒，然后将所有字符向左移动一格，最后一格改为空格，每移动一格后延时25毫秒，直到所有字符都移出屏幕。这个函数没有输入参数和返回值。
+ - `currentTemperature`：当前温度。
 
-#### 注意事项
+ - `highestTemperature`，`lowestTemperature`：最高和最低温度。
 
-- 在使用这个函数时，需要确保LCD1602已经正确连接到相应的端口，并且`putStringOnLCD1602`和`writeCharOnLCD1602`函数已经被正确实现。
+ - `firstLine`，`secondLine`：用于在屏幕上显示的字符数组。
+
+ - `onScreenHighestTemperature`，`onScreenLowestTemperature`，`onScreenCurrentTemperature`，`onScreenFanLevel`：指向屏幕上显示的各种温度和风扇档位的指针。
+
+      #### 主函数
+
+ - `main()`：程序的入口点。初始化所有设备，显示启动屏幕，然后进入主循环。在主循环中，检查复位按钮是否被按下，如果是，则重置最高和最低温度。
+
+  <br>
+
+   - ## startupScreen.c
+
+      #### 函数
+
+ - `startupScreen()`：显示开机画面。首先定义两行字符，然后逐个显示这两行字符，每显示一个字符后延时50毫秒，显示完所有字符后延时1秒，然后将所有字符向左移动一格，最后一格改为空格，每移动一格后延时25毫秒，直到所有字符都移出屏幕。这个函数没有输入参数和返回值。
+
+     #### 注意事项
+
+ - 在使用这个函数时，需要确保LCD1602已经正确连接到相应的端口，并且`putStringOnLCD1602`和`writeCharOnLCD1602`函数已经被正确实现。
+
+
+
+
+
+
+
 
 ## <br>主屏幕
 
