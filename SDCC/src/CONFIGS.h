@@ -40,7 +40,7 @@
     #define LCD1602_E P12   // LCD1602使能引脚
     #define LCD1602_RW P11  // LCD1602读写引脚
     #define LCD1602_RS P10  // LCD1602选择引脚
-# endif
+#endif
 #ifdef KEIL_MODE
     sbit LCD1602_E = P1^2;   // LCD1602使能引脚
     sbit LCD1602_RW = P1^1;  // LCD1602读写引脚
