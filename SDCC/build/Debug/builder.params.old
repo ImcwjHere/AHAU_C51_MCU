@@ -1,0 +1,85 @@
+{
+    "name": "task",
+    "target": "Debug",
+    "toolchain": "SDCC",
+    "toolchainLocation": "C:\\Users\\bjwcw\\.eide\\tools\\sdcc",
+    "toolchainCfgFile": "c:\\Users\\bjwcw\\.vscode\\extensions\\cl.eide-3.13.2023060401\\res\\data\\models\\win32/sdcc.model.json",
+    "buildMode": "fast|multhread",
+    "showRepathOnLog": true,
+    "threadNum": 16,
+    "rootDir": "d:\\OneDrive\\课程\\单片机接口与技术综合实践\\code\\eide_version",
+    "dumpPath": "build\\Debug",
+    "outDir": "build\\Debug",
+    "incDirs": [
+        "inc",
+        "src",
+        "src/utils",
+        "src/screens"
+    ],
+    "libDirs": [],
+    "defines": [],
+    "sourceList": [
+        "src/main.c",
+        "src/screens/alartScreen.c",
+        "src/screens/mainScreen.c",
+        "src/screens/settingScreen.c",
+        "src/screens/startupScreen.c",
+        "src/utils/AT24C02.c",
+        "src/utils/BEEP.c",
+        "src/utils/DELAY.c",
+        "src/utils/DS18B20.c",
+        "src/utils/FAN_PWM.c",
+        "src/utils/FUNCTIONS.c",
+        "src/utils/IIC.c",
+        "src/utils/LCD1602.c"
+    ],
+    "sourceParams": {},
+    "sourceParamsMtime": 1701336287946.814,
+    "options": {
+        "version": 3,
+        "beforeBuildTasks": [],
+        "afterBuildTasks": [],
+        "global": {
+            "device": "mcs51",
+            "optimize-type": "speed",
+            "misc-controls": "--iram-size 256 --xram-size 4096 --code-size 8192"
+        },
+        "c/cpp-compiler": {
+            "language-c": "c99"
+        },
+        "asm-compiler": {
+            "$toolName": "sdas8051"
+        },
+        "linker": {
+            "$mainFileName": "main",
+            "output-format": "hex"
+        }
+    },
+    "env": {
+        "workspaceFolder": "d:\\OneDrive\\课程\\单片机接口与技术综合实践\\code\\eide_version",
+        "workspaceFolderBasename": "eide_version",
+        "OutDir": "d:\\OneDrive\\课程\\单片机接口与技术综合实践\\code\\eide_version\\build\\Debug",
+        "OutDirRoot": "build",
+        "OutDirBase": "build\\Debug",
+        "ProjectName": "task",
+        "ConfigName": "Debug",
+        "ProjectRoot": "d:\\OneDrive\\课程\\单片机接口与技术综合实践\\code\\eide_version",
+        "ExecutableName": "d:\\OneDrive\\课程\\单片机接口与技术综合实践\\code\\eide_version\\build\\Debug\\task",
+        "SYS_Platform": "win32",
+        "SYS_DirSep": "\\",
+        "SYS_DirSeparator": "\\",
+        "SYS_PathSep": ";",
+        "SYS_PathSeparator": ";",
+        "SYS_EOL": "\r\n",
+        "ToolchainRoot": "C:\\Users\\bjwcw\\.eide\\tools\\sdcc"
+    },
+    "sha": {
+        "c/cpp-defines": "d751713988987e9331980363e24189ce",
+        "beforeBuildTasks": "d751713988987e9331980363e24189ce",
+        "afterBuildTasks": "d751713988987e9331980363e24189ce",
+        "global": "4c1974d03ce056248d51c55bc3c60c72",
+        "c/cpp-compiler": "da5f97a8ee5c67c063f7044c46878c2c",
+        "asm-compiler": "ed0cbf2f00f079904d4f634eb986c327",
+        "linker": "d9e14929ad9416d382e45b49ec9fbdcf"
+    }
+}

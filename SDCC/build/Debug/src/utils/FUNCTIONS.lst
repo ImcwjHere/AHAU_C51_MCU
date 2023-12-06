@@ -1,0 +1,990 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module FUNCTIONS
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _initializeDS18B20
+                                     12 	.globl _initializeLCD1602
+                                     13 	.globl _initializeFan
+                                     14 	.globl _CP_RL2
+                                     15 	.globl _C_T2
+                                     16 	.globl _TR2
+                                     17 	.globl _EXEN2
+                                     18 	.globl _TCLK
+                                     19 	.globl _RCLK
+                                     20 	.globl _EXF2
+                                     21 	.globl _TF2
+                                     22 	.globl _T2
+                                     23 	.globl _T2EX
+                                     24 	.globl _RI
+                                     25 	.globl _TI
+                                     26 	.globl _RB8
+                                     27 	.globl _TB8
+                                     28 	.globl _REN
+                                     29 	.globl _SM2
+                                     30 	.globl _SM1
+                                     31 	.globl _SM0
+                                     32 	.globl _RXD
+                                     33 	.globl _TXD
+                                     34 	.globl _INT0
+                                     35 	.globl _INT1
+                                     36 	.globl _T0
+                                     37 	.globl _T1
+                                     38 	.globl _WR
+                                     39 	.globl _RD
+                                     40 	.globl _PX0
+                                     41 	.globl _PT0
+                                     42 	.globl _PX1
+                                     43 	.globl _PT1
+                                     44 	.globl _PS
+                                     45 	.globl _PT2
+                                     46 	.globl _EX0
+                                     47 	.globl _ET0
+                                     48 	.globl _EX1
+                                     49 	.globl _ET1
+                                     50 	.globl _ES
+                                     51 	.globl _ET2
+                                     52 	.globl _EA
+                                     53 	.globl _IT0
+                                     54 	.globl _IE0
+                                     55 	.globl _IT1
+                                     56 	.globl _IE1
+                                     57 	.globl _TR0
+                                     58 	.globl _TF0
+                                     59 	.globl _TR1
+                                     60 	.globl _TF1
+                                     61 	.globl _P
+                                     62 	.globl _OV
+                                     63 	.globl _RS0
+                                     64 	.globl _RS1
+                                     65 	.globl _F0
+                                     66 	.globl _AC
+                                     67 	.globl _CY
+                                     68 	.globl _P37
+                                     69 	.globl _P36
+                                     70 	.globl _P35
+                                     71 	.globl _P34
+                                     72 	.globl _P33
+                                     73 	.globl _P32
+                                     74 	.globl _P31
+                                     75 	.globl _P30
+                                     76 	.globl _P27
+                                     77 	.globl _P26
+                                     78 	.globl _P25
+                                     79 	.globl _P24
+                                     80 	.globl _P23
+                                     81 	.globl _P22
+                                     82 	.globl _P21
+                                     83 	.globl _P20
+                                     84 	.globl _P17
+                                     85 	.globl _P16
+                                     86 	.globl _P15
+                                     87 	.globl _P14
+                                     88 	.globl _P13
+                                     89 	.globl _P12
+                                     90 	.globl _P11
+                                     91 	.globl _P10
+                                     92 	.globl _P07
+                                     93 	.globl _P06
+                                     94 	.globl _P05
+                                     95 	.globl _P04
+                                     96 	.globl _P03
+                                     97 	.globl _P02
+                                     98 	.globl _P01
+                                     99 	.globl _P00
+                                    100 	.globl _TH2
+                                    101 	.globl _TL2
+                                    102 	.globl _RCAP2H
+                                    103 	.globl _RCAP2L
+                                    104 	.globl _T2CON
+                                    105 	.globl _SBUF
+                                    106 	.globl _SCON
+                                    107 	.globl _IP
+                                    108 	.globl _IE
+                                    109 	.globl _TH1
+                                    110 	.globl _TH0
+                                    111 	.globl _TL1
+                                    112 	.globl _TL0
+                                    113 	.globl _TMOD
+                                    114 	.globl _TCON
+                                    115 	.globl _PCON
+                                    116 	.globl _DPH
+                                    117 	.globl _DPL
+                                    118 	.globl _SP
+                                    119 	.globl _B
+                                    120 	.globl _ACC
+                                    121 	.globl _PSW
+                                    122 	.globl _P3
+                                    123 	.globl _P2
+                                    124 	.globl _P1
+                                    125 	.globl _P0
+                                    126 	.globl _floatToText_PARM_2
+                                    127 	.globl _prepareReadTemperature_PARM_3
+                                    128 	.globl _prepareReadTemperature_PARM_2
+                                    129 	.globl _prepareReadTemperature
+                                    130 	.globl _floatToText
+                                    131 	.globl _initializeEverything
+                                    132 ;--------------------------------------------------------
+                                    133 ; special function registers
+                                    134 ;--------------------------------------------------------
+                                    135 	.area RSEG    (ABS,DATA)
+      000000                        136 	.org 0x0000
+                           000080   137 _P0	=	0x0080
+                           000090   138 _P1	=	0x0090
+                           0000A0   139 _P2	=	0x00a0
+                           0000B0   140 _P3	=	0x00b0
+                           0000D0   141 _PSW	=	0x00d0
+                           0000E0   142 _ACC	=	0x00e0
+                           0000F0   143 _B	=	0x00f0
+                           000081   144 _SP	=	0x0081
+                           000082   145 _DPL	=	0x0082
+                           000083   146 _DPH	=	0x0083
+                           000087   147 _PCON	=	0x0087
+                           000088   148 _TCON	=	0x0088
+                           000089   149 _TMOD	=	0x0089
+                           00008A   150 _TL0	=	0x008a
+                           00008B   151 _TL1	=	0x008b
+                           00008C   152 _TH0	=	0x008c
+                           00008D   153 _TH1	=	0x008d
+                           0000A8   154 _IE	=	0x00a8
+                           0000B8   155 _IP	=	0x00b8
+                           000098   156 _SCON	=	0x0098
+                           000099   157 _SBUF	=	0x0099
+                           0000C8   158 _T2CON	=	0x00c8
+                           0000CA   159 _RCAP2L	=	0x00ca
+                           0000CB   160 _RCAP2H	=	0x00cb
+                           0000CC   161 _TL2	=	0x00cc
+                           0000CD   162 _TH2	=	0x00cd
+                                    163 ;--------------------------------------------------------
+                                    164 ; special function bits
+                                    165 ;--------------------------------------------------------
+                                    166 	.area RSEG    (ABS,DATA)
+      000000                        167 	.org 0x0000
+                           000080   168 _P00	=	0x0080
+                           000081   169 _P01	=	0x0081
+                           000082   170 _P02	=	0x0082
+                           000083   171 _P03	=	0x0083
+                           000084   172 _P04	=	0x0084
+                           000085   173 _P05	=	0x0085
+                           000086   174 _P06	=	0x0086
+                           000087   175 _P07	=	0x0087
+                           000090   176 _P10	=	0x0090
+                           000091   177 _P11	=	0x0091
+                           000092   178 _P12	=	0x0092
+                           000093   179 _P13	=	0x0093
+                           000094   180 _P14	=	0x0094
+                           000095   181 _P15	=	0x0095
+                           000096   182 _P16	=	0x0096
+                           000097   183 _P17	=	0x0097
+                           0000A0   184 _P20	=	0x00a0
+                           0000A1   185 _P21	=	0x00a1
+                           0000A2   186 _P22	=	0x00a2
+                           0000A3   187 _P23	=	0x00a3
+                           0000A4   188 _P24	=	0x00a4
+                           0000A5   189 _P25	=	0x00a5
+                           0000A6   190 _P26	=	0x00a6
+                           0000A7   191 _P27	=	0x00a7
+                           0000B0   192 _P30	=	0x00b0
+                           0000B1   193 _P31	=	0x00b1
+                           0000B2   194 _P32	=	0x00b2
+                           0000B3   195 _P33	=	0x00b3
+                           0000B4   196 _P34	=	0x00b4
+                           0000B5   197 _P35	=	0x00b5
+                           0000B6   198 _P36	=	0x00b6
+                           0000B7   199 _P37	=	0x00b7
+                           0000D7   200 _CY	=	0x00d7
+                           0000D6   201 _AC	=	0x00d6
+                           0000D5   202 _F0	=	0x00d5
+                           0000D4   203 _RS1	=	0x00d4
+                           0000D3   204 _RS0	=	0x00d3
+                           0000D2   205 _OV	=	0x00d2
+                           0000D0   206 _P	=	0x00d0
+                           00008F   207 _TF1	=	0x008f
+                           00008E   208 _TR1	=	0x008e
+                           00008D   209 _TF0	=	0x008d
+                           00008C   210 _TR0	=	0x008c
+                           00008B   211 _IE1	=	0x008b
+                           00008A   212 _IT1	=	0x008a
+                           000089   213 _IE0	=	0x0089
+                           000088   214 _IT0	=	0x0088
+                           0000AF   215 _EA	=	0x00af
+                           0000AD   216 _ET2	=	0x00ad
+                           0000AC   217 _ES	=	0x00ac
+                           0000AB   218 _ET1	=	0x00ab
+                           0000AA   219 _EX1	=	0x00aa
+                           0000A9   220 _ET0	=	0x00a9
+                           0000A8   221 _EX0	=	0x00a8
+                           0000BD   222 _PT2	=	0x00bd
+                           0000BC   223 _PS	=	0x00bc
+                           0000BB   224 _PT1	=	0x00bb
+                           0000BA   225 _PX1	=	0x00ba
+                           0000B9   226 _PT0	=	0x00b9
+                           0000B8   227 _PX0	=	0x00b8
+                           0000B7   228 _RD	=	0x00b7
+                           0000B6   229 _WR	=	0x00b6
+                           0000B5   230 _T1	=	0x00b5
+                           0000B4   231 _T0	=	0x00b4
+                           0000B3   232 _INT1	=	0x00b3
+                           0000B2   233 _INT0	=	0x00b2
+                           0000B1   234 _TXD	=	0x00b1
+                           0000B0   235 _RXD	=	0x00b0
+                           00009F   236 _SM0	=	0x009f
+                           00009E   237 _SM1	=	0x009e
+                           00009D   238 _SM2	=	0x009d
+                           00009C   239 _REN	=	0x009c
+                           00009B   240 _TB8	=	0x009b
+                           00009A   241 _RB8	=	0x009a
+                           000099   242 _TI	=	0x0099
+                           000098   243 _RI	=	0x0098
+                           000091   244 _T2EX	=	0x0091
+                           000090   245 _T2	=	0x0090
+                           0000CF   246 _TF2	=	0x00cf
+                           0000CE   247 _EXF2	=	0x00ce
+                           0000CD   248 _RCLK	=	0x00cd
+                           0000CC   249 _TCLK	=	0x00cc
+                           0000CB   250 _EXEN2	=	0x00cb
+                           0000CA   251 _TR2	=	0x00ca
+                           0000C9   252 _C_T2	=	0x00c9
+                           0000C8   253 _CP_RL2	=	0x00c8
+                                    254 ;--------------------------------------------------------
+                                    255 ; overlayable register banks
+                                    256 ;--------------------------------------------------------
+                                    257 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        258 	.ds 8
+                                    259 ;--------------------------------------------------------
+                                    260 ; internal ram data
+                                    261 ;--------------------------------------------------------
+                                    262 	.area DSEG    (DATA)
+      000000                        263 _prepareReadTemperature_PARM_2:
+      000000                        264 	.ds 3
+      000003                        265 _prepareReadTemperature_PARM_3:
+      000003                        266 	.ds 3
+      000006                        267 _prepareReadTemperature_sloc0_1_0:
+      000006                        268 	.ds 3
+      000009                        269 _prepareReadTemperature_sloc1_1_0:
+      000009                        270 	.ds 3
+      00000C                        271 _floatToText_PARM_2:
+      00000C                        272 	.ds 3
+      00000F                        273 _floatToText_num_65536_9:
+      00000F                        274 	.ds 2
+                                    275 ;--------------------------------------------------------
+                                    276 ; overlayable items in internal ram
+                                    277 ;--------------------------------------------------------
+                                    278 ;--------------------------------------------------------
+                                    279 ; indirectly addressable internal ram data
+                                    280 ;--------------------------------------------------------
+                                    281 	.area ISEG    (DATA)
+                                    282 ;--------------------------------------------------------
+                                    283 ; absolute internal ram data
+                                    284 ;--------------------------------------------------------
+                                    285 	.area IABS    (ABS,DATA)
+                                    286 	.area IABS    (ABS,DATA)
+                                    287 ;--------------------------------------------------------
+                                    288 ; bit data
+                                    289 ;--------------------------------------------------------
+                                    290 	.area BSEG    (BIT)
+                                    291 ;--------------------------------------------------------
+                                    292 ; paged external ram data
+                                    293 ;--------------------------------------------------------
+                                    294 	.area PSEG    (PAG,XDATA)
+                                    295 ;--------------------------------------------------------
+                                    296 ; external ram data
+                                    297 ;--------------------------------------------------------
+                                    298 	.area XSEG    (XDATA)
+                                    299 ;--------------------------------------------------------
+                                    300 ; absolute external ram data
+                                    301 ;--------------------------------------------------------
+                                    302 	.area XABS    (ABS,XDATA)
+                                    303 ;--------------------------------------------------------
+                                    304 ; external initialized ram data
+                                    305 ;--------------------------------------------------------
+                                    306 	.area XISEG   (XDATA)
+                                    307 	.area HOME    (CODE)
+                                    308 	.area GSINIT0 (CODE)
+                                    309 	.area GSINIT1 (CODE)
+                                    310 	.area GSINIT2 (CODE)
+                                    311 	.area GSINIT3 (CODE)
+                                    312 	.area GSINIT4 (CODE)
+                                    313 	.area GSINIT5 (CODE)
+                                    314 	.area GSINIT  (CODE)
+                                    315 	.area GSFINAL (CODE)
+                                    316 	.area CSEG    (CODE)
+                                    317 ;--------------------------------------------------------
+                                    318 ; global & static initialisations
+                                    319 ;--------------------------------------------------------
+                                    320 	.area HOME    (CODE)
+                                    321 	.area GSINIT  (CODE)
+                                    322 	.area GSFINAL (CODE)
+                                    323 	.area GSINIT  (CODE)
+                                    324 ;--------------------------------------------------------
+                                    325 ; Home
+                                    326 ;--------------------------------------------------------
+                                    327 	.area HOME    (CODE)
+                                    328 	.area HOME    (CODE)
+                                    329 ;--------------------------------------------------------
+                                    330 ; code
+                                    331 ;--------------------------------------------------------
+                                    332 	.area CSEG    (CODE)
+                                    333 ;------------------------------------------------------------
+                                    334 ;Allocation info for local variables in function 'prepareReadTemperature'
+                                    335 ;------------------------------------------------------------
+                                    336 ;buf                       Allocated with name '_prepareReadTemperature_PARM_2'
+                                    337 ;globalVariable            Allocated with name '_prepareReadTemperature_PARM_3'
+                                    338 ;temperature               Allocated to registers r6 
+                                    339 ;sloc0                     Allocated with name '_prepareReadTemperature_sloc0_1_0'
+                                    340 ;sloc1                     Allocated with name '_prepareReadTemperature_sloc1_1_0'
+                                    341 ;------------------------------------------------------------
+                                    342 ;	.\src\utils\FUNCTIONS.c:7: void prepareReadTemperature(unsigned char temperature, unsigned char *buf, int *globalVariable) {
+                                    343 ;	-----------------------------------------
+                                    344 ;	 function prepareReadTemperature
+                                    345 ;	-----------------------------------------
+      000000                        346 _prepareReadTemperature:
+                           000007   347 	ar7 = 0x07
+                           000006   348 	ar6 = 0x06
+                           000005   349 	ar5 = 0x05
+                           000004   350 	ar4 = 0x04
+                           000003   351 	ar3 = 0x03
+                           000002   352 	ar2 = 0x02
+                           000001   353 	ar1 = 0x01
+                           000000   354 	ar0 = 0x00
+      000000 AF 82            [24]  355 	mov	r7,dpl
+                                    356 ;	.\src\utils\FUNCTIONS.c:9: if (temperature >= 129) {
+      000002 BF 81 00         [24]  357 	cjne	r7,#0x81,00132$
+      000005                        358 00132$:
+      000005 50 03            [24]  359 	jnc	00133$
+      000007 02r00rF5         [24]  360 	ljmp	00102$
+      00000A                        361 00133$:
+                                    362 ;	.\src\utils\FUNCTIONS.c:11: temperature = 255 - temperature + 1;
+      00000A 8F 06            [24]  363 	mov	ar6,r7
+      00000C C3               [12]  364 	clr	c
+      00000D E4               [12]  365 	clr	a
+      00000E 9E               [12]  366 	subb	a,r6
+      00000F FE               [12]  367 	mov	r6,a
+                                    368 ;	.\src\utils\FUNCTIONS.c:12: buf[0] = '-';    // 负号
+      000010 AB*00            [24]  369 	mov	r3,_prepareReadTemperature_PARM_2
+      000012 AC*01            [24]  370 	mov	r4,(_prepareReadTemperature_PARM_2 + 1)
+      000014 AD*02            [24]  371 	mov	r5,(_prepareReadTemperature_PARM_2 + 2)
+      000016 8B 82            [24]  372 	mov	dpl,r3
+      000018 8C 83            [24]  373 	mov	dph,r4
+      00001A 8D F0            [24]  374 	mov	b,r5
+      00001C 74 2D            [12]  375 	mov	a,#0x2d
+      00001E 12r00r00         [24]  376 	lcall	__gptrput
+                                    377 ;	.\src\utils\FUNCTIONS.c:13: buf[1] = (unsigned char)(temperature % 100 / 10 + '0');
+      000021 74 01            [12]  378 	mov	a,#0x01
+      000023 2B               [12]  379 	add	a,r3
+      000024 F5*06            [12]  380 	mov	_prepareReadTemperature_sloc0_1_0,a
+      000026 E4               [12]  381 	clr	a
+      000027 3C               [12]  382 	addc	a,r4
+      000028 F5*07            [12]  383 	mov	(_prepareReadTemperature_sloc0_1_0 + 1),a
+      00002A 8D*08            [24]  384 	mov	(_prepareReadTemperature_sloc0_1_0 + 2),r5
+      00002C 8E 02            [24]  385 	mov	ar2,r6
+      00002E 7E 00            [12]  386 	mov	r6,#0x00
+      000030 75*00 64         [24]  387 	mov	__modsint_PARM_2,#0x64
+                                    388 ;	1-genFromRTrack replaced	mov	(__modsint_PARM_2 + 1),#0x00
+      000033 8E*01            [24]  389 	mov	(__modsint_PARM_2 + 1),r6
+      000035 8A 82            [24]  390 	mov	dpl,r2
+      000037 8E 83            [24]  391 	mov	dph,r6
+      000039 C0 06            [24]  392 	push	ar6
+      00003B C0 05            [24]  393 	push	ar5
+      00003D C0 04            [24]  394 	push	ar4
+      00003F C0 03            [24]  395 	push	ar3
+      000041 C0 02            [24]  396 	push	ar2
+      000043 12r00r00         [24]  397 	lcall	__modsint
+      000046 75*00 0A         [24]  398 	mov	__divsint_PARM_2,#0x0a
+      000049 75*01 00         [24]  399 	mov	(__divsint_PARM_2 + 1),#0x00
+      00004C 12r00r00         [24]  400 	lcall	__divsint
+      00004F A8 82            [24]  401 	mov	r0,dpl
+      000051 D0 02            [24]  402 	pop	ar2
+      000053 D0 03            [24]  403 	pop	ar3
+      000055 D0 04            [24]  404 	pop	ar4
+      000057 D0 05            [24]  405 	pop	ar5
+      000059 D0 06            [24]  406 	pop	ar6
+      00005B 74 30            [12]  407 	mov	a,#0x30
+      00005D 28               [12]  408 	add	a,r0
+      00005E F8               [12]  409 	mov	r0,a
+      00005F 85*06 82         [24]  410 	mov	dpl,_prepareReadTemperature_sloc0_1_0
+      000062 85*07 83         [24]  411 	mov	dph,(_prepareReadTemperature_sloc0_1_0 + 1)
+      000065 85*08 F0         [24]  412 	mov	b,(_prepareReadTemperature_sloc0_1_0 + 2)
+      000068 12r00r00         [24]  413 	lcall	__gptrput
+                                    414 ;	.\src\utils\FUNCTIONS.c:14: buf[2] = (unsigned char)(temperature % 10 + '0');
+      00006B 74 02            [12]  415 	mov	a,#0x02
+      00006D 2B               [12]  416 	add	a,r3
+      00006E FB               [12]  417 	mov	r3,a
+      00006F E4               [12]  418 	clr	a
+      000070 3C               [12]  419 	addc	a,r4
+      000071 FC               [12]  420 	mov	r4,a
+      000072 75*00 0A         [24]  421 	mov	__modsint_PARM_2,#0x0a
+      000075 75*01 00         [24]  422 	mov	(__modsint_PARM_2 + 1),#0x00
+      000078 8A 82            [24]  423 	mov	dpl,r2
+      00007A 8E 83            [24]  424 	mov	dph,r6
+      00007C C0 05            [24]  425 	push	ar5
+      00007E C0 04            [24]  426 	push	ar4
+      000080 C0 03            [24]  427 	push	ar3
+      000082 C0 00            [24]  428 	push	ar0
+      000084 12r00r00         [24]  429 	lcall	__modsint
+      000087 AA 82            [24]  430 	mov	r2,dpl
+      000089 D0 00            [24]  431 	pop	ar0
+      00008B D0 03            [24]  432 	pop	ar3
+      00008D D0 04            [24]  433 	pop	ar4
+      00008F D0 05            [24]  434 	pop	ar5
+      000091 74 30            [12]  435 	mov	a,#0x30
+      000093 2A               [12]  436 	add	a,r2
+      000094 FA               [12]  437 	mov	r2,a
+      000095 8B 82            [24]  438 	mov	dpl,r3
+      000097 8C 83            [24]  439 	mov	dph,r4
+      000099 8D F0            [24]  440 	mov	b,r5
+      00009B 12r00r00         [24]  441 	lcall	__gptrput
+                                    442 ;	.\src\utils\FUNCTIONS.c:16: *globalVariable = (int)(-1 * ((int)(buf[1] - '0') * 10 + (int)(buf[2] - '0')));
+      00009E AC*03            [24]  443 	mov	r4,_prepareReadTemperature_PARM_3
+      0000A0 AD*04            [24]  444 	mov	r5,(_prepareReadTemperature_PARM_3 + 1)
+      0000A2 AE*05            [24]  445 	mov	r6,(_prepareReadTemperature_PARM_3 + 2)
+      0000A4 7B 00            [12]  446 	mov	r3,#0x00
+      0000A6 E8               [12]  447 	mov	a,r0
+      0000A7 24 D0            [12]  448 	add	a,#0xd0
+      0000A9 F5*00            [12]  449 	mov	__mulint_PARM_2,a
+      0000AB EB               [12]  450 	mov	a,r3
+      0000AC 34 FF            [12]  451 	addc	a,#0xff
+      0000AE F5*01            [12]  452 	mov	(__mulint_PARM_2 + 1),a
+      0000B0 90 00 0A         [24]  453 	mov	dptr,#0x000a
+      0000B3 C0 06            [24]  454 	push	ar6
+      0000B5 C0 05            [24]  455 	push	ar5
+      0000B7 C0 04            [24]  456 	push	ar4
+      0000B9 C0 02            [24]  457 	push	ar2
+      0000BB 12r00r00         [24]  458 	lcall	__mulint
+      0000BE A9 82            [24]  459 	mov	r1,dpl
+      0000C0 AB 83            [24]  460 	mov	r3,dph
+      0000C2 D0 02            [24]  461 	pop	ar2
+      0000C4 D0 04            [24]  462 	pop	ar4
+      0000C6 D0 05            [24]  463 	pop	ar5
+      0000C8 D0 06            [24]  464 	pop	ar6
+      0000CA 8A 00            [24]  465 	mov	ar0,r2
+      0000CC 7A 00            [12]  466 	mov	r2,#0x00
+      0000CE E8               [12]  467 	mov	a,r0
+      0000CF 24 D0            [12]  468 	add	a,#0xd0
+      0000D1 F8               [12]  469 	mov	r0,a
+      0000D2 EA               [12]  470 	mov	a,r2
+      0000D3 34 FF            [12]  471 	addc	a,#0xff
+      0000D5 FA               [12]  472 	mov	r2,a
+      0000D6 E8               [12]  473 	mov	a,r0
+      0000D7 29               [12]  474 	add	a,r1
+      0000D8 F9               [12]  475 	mov	r1,a
+      0000D9 EA               [12]  476 	mov	a,r2
+      0000DA 3B               [12]  477 	addc	a,r3
+      0000DB FB               [12]  478 	mov	r3,a
+      0000DC C3               [12]  479 	clr	c
+      0000DD E4               [12]  480 	clr	a
+      0000DE 99               [12]  481 	subb	a,r1
+      0000DF F9               [12]  482 	mov	r1,a
+      0000E0 E4               [12]  483 	clr	a
+      0000E1 9B               [12]  484 	subb	a,r3
+      0000E2 FB               [12]  485 	mov	r3,a
+      0000E3 8C 82            [24]  486 	mov	dpl,r4
+      0000E5 8D 83            [24]  487 	mov	dph,r5
+      0000E7 8E F0            [24]  488 	mov	b,r6
+      0000E9 E9               [12]  489 	mov	a,r1
+      0000EA 12r00r00         [24]  490 	lcall	__gptrput
+      0000ED A3               [24]  491 	inc	dptr
+      0000EE EB               [12]  492 	mov	a,r3
+      0000EF 12r00r00         [24]  493 	lcall	__gptrput
+      0000F2 02r02r27         [24]  494 	ljmp	00103$
+      0000F5                        495 00102$:
+                                    496 ;	.\src\utils\FUNCTIONS.c:20: buf[0] = (unsigned char)(temperature / 100 + '0');
+      0000F5 AC*00            [24]  497 	mov	r4,_prepareReadTemperature_PARM_2
+      0000F7 AD*01            [24]  498 	mov	r5,(_prepareReadTemperature_PARM_2 + 1)
+      0000F9 AE*02            [24]  499 	mov	r6,(_prepareReadTemperature_PARM_2 + 2)
+      0000FB 7B 00            [12]  500 	mov	r3,#0x00
+      0000FD 75*00 64         [24]  501 	mov	__divsint_PARM_2,#0x64
+                                    502 ;	1-genFromRTrack replaced	mov	(__divsint_PARM_2 + 1),#0x00
+      000100 8B*01            [24]  503 	mov	(__divsint_PARM_2 + 1),r3
+      000102 8F 82            [24]  504 	mov	dpl,r7
+      000104 8B 83            [24]  505 	mov	dph,r3
+      000106 C0 07            [24]  506 	push	ar7
+      000108 C0 06            [24]  507 	push	ar6
+      00010A C0 05            [24]  508 	push	ar5
+      00010C C0 04            [24]  509 	push	ar4
+      00010E C0 03            [24]  510 	push	ar3
+      000110 12r00r00         [24]  511 	lcall	__divsint
+      000113 A9 82            [24]  512 	mov	r1,dpl
+      000115 D0 03            [24]  513 	pop	ar3
+      000117 D0 04            [24]  514 	pop	ar4
+      000119 D0 05            [24]  515 	pop	ar5
+      00011B D0 06            [24]  516 	pop	ar6
+      00011D D0 07            [24]  517 	pop	ar7
+      00011F 74 30            [12]  518 	mov	a,#0x30
+      000121 29               [12]  519 	add	a,r1
+      000122 F9               [12]  520 	mov	r1,a
+      000123 89*06            [24]  521 	mov	_prepareReadTemperature_sloc0_1_0,r1
+      000125 8C 82            [24]  522 	mov	dpl,r4
+      000127 8D 83            [24]  523 	mov	dph,r5
+      000129 8E F0            [24]  524 	mov	b,r6
+      00012B E5*06            [12]  525 	mov	a,_prepareReadTemperature_sloc0_1_0
+      00012D 12r00r00         [24]  526 	lcall	__gptrput
+                                    527 ;	.\src\utils\FUNCTIONS.c:21: buf[1] = (unsigned char)(temperature % 100 / 10 + '0');   
+      000130 74 01            [12]  528 	mov	a,#0x01
+      000132 2C               [12]  529 	add	a,r4
+      000133 F5*09            [12]  530 	mov	_prepareReadTemperature_sloc1_1_0,a
+      000135 E4               [12]  531 	clr	a
+      000136 3D               [12]  532 	addc	a,r5
+      000137 F5*0A            [12]  533 	mov	(_prepareReadTemperature_sloc1_1_0 + 1),a
+      000139 8E*0B            [24]  534 	mov	(_prepareReadTemperature_sloc1_1_0 + 2),r6
+      00013B 75*00 64         [24]  535 	mov	__modsint_PARM_2,#0x64
+      00013E 75*01 00         [24]  536 	mov	(__modsint_PARM_2 + 1),#0x00
+      000141 8F 82            [24]  537 	mov	dpl,r7
+      000143 8B 83            [24]  538 	mov	dph,r3
+      000145 C0 07            [24]  539 	push	ar7
+      000147 C0 06            [24]  540 	push	ar6
+      000149 C0 05            [24]  541 	push	ar5
+      00014B C0 04            [24]  542 	push	ar4
+      00014D C0 03            [24]  543 	push	ar3
+      00014F 12r00r00         [24]  544 	lcall	__modsint
+      000152 75*00 0A         [24]  545 	mov	__divsint_PARM_2,#0x0a
+      000155 75*01 00         [24]  546 	mov	(__divsint_PARM_2 + 1),#0x00
+      000158 12r00r00         [24]  547 	lcall	__divsint
+      00015B A9 82            [24]  548 	mov	r1,dpl
+      00015D D0 03            [24]  549 	pop	ar3
+      00015F D0 04            [24]  550 	pop	ar4
+      000161 D0 05            [24]  551 	pop	ar5
+      000163 D0 06            [24]  552 	pop	ar6
+      000165 D0 07            [24]  553 	pop	ar7
+      000167 74 30            [12]  554 	mov	a,#0x30
+      000169 29               [12]  555 	add	a,r1
+      00016A F9               [12]  556 	mov	r1,a
+      00016B 85*09 82         [24]  557 	mov	dpl,_prepareReadTemperature_sloc1_1_0
+      00016E 85*0A 83         [24]  558 	mov	dph,(_prepareReadTemperature_sloc1_1_0 + 1)
+      000171 85*0B F0         [24]  559 	mov	b,(_prepareReadTemperature_sloc1_1_0 + 2)
+      000174 12r00r00         [24]  560 	lcall	__gptrput
+                                    561 ;	.\src\utils\FUNCTIONS.c:22: buf[2] = (unsigned char)(temperature % 10 + '0'); 
+      000177 74 02            [12]  562 	mov	a,#0x02
+      000179 2C               [12]  563 	add	a,r4
+      00017A FC               [12]  564 	mov	r4,a
+      00017B E4               [12]  565 	clr	a
+      00017C 3D               [12]  566 	addc	a,r5
+      00017D FD               [12]  567 	mov	r5,a
+      00017E 75*00 0A         [24]  568 	mov	__modsint_PARM_2,#0x0a
+      000181 75*01 00         [24]  569 	mov	(__modsint_PARM_2 + 1),#0x00
+      000184 8F 82            [24]  570 	mov	dpl,r7
+      000186 8B 83            [24]  571 	mov	dph,r3
+      000188 C0 06            [24]  572 	push	ar6
+      00018A C0 05            [24]  573 	push	ar5
+      00018C C0 04            [24]  574 	push	ar4
+      00018E C0 01            [24]  575 	push	ar1
+      000190 12r00r00         [24]  576 	lcall	__modsint
+      000193 AB 82            [24]  577 	mov	r3,dpl
+      000195 D0 01            [24]  578 	pop	ar1
+      000197 D0 04            [24]  579 	pop	ar4
+      000199 D0 05            [24]  580 	pop	ar5
+      00019B D0 06            [24]  581 	pop	ar6
+      00019D 74 30            [12]  582 	mov	a,#0x30
+      00019F 2B               [12]  583 	add	a,r3
+      0001A0 FB               [12]  584 	mov	r3,a
+      0001A1 8C 82            [24]  585 	mov	dpl,r4
+      0001A3 8D 83            [24]  586 	mov	dph,r5
+      0001A5 8E F0            [24]  587 	mov	b,r6
+      0001A7 12r00r00         [24]  588 	lcall	__gptrput
+                                    589 ;	.\src\utils\FUNCTIONS.c:24: *globalVariable = (int)((int)(buf[0] - '0') * 100 + (int)(buf[1] - '0') * 10 + (int)(buf[2] - '0'));
+      0001AA AD*03            [24]  590 	mov	r5,_prepareReadTemperature_PARM_3
+      0001AC AE*04            [24]  591 	mov	r6,(_prepareReadTemperature_PARM_3 + 1)
+      0001AE AF*05            [24]  592 	mov	r7,(_prepareReadTemperature_PARM_3 + 2)
+      0001B0 AA*06            [24]  593 	mov	r2,_prepareReadTemperature_sloc0_1_0
+      0001B2 7C 00            [12]  594 	mov	r4,#0x00
+      0001B4 EA               [12]  595 	mov	a,r2
+      0001B5 24 D0            [12]  596 	add	a,#0xd0
+      0001B7 F5*00            [12]  597 	mov	__mulint_PARM_2,a
+      0001B9 EC               [12]  598 	mov	a,r4
+      0001BA 34 FF            [12]  599 	addc	a,#0xff
+      0001BC F5*01            [12]  600 	mov	(__mulint_PARM_2 + 1),a
+      0001BE 90 00 64         [24]  601 	mov	dptr,#0x0064
+      0001C1 C0 07            [24]  602 	push	ar7
+      0001C3 C0 06            [24]  603 	push	ar6
+      0001C5 C0 05            [24]  604 	push	ar5
+      0001C7 C0 03            [24]  605 	push	ar3
+      0001C9 C0 01            [24]  606 	push	ar1
+      0001CB 12r00r00         [24]  607 	lcall	__mulint
+      0001CE AA 82            [24]  608 	mov	r2,dpl
+      0001D0 AC 83            [24]  609 	mov	r4,dph
+      0001D2 D0 01            [24]  610 	pop	ar1
+      0001D4 D0 03            [24]  611 	pop	ar3
+      0001D6 89 00            [24]  612 	mov	ar0,r1
+      0001D8 79 00            [12]  613 	mov	r1,#0x00
+      0001DA E8               [12]  614 	mov	a,r0
+      0001DB 24 D0            [12]  615 	add	a,#0xd0
+      0001DD F5*00            [12]  616 	mov	__mulint_PARM_2,a
+      0001DF E9               [12]  617 	mov	a,r1
+      0001E0 34 FF            [12]  618 	addc	a,#0xff
+      0001E2 F5*01            [12]  619 	mov	(__mulint_PARM_2 + 1),a
+      0001E4 90 00 0A         [24]  620 	mov	dptr,#0x000a
+      0001E7 C0 04            [24]  621 	push	ar4
+      0001E9 C0 03            [24]  622 	push	ar3
+      0001EB C0 02            [24]  623 	push	ar2
+      0001ED 12r00r00         [24]  624 	lcall	__mulint
+      0001F0 A8 82            [24]  625 	mov	r0,dpl
+      0001F2 A9 83            [24]  626 	mov	r1,dph
+      0001F4 D0 02            [24]  627 	pop	ar2
+      0001F6 D0 03            [24]  628 	pop	ar3
+      0001F8 D0 04            [24]  629 	pop	ar4
+      0001FA D0 05            [24]  630 	pop	ar5
+      0001FC D0 06            [24]  631 	pop	ar6
+      0001FE D0 07            [24]  632 	pop	ar7
+      000200 E8               [12]  633 	mov	a,r0
+      000201 2A               [12]  634 	add	a,r2
+      000202 FA               [12]  635 	mov	r2,a
+      000203 E9               [12]  636 	mov	a,r1
+      000204 3C               [12]  637 	addc	a,r4
+      000205 FC               [12]  638 	mov	r4,a
+      000206 8B 01            [24]  639 	mov	ar1,r3
+      000208 7B 00            [12]  640 	mov	r3,#0x00
+      00020A E9               [12]  641 	mov	a,r1
+      00020B 24 D0            [12]  642 	add	a,#0xd0
+      00020D F9               [12]  643 	mov	r1,a
+      00020E EB               [12]  644 	mov	a,r3
+      00020F 34 FF            [12]  645 	addc	a,#0xff
+      000211 FB               [12]  646 	mov	r3,a
+      000212 E9               [12]  647 	mov	a,r1
+      000213 2A               [12]  648 	add	a,r2
+      000214 FA               [12]  649 	mov	r2,a
+      000215 EB               [12]  650 	mov	a,r3
+      000216 3C               [12]  651 	addc	a,r4
+      000217 FC               [12]  652 	mov	r4,a
+      000218 8D 82            [24]  653 	mov	dpl,r5
+      00021A 8E 83            [24]  654 	mov	dph,r6
+      00021C 8F F0            [24]  655 	mov	b,r7
+      00021E EA               [12]  656 	mov	a,r2
+      00021F 12r00r00         [24]  657 	lcall	__gptrput
+      000222 A3               [24]  658 	inc	dptr
+      000223 EC               [12]  659 	mov	a,r4
+      000224 12r00r00         [24]  660 	lcall	__gptrput
+      000227                        661 00103$:
+                                    662 ;	.\src\utils\FUNCTIONS.c:27: if (buf[0] == '0') buf[0] = ' ';
+      000227 AD*00            [24]  663 	mov	r5,_prepareReadTemperature_PARM_2
+      000229 AE*01            [24]  664 	mov	r6,(_prepareReadTemperature_PARM_2 + 1)
+      00022B AF*02            [24]  665 	mov	r7,(_prepareReadTemperature_PARM_2 + 2)
+      00022D 8D 82            [24]  666 	mov	dpl,r5
+      00022F 8E 83            [24]  667 	mov	dph,r6
+      000231 8F F0            [24]  668 	mov	b,r7
+      000233 12r00r00         [24]  669 	lcall	__gptrget
+      000236 FC               [12]  670 	mov	r4,a
+      000237 BC 30 0B         [24]  671 	cjne	r4,#0x30,00105$
+      00023A 8D 82            [24]  672 	mov	dpl,r5
+      00023C 8E 83            [24]  673 	mov	dph,r6
+      00023E 8F F0            [24]  674 	mov	b,r7
+      000240 74 20            [12]  675 	mov	a,#0x20
+      000242 12r00r00         [24]  676 	lcall	__gptrput
+      000245                        677 00105$:
+                                    678 ;	.\src\utils\FUNCTIONS.c:29: if (buf[1] == '0' && (buf[0] == ' '||buf[0] == '-')) {
+      000245 74 01            [12]  679 	mov	a,#0x01
+      000247 2D               [12]  680 	add	a,r5
+      000248 FA               [12]  681 	mov	r2,a
+      000249 E4               [12]  682 	clr	a
+      00024A 3E               [12]  683 	addc	a,r6
+      00024B FB               [12]  684 	mov	r3,a
+      00024C 8F 04            [24]  685 	mov	ar4,r7
+      00024E 8A 82            [24]  686 	mov	dpl,r2
+      000250 8B 83            [24]  687 	mov	dph,r3
+      000252 8C F0            [24]  688 	mov	b,r4
+      000254 12r00r00         [24]  689 	lcall	__gptrget
+      000257 F9               [12]  690 	mov	r1,a
+      000258 B9 30 3A         [24]  691 	cjne	r1,#0x30,00110$
+      00025B 8D 82            [24]  692 	mov	dpl,r5
+      00025D 8E 83            [24]  693 	mov	dph,r6
+      00025F 8F F0            [24]  694 	mov	b,r7
+      000261 12r00r00         [24]  695 	lcall	__gptrget
+      000264 F9               [12]  696 	mov	r1,a
+      000265 B9 20 02         [24]  697 	cjne	r1,#0x20,00138$
+      000268 80 0D            [24]  698 	sjmp	00106$
+      00026A                        699 00138$:
+      00026A 8D 82            [24]  700 	mov	dpl,r5
+      00026C 8E 83            [24]  701 	mov	dph,r6
+      00026E 8F F0            [24]  702 	mov	b,r7
+      000270 12r00r00         [24]  703 	lcall	__gptrget
+      000273 F9               [12]  704 	mov	r1,a
+      000274 B9 2D 1E         [24]  705 	cjne	r1,#0x2d,00110$
+      000277                        706 00106$:
+                                    707 ;	.\src\utils\FUNCTIONS.c:30: buf[1] = buf[0];
+      000277 8D 82            [24]  708 	mov	dpl,r5
+      000279 8E 83            [24]  709 	mov	dph,r6
+      00027B 8F F0            [24]  710 	mov	b,r7
+      00027D 12r00r00         [24]  711 	lcall	__gptrget
+      000280 F9               [12]  712 	mov	r1,a
+      000281 8A 82            [24]  713 	mov	dpl,r2
+      000283 8B 83            [24]  714 	mov	dph,r3
+      000285 8C F0            [24]  715 	mov	b,r4
+      000287 12r00r00         [24]  716 	lcall	__gptrput
+                                    717 ;	.\src\utils\FUNCTIONS.c:31: buf[0] = ' ';
+      00028A 8D 82            [24]  718 	mov	dpl,r5
+      00028C 8E 83            [24]  719 	mov	dph,r6
+      00028E 8F F0            [24]  720 	mov	b,r7
+      000290 74 20            [12]  721 	mov	a,#0x20
+                                    722 ;	.\src\utils\FUNCTIONS.c:33: }
+      000292 02r00r00         [24]  723 	ljmp	__gptrput
+      000295                        724 00110$:
+      000295 22               [24]  725 	ret
+                                    726 ;------------------------------------------------------------
+                                    727 ;Allocation info for local variables in function 'floatToText'
+                                    728 ;------------------------------------------------------------
+                                    729 ;buf                       Allocated with name '_floatToText_PARM_2'
+                                    730 ;num                       Allocated with name '_floatToText_num_65536_9'
+                                    731 ;------------------------------------------------------------
+                                    732 ;	.\src\utils\FUNCTIONS.c:36: void floatToText(int num, unsigned char *buf) {
+                                    733 ;	-----------------------------------------
+                                    734 ;	 function floatToText
+                                    735 ;	-----------------------------------------
+      000296                        736 _floatToText:
+      000296 85 82*0F         [24]  737 	mov	_floatToText_num_65536_9,dpl
+                                    738 ;	.\src\utils\FUNCTIONS.c:38: if (num < 0) {
+      000299 E5 83            [12]  739 	mov	a,dph
+      00029B F5*10            [12]  740 	mov	(_floatToText_num_65536_9 + 1),a
+      00029D 20 E7 03         [24]  741 	jb	acc.7,00128$
+      0002A0 02r03r28         [24]  742 	ljmp	00102$
+      0002A3                        743 00128$:
+                                    744 ;	.\src\utils\FUNCTIONS.c:39: buf[0] = '-';
+      0002A3 AB*0C            [24]  745 	mov	r3,_floatToText_PARM_2
+      0002A5 AC*0D            [24]  746 	mov	r4,(_floatToText_PARM_2 + 1)
+      0002A7 AD*0E            [24]  747 	mov	r5,(_floatToText_PARM_2 + 2)
+      0002A9 8B 82            [24]  748 	mov	dpl,r3
+      0002AB 8C 83            [24]  749 	mov	dph,r4
+      0002AD 8D F0            [24]  750 	mov	b,r5
+      0002AF 74 2D            [12]  751 	mov	a,#0x2d
+      0002B1 12r00r00         [24]  752 	lcall	__gptrput
+                                    753 ;	.\src\utils\FUNCTIONS.c:40: buf[1] = (unsigned char)(-1 * (int)(num / 10) + '0');
+      0002B4 74 01            [12]  754 	mov	a,#0x01
+      0002B6 2B               [12]  755 	add	a,r3
+      0002B7 F8               [12]  756 	mov	r0,a
+      0002B8 E4               [12]  757 	clr	a
+      0002B9 3C               [12]  758 	addc	a,r4
+      0002BA F9               [12]  759 	mov	r1,a
+      0002BB 8D 02            [24]  760 	mov	ar2,r5
+      0002BD 75*00 0A         [24]  761 	mov	__divsint_PARM_2,#0x0a
+      0002C0 75*01 00         [24]  762 	mov	(__divsint_PARM_2 + 1),#0x00
+      0002C3 85*0F 82         [24]  763 	mov	dpl,_floatToText_num_65536_9
+      0002C6 85*10 83         [24]  764 	mov	dph,(_floatToText_num_65536_9 + 1)
+      0002C9 C0 05            [24]  765 	push	ar5
+      0002CB C0 04            [24]  766 	push	ar4
+      0002CD C0 03            [24]  767 	push	ar3
+      0002CF C0 02            [24]  768 	push	ar2
+      0002D1 C0 01            [24]  769 	push	ar1
+      0002D3 C0 00            [24]  770 	push	ar0
+      0002D5 12r00r00         [24]  771 	lcall	__divsint
+      0002D8 AE 82            [24]  772 	mov	r6,dpl
+      0002DA D0 00            [24]  773 	pop	ar0
+      0002DC D0 01            [24]  774 	pop	ar1
+      0002DE D0 02            [24]  775 	pop	ar2
+      0002E0 D0 03            [24]  776 	pop	ar3
+      0002E2 D0 04            [24]  777 	pop	ar4
+      0002E4 C3               [12]  778 	clr	c
+      0002E5 E4               [12]  779 	clr	a
+      0002E6 9E               [12]  780 	subb	a,r6
+      0002E7 24 30            [12]  781 	add	a,#0x30
+      0002E9 88 82            [24]  782 	mov	dpl,r0
+      0002EB 89 83            [24]  783 	mov	dph,r1
+      0002ED 8A F0            [24]  784 	mov	b,r2
+      0002EF 12r00r00         [24]  785 	lcall	__gptrput
+                                    786 ;	.\src\utils\FUNCTIONS.c:41: buf[2] = (unsigned char)(-1 * (int)(num % 10) + '0');
+      0002F2 74 02            [12]  787 	mov	a,#0x02
+      0002F4 2B               [12]  788 	add	a,r3
+      0002F5 FB               [12]  789 	mov	r3,a
+      0002F6 E4               [12]  790 	clr	a
+      0002F7 3C               [12]  791 	addc	a,r4
+      0002F8 FC               [12]  792 	mov	r4,a
+      0002F9 75*00 0A         [24]  793 	mov	__modsint_PARM_2,#0x0a
+      0002FC 75*01 00         [24]  794 	mov	(__modsint_PARM_2 + 1),#0x00
+      0002FF 85*0F 82         [24]  795 	mov	dpl,_floatToText_num_65536_9
+      000302 85*10 83         [24]  796 	mov	dph,(_floatToText_num_65536_9 + 1)
+      000305 C0 04            [24]  797 	push	ar4
+      000307 C0 03            [24]  798 	push	ar3
+      000309 12r00r00         [24]  799 	lcall	__modsint
+      00030C AE 82            [24]  800 	mov	r6,dpl
+      00030E AF 83            [24]  801 	mov	r7,dph
+      000310 D0 03            [24]  802 	pop	ar3
+      000312 D0 04            [24]  803 	pop	ar4
+      000314 D0 05            [24]  804 	pop	ar5
+      000316 C3               [12]  805 	clr	c
+      000317 E4               [12]  806 	clr	a
+      000318 9E               [12]  807 	subb	a,r6
+      000319 24 30            [12]  808 	add	a,#0x30
+      00031B FE               [12]  809 	mov	r6,a
+      00031C 8B 82            [24]  810 	mov	dpl,r3
+      00031E 8C 83            [24]  811 	mov	dph,r4
+      000320 8D F0            [24]  812 	mov	b,r5
+      000322 12r00r00         [24]  813 	lcall	__gptrput
+      000325 02r03rCD         [24]  814 	ljmp	00103$
+      000328                        815 00102$:
+                                    816 ;	.\src\utils\FUNCTIONS.c:43: buf[0] = (unsigned char)(num / 100 + '0');
+      000328 AD*0C            [24]  817 	mov	r5,_floatToText_PARM_2
+      00032A AE*0D            [24]  818 	mov	r6,(_floatToText_PARM_2 + 1)
+      00032C AF*0E            [24]  819 	mov	r7,(_floatToText_PARM_2 + 2)
+      00032E 75*00 64         [24]  820 	mov	__divsint_PARM_2,#0x64
+      000331 75*01 00         [24]  821 	mov	(__divsint_PARM_2 + 1),#0x00
+      000334 85*0F 82         [24]  822 	mov	dpl,_floatToText_num_65536_9
+      000337 85*10 83         [24]  823 	mov	dph,(_floatToText_num_65536_9 + 1)
+      00033A C0 07            [24]  824 	push	ar7
+      00033C C0 06            [24]  825 	push	ar6
+      00033E C0 05            [24]  826 	push	ar5
+      000340 12r00r00         [24]  827 	lcall	__divsint
+      000343 AB 82            [24]  828 	mov	r3,dpl
+      000345 D0 05            [24]  829 	pop	ar5
+      000347 D0 06            [24]  830 	pop	ar6
+      000349 D0 07            [24]  831 	pop	ar7
+      00034B 74 30            [12]  832 	mov	a,#0x30
+      00034D 2B               [12]  833 	add	a,r3
+      00034E 8D 82            [24]  834 	mov	dpl,r5
+      000350 8E 83            [24]  835 	mov	dph,r6
+      000352 8F F0            [24]  836 	mov	b,r7
+      000354 12r00r00         [24]  837 	lcall	__gptrput
+                                    838 ;	.\src\utils\FUNCTIONS.c:44: buf[1] = (unsigned char)(num % 100 / 10 + '0');
+      000357 74 01            [12]  839 	mov	a,#0x01
+      000359 2D               [12]  840 	add	a,r5
+      00035A FA               [12]  841 	mov	r2,a
+      00035B E4               [12]  842 	clr	a
+      00035C 3E               [12]  843 	addc	a,r6
+      00035D FB               [12]  844 	mov	r3,a
+      00035E 8F 04            [24]  845 	mov	ar4,r7
+      000360 75*00 64         [24]  846 	mov	__modsint_PARM_2,#0x64
+      000363 75*01 00         [24]  847 	mov	(__modsint_PARM_2 + 1),#0x00
+      000366 85*0F 82         [24]  848 	mov	dpl,_floatToText_num_65536_9
+      000369 85*10 83         [24]  849 	mov	dph,(_floatToText_num_65536_9 + 1)
+      00036C C0 07            [24]  850 	push	ar7
+      00036E C0 06            [24]  851 	push	ar6
+      000370 C0 05            [24]  852 	push	ar5
+      000372 C0 04            [24]  853 	push	ar4
+      000374 C0 03            [24]  854 	push	ar3
+      000376 C0 02            [24]  855 	push	ar2
+      000378 12r00r00         [24]  856 	lcall	__modsint
+      00037B 75*00 0A         [24]  857 	mov	__divsint_PARM_2,#0x0a
+      00037E 75*01 00         [24]  858 	mov	(__divsint_PARM_2 + 1),#0x00
+      000381 12r00r00         [24]  859 	lcall	__divsint
+      000384 A8 82            [24]  860 	mov	r0,dpl
+      000386 D0 02            [24]  861 	pop	ar2
+      000388 D0 03            [24]  862 	pop	ar3
+      00038A D0 04            [24]  863 	pop	ar4
+      00038C D0 05            [24]  864 	pop	ar5
+      00038E D0 06            [24]  865 	pop	ar6
+      000390 74 30            [12]  866 	mov	a,#0x30
+      000392 28               [12]  867 	add	a,r0
+      000393 8A 82            [24]  868 	mov	dpl,r2
+      000395 8B 83            [24]  869 	mov	dph,r3
+      000397 8C F0            [24]  870 	mov	b,r4
+      000399 12r00r00         [24]  871 	lcall	__gptrput
+                                    872 ;	.\src\utils\FUNCTIONS.c:45: buf[2] = (unsigned char)(num % 10 + '0');
+      00039C 74 02            [12]  873 	mov	a,#0x02
+      00039E 2D               [12]  874 	add	a,r5
+      00039F FD               [12]  875 	mov	r5,a
+      0003A0 E4               [12]  876 	clr	a
+      0003A1 3E               [12]  877 	addc	a,r6
+      0003A2 FE               [12]  878 	mov	r6,a
+      0003A3 75*00 0A         [24]  879 	mov	__modsint_PARM_2,#0x0a
+      0003A6 75*01 00         [24]  880 	mov	(__modsint_PARM_2 + 1),#0x00
+      0003A9 85*0F 82         [24]  881 	mov	dpl,_floatToText_num_65536_9
+      0003AC 85*10 83         [24]  882 	mov	dph,(_floatToText_num_65536_9 + 1)
+      0003AF C0 06            [24]  883 	push	ar6
+      0003B1 C0 05            [24]  884 	push	ar5
+      0003B3 12r00r00         [24]  885 	lcall	__modsint
+      0003B6 AB 82            [24]  886 	mov	r3,dpl
+      0003B8 AC 83            [24]  887 	mov	r4,dph
+      0003BA D0 05            [24]  888 	pop	ar5
+      0003BC D0 06            [24]  889 	pop	ar6
+      0003BE D0 07            [24]  890 	pop	ar7
+      0003C0 74 30            [12]  891 	mov	a,#0x30
+      0003C2 2B               [12]  892 	add	a,r3
+      0003C3 FB               [12]  893 	mov	r3,a
+      0003C4 8D 82            [24]  894 	mov	dpl,r5
+      0003C6 8E 83            [24]  895 	mov	dph,r6
+      0003C8 8F F0            [24]  896 	mov	b,r7
+      0003CA 12r00r00         [24]  897 	lcall	__gptrput
+      0003CD                        898 00103$:
+                                    899 ;	.\src\utils\FUNCTIONS.c:48: if (buf[0] == '0') buf[0] = ' ';
+      0003CD AD*0C            [24]  900 	mov	r5,_floatToText_PARM_2
+      0003CF AE*0D            [24]  901 	mov	r6,(_floatToText_PARM_2 + 1)
+      0003D1 AF*0E            [24]  902 	mov	r7,(_floatToText_PARM_2 + 2)
+      0003D3 8D 82            [24]  903 	mov	dpl,r5
+      0003D5 8E 83            [24]  904 	mov	dph,r6
+      0003D7 8F F0            [24]  905 	mov	b,r7
+      0003D9 12r00r00         [24]  906 	lcall	__gptrget
+      0003DC FC               [12]  907 	mov	r4,a
+      0003DD BC 30 0B         [24]  908 	cjne	r4,#0x30,00105$
+      0003E0 8D 82            [24]  909 	mov	dpl,r5
+      0003E2 8E 83            [24]  910 	mov	dph,r6
+      0003E4 8F F0            [24]  911 	mov	b,r7
+      0003E6 74 20            [12]  912 	mov	a,#0x20
+      0003E8 12r00r00         [24]  913 	lcall	__gptrput
+      0003EB                        914 00105$:
+                                    915 ;	.\src\utils\FUNCTIONS.c:50: if (buf[1] == '0' && (buf[0] == ' '||buf[0] == '-')) {
+      0003EB 74 01            [12]  916 	mov	a,#0x01
+      0003ED 2D               [12]  917 	add	a,r5
+      0003EE FA               [12]  918 	mov	r2,a
+      0003EF E4               [12]  919 	clr	a
+      0003F0 3E               [12]  920 	addc	a,r6
+      0003F1 FB               [12]  921 	mov	r3,a
+      0003F2 8F 04            [24]  922 	mov	ar4,r7
+      0003F4 8A 82            [24]  923 	mov	dpl,r2
+      0003F6 8B 83            [24]  924 	mov	dph,r3
+      0003F8 8C F0            [24]  925 	mov	b,r4
+      0003FA 12r00r00         [24]  926 	lcall	__gptrget
+      0003FD F9               [12]  927 	mov	r1,a
+      0003FE B9 30 3A         [24]  928 	cjne	r1,#0x30,00110$
+      000401 8D 82            [24]  929 	mov	dpl,r5
+      000403 8E 83            [24]  930 	mov	dph,r6
+      000405 8F F0            [24]  931 	mov	b,r7
+      000407 12r00r00         [24]  932 	lcall	__gptrget
+      00040A F9               [12]  933 	mov	r1,a
+      00040B B9 20 02         [24]  934 	cjne	r1,#0x20,00133$
+      00040E 80 0D            [24]  935 	sjmp	00106$
+      000410                        936 00133$:
+      000410 8D 82            [24]  937 	mov	dpl,r5
+      000412 8E 83            [24]  938 	mov	dph,r6
+      000414 8F F0            [24]  939 	mov	b,r7
+      000416 12r00r00         [24]  940 	lcall	__gptrget
+      000419 F9               [12]  941 	mov	r1,a
+      00041A B9 2D 1E         [24]  942 	cjne	r1,#0x2d,00110$
+      00041D                        943 00106$:
+                                    944 ;	.\src\utils\FUNCTIONS.c:51: buf[1] = buf[0];
+      00041D 8D 82            [24]  945 	mov	dpl,r5
+      00041F 8E 83            [24]  946 	mov	dph,r6
+      000421 8F F0            [24]  947 	mov	b,r7
+      000423 12r00r00         [24]  948 	lcall	__gptrget
+      000426 F9               [12]  949 	mov	r1,a
+      000427 8A 82            [24]  950 	mov	dpl,r2
+      000429 8B 83            [24]  951 	mov	dph,r3
+      00042B 8C F0            [24]  952 	mov	b,r4
+      00042D 12r00r00         [24]  953 	lcall	__gptrput
+                                    954 ;	.\src\utils\FUNCTIONS.c:52: buf[0] = ' ';
+      000430 8D 82            [24]  955 	mov	dpl,r5
+      000432 8E 83            [24]  956 	mov	dph,r6
+      000434 8F F0            [24]  957 	mov	b,r7
+      000436 74 20            [12]  958 	mov	a,#0x20
+                                    959 ;	.\src\utils\FUNCTIONS.c:54: }
+      000438 02r00r00         [24]  960 	ljmp	__gptrput
+      00043B                        961 00110$:
+      00043B 22               [24]  962 	ret
+                                    963 ;------------------------------------------------------------
+                                    964 ;Allocation info for local variables in function 'initializeEverything'
+                                    965 ;------------------------------------------------------------
+                                    966 ;	.\src\utils\FUNCTIONS.c:56: void initializeEverything() {
+                                    967 ;	-----------------------------------------
+                                    968 ;	 function initializeEverything
+                                    969 ;	-----------------------------------------
+      00043C                        970 _initializeEverything:
+                                    971 ;	.\src\utils\FUNCTIONS.c:58: BEEP=1;
+                                    972 ;	assignBit
+      00043C D2 94            [12]  973 	setb	_P14
+                                    974 ;	.\src\utils\FUNCTIONS.c:59: FAN=0;
+                                    975 ;	assignBit
+      00043E C2 A7            [12]  976 	clr	_P27
+                                    977 ;	.\src\utils\FUNCTIONS.c:60: LED=1;
+                                    978 ;	assignBit
+      000440 D2 A0            [12]  979 	setb	_P20
+                                    980 ;	.\src\utils\FUNCTIONS.c:62: initializeFan();    // 初始化风扇
+      000442 12r00r00         [24]  981 	lcall	_initializeFan
+                                    982 ;	.\src\utils\FUNCTIONS.c:63: initializeLCD1602();    // 初始化LCD1602
+      000445 12r00r00         [24]  983 	lcall	_initializeLCD1602
+                                    984 ;	.\src\utils\FUNCTIONS.c:64: initializeDS18B20();    // 初始化DS18B20，返回1表示初始化成功，返回0表示初始化失败，这里不做处理
+                                    985 ;	.\src\utils\FUNCTIONS.c:65: }
+      000448 02r00r00         [24]  986 	ljmp	_initializeDS18B20
+                                    987 	.area CSEG    (CODE)
+                                    988 	.area CONST   (CODE)
+                                    989 	.area XINIT   (CODE)
+                                    990 	.area CABS    (ABS,CODE)

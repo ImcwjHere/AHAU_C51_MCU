@@ -1,0 +1,594 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CABS                                00000000    00000000 =           0. bytes (ABS,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   00000000  l_BIT_BANK                      
+C:   00000000  l_CABS                          
+C:   00000000  l_GSINIT1                       
+C:   00000000  l_GSINIT5                       
+C:   00000000  l_IABS                          
+C:   00000000  l_ISEG                          
+C:   00000000  l_PSEG                          
+C:   00000000  l_REG_BANK_1                    
+C:   00000000  l_REG_BANK_2                    
+C:   00000000  l_REG_BANK_3                    
+C:   00000000  l_RSEG                          
+C:   00000000  l_RSEG0                         
+C:   00000000  l_RSEG1                         
+C:   00000000  l_XABS                          
+C:   00000000  l__CODE                         
+C:   00000000  s_BSEG                          
+C:   00000000  s_CABS                          
+C:   00000000  s_DSEG                          
+C:   00000000  s_HOME                          
+C:   00000000  s_IABS                          
+C:   00000000  s_ISEG                          
+C:   00000000  s_REG_BANK_0                    
+C:   00000000  s_RSEG                          
+C:   00000000  s_RSEG0                         
+C:   00000000  s_RSEG1                         
+C:   00000000  s_XABS                          
+C:   00000001  l_BSEG_BYTES                    
+C:   00000001  s_PSEG                          
+C:   00000001  s_XSEG                          
+C:   00000002  l_OSEG                          
+C:   00000003  l_GSFINAL                       
+C:   00000003  l_GSINIT0                       
+C:   00000004  l_BSEG                          
+C:   00000006  l_HOME                          
+C:   00000006  s_GSINIT0                       
+C:   00000008  l_REG_BANK_0                    
+C:   00000008  s_REG_BANK_1                    
+C:   00000009  s_GSINIT1                       
+C:   00000009  s_GSINIT2                       
+C:   0000000A  l_GSINIT2                       
+C:   00000010  s_REG_BANK_2                    
+C:   00000013  s_GSINIT3                       
+C:   00000016  s_OSEG                          
+C:   00000018  s_BIT_BANK                      
+C:   00000018  s_REG_BANK_3                    
+C:   00000020  s_BSEG_BYTES                    
+C:   00000020  s__CODE                         
+C:   00000022  l_GSINIT3                       
+C:   00000022  l_XSEG                          
+C:   00000023  s_XISEG                         
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CABS                                00000000    00000000 =           0. bytes (ABS,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   0000002A  l_GSINIT4                       
+C:   00000035  s_GSINIT4                       
+C:   0000003C  l_CONST                         
+C:   0000005F  s_GSINIT                        
+C:   0000005F  s_GSINIT5                       
+C:   00000061  l_GSINIT                        
+C:   00000064  s_SSEG                          
+C:   00000078  l_DSEG                          
+C:   0000009C  l_SSEG                          
+C:   000000C0  s_GSFINAL                       
+C:   000000C3  s_CSEG                          
+C:   000000F7  l_XINIT                         
+C:   000000F7  l_XISEG                         
+C:   00000100  l_IRAM                          
+C:   00001621  l_CSEG                          
+C:   000016E4  s_CONST                         
+C:   00001720  s_XINIT                         
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           _fsrshift
+     00000080  _P0                                FAN_PWM
+     00000080  _P00                               FAN_PWM
+     00000081  _P01                               FAN_PWM
+     00000081  _SP                                FAN_PWM
+     00000082  _DPL                               FAN_PWM
+     00000082  _P02                               FAN_PWM
+     00000083  _DPH                               FAN_PWM
+     00000083  _P03                               FAN_PWM
+     00000084  _P04                               FAN_PWM
+     00000085  _P05                               FAN_PWM
+     00000086  _P06                               FAN_PWM
+     00000087  _P07                               FAN_PWM
+     00000087  _PCON                              FAN_PWM
+     00000088  _IT0                               FAN_PWM
+     00000088  _TCON                              FAN_PWM
+     00000089  _IE0                               FAN_PWM
+     00000089  _TMOD                              FAN_PWM
+     0000008A  _IT1                               FAN_PWM
+     0000008A  _TL0                               FAN_PWM
+     0000008B  _IE1                               FAN_PWM
+     0000008B  _TL1                               FAN_PWM
+     0000008C  _TH0                               FAN_PWM
+     0000008C  _TR0                               FAN_PWM
+     0000008D  _TF0                               FAN_PWM
+     0000008D  _TH1                               FAN_PWM
+     0000008E  _TR1                               FAN_PWM
+     0000008F  _TF1                               FAN_PWM
+     00000090  _P1                                FAN_PWM
+     00000090  _P10                               FAN_PWM
+     00000090  _T2                                FAN_PWM
+     00000091  _P11                               FAN_PWM
+     00000091  _T2EX                              FAN_PWM
+     00000092  _P12                               FAN_PWM
+     00000093  _P13                               FAN_PWM
+     00000094  _P14                               FAN_PWM
+     00000095  _P15                               FAN_PWM
+     00000096  _P16                               FAN_PWM
+     00000097  _P17                               FAN_PWM
+     00000098  _RI                                FAN_PWM
+     00000098  _SCON                              FAN_PWM
+     00000099  _SBUF                              FAN_PWM
+     00000099  _TI                                FAN_PWM
+     0000009A  _RB8                               FAN_PWM
+     0000009B  _TB8                               FAN_PWM
+     0000009C  _REN                               FAN_PWM
+     0000009D  _SM2                               FAN_PWM
+     0000009E  _SM1                               FAN_PWM
+     0000009F  _SM0                               FAN_PWM
+     000000A0  _P2                                FAN_PWM
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000000A0  _P20                               FAN_PWM
+     000000A0  __XPAGE                            
+     000000A1  _P21                               FAN_PWM
+     000000A2  _P22                               FAN_PWM
+     000000A3  _P23                               FAN_PWM
+     000000A4  _P24                               FAN_PWM
+     000000A5  _P25                               FAN_PWM
+     000000A6  _P26                               FAN_PWM
+     000000A7  _P27                               FAN_PWM
+     000000A8  _EX0                               FAN_PWM
+     000000A8  _IE                                FAN_PWM
+     000000A9  _ET0                               FAN_PWM
+     000000AA  _EX1                               FAN_PWM
+     000000AB  _ET1                               FAN_PWM
+     000000AC  _ES                                FAN_PWM
+     000000AD  _ET2                               FAN_PWM
+     000000AF  _EA                                FAN_PWM
+     000000B0  _P3                                FAN_PWM
+     000000B0  _P30                               FAN_PWM
+     000000B0  _RXD                               FAN_PWM
+     000000B1  _P31                               FAN_PWM
+     000000B1  _TXD                               FAN_PWM
+     000000B2  _INT0                              FAN_PWM
+     000000B2  _P32                               FAN_PWM
+     000000B3  _INT1                              FAN_PWM
+     000000B3  _P33                               FAN_PWM
+     000000B4  _P34                               FAN_PWM
+     000000B4  _T0                                FAN_PWM
+     000000B5  _P35                               FAN_PWM
+     000000B5  _T1                                FAN_PWM
+     000000B6  _P36                               FAN_PWM
+     000000B6  _WR                                FAN_PWM
+     000000B7  _P37                               FAN_PWM
+     000000B7  _RD                                FAN_PWM
+     000000B8  _IP                                FAN_PWM
+     000000B8  _PX0                               FAN_PWM
+     000000B9  _PT0                               FAN_PWM
+     000000BA  _PX1                               FAN_PWM
+     000000BB  _PT1                               FAN_PWM
+     000000BC  _PS                                FAN_PWM
+     000000BD  _PT2                               FAN_PWM
+     000000C8  _CP_RL2                            FAN_PWM
+     000000C8  _T2CON                             FAN_PWM
+     000000C9  _C_T2                              FAN_PWM
+     000000CA  _RCAP2L                            FAN_PWM
+     000000CA  _TR2                               FAN_PWM
+     000000CB  _EXEN2                             FAN_PWM
+     000000CB  _RCAP2H                            FAN_PWM
+     000000CC  _TCLK                              FAN_PWM
+     000000CC  _TL2                               FAN_PWM
+     000000CD  _RCLK                              FAN_PWM
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000000CD  _TH2                               FAN_PWM
+     000000CE  _EXF2                              FAN_PWM
+     000000CF  _TF2                               FAN_PWM
+     000000D0  _P                                 FAN_PWM
+     000000D0  _PSW                               FAN_PWM
+     000000D2  _OV                                FAN_PWM
+     000000D3  _RS0                               FAN_PWM
+     000000D4  _RS1                               FAN_PWM
+     000000D5  _F0                                FAN_PWM
+     000000D6  _AC                                FAN_PWM
+     000000D7  _CY                                FAN_PWM
+     000000E0  _ACC                               FAN_PWM
+     000000F0  _B                                 FAN_PWM
+     000000F5  _B_5                               _gptrput
+     000000F6  _B_6                               _gptrput
+     000000F7  _B_7                               _gptrput
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+BSEG_BYTES                          00000020    00000001 =           1. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+REG_BANK_0                          00000000    00000008 =           8. bytes (REL,OVR)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+DSEG                                00000000    00000078 =         120. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000008  _writeAT24C02_PARM_2               AT24C02
+     00000009  _writeCharOnLCD1602_PARM_2         LCD1602
+     0000000A  _writeCharOnLCD1602_PARM_3         LCD1602
+     0000000B  _putStringOnLCD1602_PARM_2         LCD1602
+     0000000C  _putStringOnLCD1602_PARM_3         LCD1602
+     0000000F  _FreqSelect                        BEEP
+     00000010  _MusicSelect                       BEEP
+     00000021  _TH_INIT                           main
+     00000023  _TL_INIT                           main
+     00000025  _fanLevel                          main
+     00000026  _fanState                          main
+     0000002A  _currentTemperature                main
+     0000002E  _highestTemperature                main
+     00000030  _lowestTemperature                 main
+     00000032  _onScreenHighestTemperature        main
+     00000034  _onScreenLowestTemperature         main
+     00000036  _onScreenCurrentTemperature        main
+     00000038  _onScreenFanLevel                  main
+     0000003A  _getTemperatureOfDS18B20_PARM_2    DS18B20
+     00000053  _prepareReadTemperature_PARM_2     FUNCTIONS
+     00000056  _prepareReadTemperature_PARM_3     FUNCTIONS
+     0000005F  _floatToText_PARM_2                FUNCTIONS
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+OSEG                                00000016    00000002 =           2. bytes (REL,OVR)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000016  __divsint_PARM_2                   _divuint
+     00000016  __divuint_PARM_2                   _divuint
+     00000016  __gptrput_PARM_2                   _gptrput
+     00000016  __modsint_PARM_2                   _moduint
+     00000016  __moduint_PARM_2                   _moduint
+     00000016  __mulint_PARM_2                    _mulint
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+SSEG                                00000064    0000009C =         156. bytes (REL,OVR)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000064  __start__stack                     main
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+XSEG                                00000001    00000022 =          34. bytes (REL,CON,XDATA)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+XISEG                               00000023    000000F7 =         247. bytes (REL,CON,XDATA)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+D:   00000023  _firstLine                         main
+D:   00000034  _secondLine                        main
+D:   00000045  _FreqTable                         BEEP
+D:   0000008F  _Music                             BEEP
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+HOME                                00000000    00000006 =           6. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   00000003  __sdcc_program_startup             main
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSINIT0                             00000006    00000003 =           3. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   00000006  __sdcc_gsinit_startup              
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSINIT2                             00000009    0000000A =          10. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSINIT3                             00000013    00000022 =          34. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   00000013  __mcs51_genXINIT                   
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSINIT4                             00000035    0000002A =          42. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   00000035  __mcs51_genRAMCLEAR                
+C:   0000003B  __mcs51_genXRAMCLEAR               
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSINIT                              0000005F    00000061 =          97. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSFINAL                             000000C0    00000003 =           3. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CSEG                                000000C3    00001621 =        5665. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   000000C3  _main                              main
+C:   00000116  _writeAT24C02                      AT24C02
+C:   00000139  _readAT24C02                       AT24C02
+C:   0000016B  _startupScreen                     startupScreen
+C:   00000301  _alartScreen                       alartScreen
+C:   00000334  ___writeComOnLCD1602               LCD1602
+C:   0000034F  ___writeDataOnLCD1602              LCD1602
+C:   0000036A  _initializeLCD1602                 LCD1602
+C:   00000388  _clearLineInLCD1602                LCD1602
+C:   000003AC  _writeCharOnLCD1602                LCD1602
+C:   000003C5  _putStringOnLCD1602                LCD1602
+C:   0000040F  _startIIC                          IIC
+C:   00000418  _stopIIC                           IIC
+C:   0000041F  _sendByteToIIC                     IIC
+C:   00000455  _readByteFromIIC                   IIC
+C:   00000473  _mainScreen                        mainScreen
+C:   000005CD  _initializeBeeper                  BEEP
+C:   000005E4  _BEEPER                            BEEP
+C:   00000632  _doBeep                            BEEP
+C:   00000673  _initializeDS18B20                 DS18B20
+C:   000006AE  _writeByteToDS18B20                DS18B20
+C:   000006E3  _readByteFromDS18B20               DS18B20
+C:   00000719  _changeTemperatureCommandOfDS18B   DS18B20
+C:   0000072E  _readTemperatureCommandOfDS18B20   DS18B20
+C:   00000743  _readTemperatureOfDS18B20          DS18B20
+C:   00000765  _getTemperatureOfDS18B20           DS18B20
+C:   00000BAE  ___sint2fs                         _sint2fs
+C:   00000BBB  ___fs2sint                         _fs2sint
+C:   00000BEF  _delayOneMillisecond               DELAY
+C:   00000C0C  _delayOneSecond                    DELAY
+C:   00000C2A  _delayTenMicroseconds              DELAY
+C:   00000C3C  _prepareReadTemperature            FUNCTIONS
+C:   00000ED2  _floatToText                       FUNCTIONS
+C:   00001078  _initializeEverything              FUNCTIONS
+C:   00001087  __mulint                           _mulint
+C:   00001087  __mulint_dummy                     _mulint
+C:   000010A4  __gptrget                          _gptrget
+C:   000010C0  __modsint                          _modsint
+C:   000010F6  ___slong2fs                        _slong2fs
+C:   000010FF  slong2fs_doit                      _slong2fs
+C:   00001123  _settingScreen                     settingScreen
+C:   000012D1  __moduint                          _moduint
+C:   0000131E  __divsint                          _divsint
+C:   00001356  ___fssub                           _fssub
+C:   00001361  __divuint                          _divuint
+C:   0000138A  ___fsmul                           _fsmul
+C:   0000142D  fsgetargs                          _fsget2args
+C:   0000145B  fs_normalize_a                     _fsnormalize
+C:   0000148E  ___fs2slong                        _fs2slong
+C:   000014E9  __sdcc_external_startup            _startup
+ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CSEG                                000000C3    00001621 =        5665. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   000014ED  fsgetarg                           _fsget1arg
+C:   000014FF  __gptrput                          _gptrput
+C:   0000151A  ___fslt                            _fslt
+C:   0000154A  ___fsadd                           _fsadd
+C:   0000154D  fsadd_direct_entry                 _fsadd
+C:   000015A3  fs_compare_uint32                  _fscmp
+C:   000015C1  fs_check_negative_zeros            _fscmp
+C:   000015EC  _initializeFan                     FAN_PWM
+C:   00001603  _PWM                               FAN_PWM
+C:   00001638  fs_round_and_return                _fsreturnval
+C:   00001650  fs_zerocheck_return                _fsreturnval
+C:   00001659  fs_return_zero                     _fsreturnval
+C:   00001661  fs_direct_return                   _fsreturnval
+C:   0000166F  fs_return_inf                      _fsreturnval
+C:   0000167C  fs_return_nan                      _fsreturnval
+C:   00001687  fs_swap_a_b                        _fsswapargs
+C:   000016A1  fs_rshift_a                        _fsrshift
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CONST                               000016E4    0000003C =          60. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+XINIT                               00001720    000000F7 =         247. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
+
+Files Linked                              [ module(s) ]
+
+.\build\Debug\src\main.rel                [  ]
+
+
+Libraries Linked                          [ object file ]
+
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/mcs51.lib
+                                          [ crtclear.rel ]
+.\build\Debug\no_entry_bundled.lib        [ AT24C02.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/mcs51.lib
+                                          [ crtxinit.rel ]
+.\build\Debug\no_entry_bundled.lib        [ startupScreen.rel ]
+.\build\Debug\no_entry_bundled.lib        [ alartScreen.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/mcs51.lib
+                                          [ crtxclear.rel ]
+.\build\Debug\no_entry_bundled.lib        [ LCD1602.rel ]
+.\build\Debug\no_entry_bundled.lib        [ IIC.rel ]
+.\build\Debug\no_entry_bundled.lib        [ mainScreen.rel ]
+.\build\Debug\no_entry_bundled.lib        [ BEEP.rel ]
+.\build\Debug\no_entry_bundled.lib        [ DS18B20.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _sint2fs.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fs2sint.rel ]
+.\build\Debug\no_entry_bundled.lib        [ DELAY.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/mcs51.lib
+                                          [ crtpagesfr.rel ]
+.\build\Debug\no_entry_bundled.lib        [ FUNCTIONS.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libint.lib
+                                          [ _mulint.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/mcs51.lib
+                                          [ crtstart.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libsdcc.lib
+                                          [ _gptrget.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libint.lib
+                                          [ _modsint.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _slong2fs.rel ]
+.\build\Debug\no_entry_bundled.lib        [ settingScreen.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libint.lib
+                                          [ _moduint.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libint.lib
+                                          [ _divsint.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fssub.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libint.lib
+                                          [ _divuint.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsmul.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsget2args.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsnormalize.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fs2slong.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libsdcc.lib
+                                          [ _startup.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsget1arg.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libsdcc.lib
+                                          [ _gptrput.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fslt.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsadd.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fscmp.rel ]
+.\build\Debug\no_entry_bundled.lib        [ FAN_PWM.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsreturnval.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsswapargs.rel ]
+C:\Users\bjwcw\.eide\tools\sdcc\bin\..\lib\small/libfloat.lib
+                                          [ _fsrshift.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
+
+User Base Address Definitions
+
+HOME = 0x0000
+XSEG = 0x0001
+PSEG = 0x0001
+ISEG = 0x0000
+BSEG = 0x0000
+
+

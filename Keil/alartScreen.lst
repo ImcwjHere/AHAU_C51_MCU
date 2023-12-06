@@ -1,0 +1,38 @@
+C51 COMPILER V9.01   ALARTSCREEN                                                           12/06/2023 12:06:32 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE ALARTSCREEN
+OBJECT MODULE PLACED IN .\alartScreen.obj
+COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE ..\eide\src\screens\alartScreen.c BROWSE DEBUG OBJECTEXTEND P
+                    -RINT(.\alartScreen.lst) OBJECT(.\alartScreen.obj)
+
+line level    source
+
+   1          #include "../utils/LCD1602.h"
+   2          #include "../utils/DELAY.h"
+   3          
+   4          void alartScreen(unsigned char text[]) {
+   5   1          unsigned int cur=0;
+   6   1          // 清屏
+   7   1          clearLineInLCD1602(0);
+   8   1          clearLineInLCD1602(1);
+   9   1          // 计算居中位置
+  10   1          cur = ((16 - (sizeof(text)/sizeof(unsigned char)-1))) / 4;
+  11   1          // 显示字符串
+  12   1          putStringOnLCD1602(0, cur, text);
+  13   1          delayOneMillisecond(300);
+  14   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     37    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

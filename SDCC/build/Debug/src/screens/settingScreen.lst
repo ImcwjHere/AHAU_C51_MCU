@@ -1,0 +1,598 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module settingScreen
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _alartScreen
+                                     12 	.globl _floatToText
+                                     13 	.globl _writeAT24C02
+                                     14 	.globl _putStringOnLCD1602
+                                     15 	.globl _delayOneMillisecond
+                                     16 	.globl _CP_RL2
+                                     17 	.globl _C_T2
+                                     18 	.globl _TR2
+                                     19 	.globl _EXEN2
+                                     20 	.globl _TCLK
+                                     21 	.globl _RCLK
+                                     22 	.globl _EXF2
+                                     23 	.globl _TF2
+                                     24 	.globl _T2
+                                     25 	.globl _T2EX
+                                     26 	.globl _RI
+                                     27 	.globl _TI
+                                     28 	.globl _RB8
+                                     29 	.globl _TB8
+                                     30 	.globl _REN
+                                     31 	.globl _SM2
+                                     32 	.globl _SM1
+                                     33 	.globl _SM0
+                                     34 	.globl _RXD
+                                     35 	.globl _TXD
+                                     36 	.globl _INT0
+                                     37 	.globl _INT1
+                                     38 	.globl _T0
+                                     39 	.globl _T1
+                                     40 	.globl _WR
+                                     41 	.globl _RD
+                                     42 	.globl _PX0
+                                     43 	.globl _PT0
+                                     44 	.globl _PX1
+                                     45 	.globl _PT1
+                                     46 	.globl _PS
+                                     47 	.globl _PT2
+                                     48 	.globl _EX0
+                                     49 	.globl _ET0
+                                     50 	.globl _EX1
+                                     51 	.globl _ET1
+                                     52 	.globl _ES
+                                     53 	.globl _ET2
+                                     54 	.globl _EA
+                                     55 	.globl _IT0
+                                     56 	.globl _IE0
+                                     57 	.globl _IT1
+                                     58 	.globl _IE1
+                                     59 	.globl _TR0
+                                     60 	.globl _TF0
+                                     61 	.globl _TR1
+                                     62 	.globl _TF1
+                                     63 	.globl _P
+                                     64 	.globl _OV
+                                     65 	.globl _RS0
+                                     66 	.globl _RS1
+                                     67 	.globl _F0
+                                     68 	.globl _AC
+                                     69 	.globl _CY
+                                     70 	.globl _P37
+                                     71 	.globl _P36
+                                     72 	.globl _P35
+                                     73 	.globl _P34
+                                     74 	.globl _P33
+                                     75 	.globl _P32
+                                     76 	.globl _P31
+                                     77 	.globl _P30
+                                     78 	.globl _P27
+                                     79 	.globl _P26
+                                     80 	.globl _P25
+                                     81 	.globl _P24
+                                     82 	.globl _P23
+                                     83 	.globl _P22
+                                     84 	.globl _P21
+                                     85 	.globl _P20
+                                     86 	.globl _P17
+                                     87 	.globl _P16
+                                     88 	.globl _P15
+                                     89 	.globl _P14
+                                     90 	.globl _P13
+                                     91 	.globl _P12
+                                     92 	.globl _P11
+                                     93 	.globl _P10
+                                     94 	.globl _P07
+                                     95 	.globl _P06
+                                     96 	.globl _P05
+                                     97 	.globl _P04
+                                     98 	.globl _P03
+                                     99 	.globl _P02
+                                    100 	.globl _P01
+                                    101 	.globl _P00
+                                    102 	.globl _TH2
+                                    103 	.globl _TL2
+                                    104 	.globl _RCAP2H
+                                    105 	.globl _RCAP2L
+                                    106 	.globl _T2CON
+                                    107 	.globl _SBUF
+                                    108 	.globl _SCON
+                                    109 	.globl _IP
+                                    110 	.globl _IE
+                                    111 	.globl _TH1
+                                    112 	.globl _TH0
+                                    113 	.globl _TL1
+                                    114 	.globl _TL0
+                                    115 	.globl _TMOD
+                                    116 	.globl _TCON
+                                    117 	.globl _PCON
+                                    118 	.globl _DPH
+                                    119 	.globl _DPL
+                                    120 	.globl _SP
+                                    121 	.globl _B
+                                    122 	.globl _ACC
+                                    123 	.globl _PSW
+                                    124 	.globl _P3
+                                    125 	.globl _P2
+                                    126 	.globl _P1
+                                    127 	.globl _P0
+                                    128 	.globl _settingScreen
+                                    129 ;--------------------------------------------------------
+                                    130 ; special function registers
+                                    131 ;--------------------------------------------------------
+                                    132 	.area RSEG    (ABS,DATA)
+      000000                        133 	.org 0x0000
+                           000080   134 _P0	=	0x0080
+                           000090   135 _P1	=	0x0090
+                           0000A0   136 _P2	=	0x00a0
+                           0000B0   137 _P3	=	0x00b0
+                           0000D0   138 _PSW	=	0x00d0
+                           0000E0   139 _ACC	=	0x00e0
+                           0000F0   140 _B	=	0x00f0
+                           000081   141 _SP	=	0x0081
+                           000082   142 _DPL	=	0x0082
+                           000083   143 _DPH	=	0x0083
+                           000087   144 _PCON	=	0x0087
+                           000088   145 _TCON	=	0x0088
+                           000089   146 _TMOD	=	0x0089
+                           00008A   147 _TL0	=	0x008a
+                           00008B   148 _TL1	=	0x008b
+                           00008C   149 _TH0	=	0x008c
+                           00008D   150 _TH1	=	0x008d
+                           0000A8   151 _IE	=	0x00a8
+                           0000B8   152 _IP	=	0x00b8
+                           000098   153 _SCON	=	0x0098
+                           000099   154 _SBUF	=	0x0099
+                           0000C8   155 _T2CON	=	0x00c8
+                           0000CA   156 _RCAP2L	=	0x00ca
+                           0000CB   157 _RCAP2H	=	0x00cb
+                           0000CC   158 _TL2	=	0x00cc
+                           0000CD   159 _TH2	=	0x00cd
+                                    160 ;--------------------------------------------------------
+                                    161 ; special function bits
+                                    162 ;--------------------------------------------------------
+                                    163 	.area RSEG    (ABS,DATA)
+      000000                        164 	.org 0x0000
+                           000080   165 _P00	=	0x0080
+                           000081   166 _P01	=	0x0081
+                           000082   167 _P02	=	0x0082
+                           000083   168 _P03	=	0x0083
+                           000084   169 _P04	=	0x0084
+                           000085   170 _P05	=	0x0085
+                           000086   171 _P06	=	0x0086
+                           000087   172 _P07	=	0x0087
+                           000090   173 _P10	=	0x0090
+                           000091   174 _P11	=	0x0091
+                           000092   175 _P12	=	0x0092
+                           000093   176 _P13	=	0x0093
+                           000094   177 _P14	=	0x0094
+                           000095   178 _P15	=	0x0095
+                           000096   179 _P16	=	0x0096
+                           000097   180 _P17	=	0x0097
+                           0000A0   181 _P20	=	0x00a0
+                           0000A1   182 _P21	=	0x00a1
+                           0000A2   183 _P22	=	0x00a2
+                           0000A3   184 _P23	=	0x00a3
+                           0000A4   185 _P24	=	0x00a4
+                           0000A5   186 _P25	=	0x00a5
+                           0000A6   187 _P26	=	0x00a6
+                           0000A7   188 _P27	=	0x00a7
+                           0000B0   189 _P30	=	0x00b0
+                           0000B1   190 _P31	=	0x00b1
+                           0000B2   191 _P32	=	0x00b2
+                           0000B3   192 _P33	=	0x00b3
+                           0000B4   193 _P34	=	0x00b4
+                           0000B5   194 _P35	=	0x00b5
+                           0000B6   195 _P36	=	0x00b6
+                           0000B7   196 _P37	=	0x00b7
+                           0000D7   197 _CY	=	0x00d7
+                           0000D6   198 _AC	=	0x00d6
+                           0000D5   199 _F0	=	0x00d5
+                           0000D4   200 _RS1	=	0x00d4
+                           0000D3   201 _RS0	=	0x00d3
+                           0000D2   202 _OV	=	0x00d2
+                           0000D0   203 _P	=	0x00d0
+                           00008F   204 _TF1	=	0x008f
+                           00008E   205 _TR1	=	0x008e
+                           00008D   206 _TF0	=	0x008d
+                           00008C   207 _TR0	=	0x008c
+                           00008B   208 _IE1	=	0x008b
+                           00008A   209 _IT1	=	0x008a
+                           000089   210 _IE0	=	0x0089
+                           000088   211 _IT0	=	0x0088
+                           0000AF   212 _EA	=	0x00af
+                           0000AD   213 _ET2	=	0x00ad
+                           0000AC   214 _ES	=	0x00ac
+                           0000AB   215 _ET1	=	0x00ab
+                           0000AA   216 _EX1	=	0x00aa
+                           0000A9   217 _ET0	=	0x00a9
+                           0000A8   218 _EX0	=	0x00a8
+                           0000BD   219 _PT2	=	0x00bd
+                           0000BC   220 _PS	=	0x00bc
+                           0000BB   221 _PT1	=	0x00bb
+                           0000BA   222 _PX1	=	0x00ba
+                           0000B9   223 _PT0	=	0x00b9
+                           0000B8   224 _PX0	=	0x00b8
+                           0000B7   225 _RD	=	0x00b7
+                           0000B6   226 _WR	=	0x00b6
+                           0000B5   227 _T1	=	0x00b5
+                           0000B4   228 _T0	=	0x00b4
+                           0000B3   229 _INT1	=	0x00b3
+                           0000B2   230 _INT0	=	0x00b2
+                           0000B1   231 _TXD	=	0x00b1
+                           0000B0   232 _RXD	=	0x00b0
+                           00009F   233 _SM0	=	0x009f
+                           00009E   234 _SM1	=	0x009e
+                           00009D   235 _SM2	=	0x009d
+                           00009C   236 _REN	=	0x009c
+                           00009B   237 _TB8	=	0x009b
+                           00009A   238 _RB8	=	0x009a
+                           000099   239 _TI	=	0x0099
+                           000098   240 _RI	=	0x0098
+                           000091   241 _T2EX	=	0x0091
+                           000090   242 _T2	=	0x0090
+                           0000CF   243 _TF2	=	0x00cf
+                           0000CE   244 _EXF2	=	0x00ce
+                           0000CD   245 _RCLK	=	0x00cd
+                           0000CC   246 _TCLK	=	0x00cc
+                           0000CB   247 _EXEN2	=	0x00cb
+                           0000CA   248 _TR2	=	0x00ca
+                           0000C9   249 _C_T2	=	0x00c9
+                           0000C8   250 _CP_RL2	=	0x00c8
+                                    251 ;--------------------------------------------------------
+                                    252 ; overlayable register banks
+                                    253 ;--------------------------------------------------------
+                                    254 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        255 	.ds 8
+                                    256 ;--------------------------------------------------------
+                                    257 ; internal ram data
+                                    258 ;--------------------------------------------------------
+                                    259 	.area DSEG    (DATA)
+      000000                        260 _settingScreen_blankspaceText_65536_20:
+      000000                        261 	.ds 4
+                                    262 ;--------------------------------------------------------
+                                    263 ; overlayable items in internal ram
+                                    264 ;--------------------------------------------------------
+                                    265 ;--------------------------------------------------------
+                                    266 ; indirectly addressable internal ram data
+                                    267 ;--------------------------------------------------------
+                                    268 	.area ISEG    (DATA)
+                                    269 ;--------------------------------------------------------
+                                    270 ; absolute internal ram data
+                                    271 ;--------------------------------------------------------
+                                    272 	.area IABS    (ABS,DATA)
+                                    273 	.area IABS    (ABS,DATA)
+                                    274 ;--------------------------------------------------------
+                                    275 ; bit data
+                                    276 ;--------------------------------------------------------
+                                    277 	.area BSEG    (BIT)
+      000000                        278 _settingScreen_currentCursor_65536_20:
+      000000                        279 	.ds 1
+      000001                        280 _settingScreen_prevCursor_65536_20:
+      000001                        281 	.ds 1
+      000002                        282 _settingScreen_splashState_65536_20:
+      000002                        283 	.ds 1
+                                    284 ;--------------------------------------------------------
+                                    285 ; paged external ram data
+                                    286 ;--------------------------------------------------------
+                                    287 	.area PSEG    (PAG,XDATA)
+                                    288 ;--------------------------------------------------------
+                                    289 ; external ram data
+                                    290 ;--------------------------------------------------------
+                                    291 	.area XSEG    (XDATA)
+                                    292 ;--------------------------------------------------------
+                                    293 ; absolute external ram data
+                                    294 ;--------------------------------------------------------
+                                    295 	.area XABS    (ABS,XDATA)
+                                    296 ;--------------------------------------------------------
+                                    297 ; external initialized ram data
+                                    298 ;--------------------------------------------------------
+                                    299 	.area XISEG   (XDATA)
+                                    300 	.area HOME    (CODE)
+                                    301 	.area GSINIT0 (CODE)
+                                    302 	.area GSINIT1 (CODE)
+                                    303 	.area GSINIT2 (CODE)
+                                    304 	.area GSINIT3 (CODE)
+                                    305 	.area GSINIT4 (CODE)
+                                    306 	.area GSINIT5 (CODE)
+                                    307 	.area GSINIT  (CODE)
+                                    308 	.area GSFINAL (CODE)
+                                    309 	.area CSEG    (CODE)
+                                    310 ;--------------------------------------------------------
+                                    311 ; global & static initialisations
+                                    312 ;--------------------------------------------------------
+                                    313 	.area HOME    (CODE)
+                                    314 	.area GSINIT  (CODE)
+                                    315 	.area GSFINAL (CODE)
+                                    316 	.area GSINIT  (CODE)
+                                    317 ;--------------------------------------------------------
+                                    318 ; Home
+                                    319 ;--------------------------------------------------------
+                                    320 	.area HOME    (CODE)
+                                    321 	.area HOME    (CODE)
+                                    322 ;--------------------------------------------------------
+                                    323 ; code
+                                    324 ;--------------------------------------------------------
+                                    325 	.area CSEG    (CODE)
+                                    326 ;------------------------------------------------------------
+                                    327 ;Allocation info for local variables in function 'settingScreen'
+                                    328 ;------------------------------------------------------------
+                                    329 ;blankspaceText            Allocated with name '_settingScreen_blankspaceText_65536_20'
+                                    330 ;------------------------------------------------------------
+                                    331 ;	.\src\screens\settingScreen.c:3: void settingScreen() {
+                                    332 ;	-----------------------------------------
+                                    333 ;	 function settingScreen
+                                    334 ;	-----------------------------------------
+      000000                        335 _settingScreen:
+                           000007   336 	ar7 = 0x07
+                           000006   337 	ar6 = 0x06
+                           000005   338 	ar5 = 0x05
+                           000004   339 	ar4 = 0x04
+                           000003   340 	ar3 = 0x03
+                           000002   341 	ar2 = 0x02
+                           000001   342 	ar1 = 0x01
+                           000000   343 	ar0 = 0x00
+                                    344 ;	.\src\screens\settingScreen.c:4: bit currentCursor=0, prevCursor=0;    // 当前/上一个光标位置，0表示控制最高温度，1表示控制最低温度
+                                    345 ;	assignBit
+      000000 C2*00            [12]  346 	clr	_settingScreen_currentCursor_65536_20
+                                    347 ;	assignBit
+      000002 C2*01            [12]  348 	clr	_settingScreen_prevCursor_65536_20
+                                    349 ;	.\src\screens\settingScreen.c:5: bit splashState=0;  // 闪烁光标状态，0表示显示温度，1表示显示空格
+                                    350 ;	assignBit
+      000004 C2*02            [12]  351 	clr	_settingScreen_splashState_65536_20
+                                    352 ;	.\src\screens\settingScreen.c:6: unsigned char blankspaceText[] = "   ";    // 空格
+      000006 75*00 20         [24]  353 	mov	_settingScreen_blankspaceText_65536_20,#0x20
+      000009 75*01 20         [24]  354 	mov	(_settingScreen_blankspaceText_65536_20 + 0x0001),#0x20
+      00000C 75*02 20         [24]  355 	mov	(_settingScreen_blankspaceText_65536_20 + 0x0002),#0x20
+      00000F 75*03 00         [24]  356 	mov	(_settingScreen_blankspaceText_65536_20 + 0x0003),#0x00
+                                    357 ;	.\src\screens\settingScreen.c:10: while (!SETTING_BUTTON);    // 等待按键释放
+      000012                        358 00101$:
+      000012 30 B7 FD         [24]  359 	jnb	_P37,00101$
+                                    360 ;	.\src\screens\settingScreen.c:11: alartScreen("Setting...");
+      000015 90r00r00         [24]  361 	mov	dptr,#___str_1
+      000018 75 F0 80         [24]  362 	mov	b,#0x80
+      00001B 12r00r00         [24]  363 	lcall	_alartScreen
+                                    364 ;	.\src\screens\settingScreen.c:15: while (APPLY_BUTTON) {
+      00001E                        365 00142$:
+      00001E 20 B4 03         [24]  366 	jb	_P34,00240$
+      000021 02r01r93         [24]  367 	ljmp	00144$
+      000024                        368 00240$:
+                                    369 ;	.\src\screens\settingScreen.c:18: if (currentCursor != prevCursor) {
+      000024 A2*00            [12]  370 	mov	c,_settingScreen_currentCursor_65536_20
+      000026 20*01 01         [24]  371 	jb	_settingScreen_prevCursor_65536_20,00241$
+      000029 B3               [12]  372 	cpl	c
+      00002A                        373 00241$:
+      00002A 40 16            [24]  374 	jc	00105$
+                                    375 ;	.\src\screens\settingScreen.c:19: putStringOnLCD1602(0, 0, firstLine);
+      00002C 75*00r00         [24]  376 	mov	_putStringOnLCD1602_PARM_3,#_firstLine
+      00002F 75*01s00         [24]  377 	mov	(_putStringOnLCD1602_PARM_3 + 1),#(_firstLine >> 8)
+      000032 75*02 00         [24]  378 	mov	(_putStringOnLCD1602_PARM_3 + 2),#0x00
+      000035 75*00 00         [24]  379 	mov	_putStringOnLCD1602_PARM_2,#0x00
+      000038 75 82 00         [24]  380 	mov	dpl,#0x00
+      00003B 12r00r00         [24]  381 	lcall	_putStringOnLCD1602
+                                    382 ;	.\src\screens\settingScreen.c:20: prevCursor = currentCursor;
+                                    383 ;	assignBit
+      00003E A2*00            [12]  384 	mov	c,_settingScreen_currentCursor_65536_20
+      000040 92*01            [24]  385 	mov	_settingScreen_prevCursor_65536_20,c
+      000042                        386 00105$:
+                                    387 ;	.\src\screens\settingScreen.c:24: if (!SETTING_BUTTON) {
+      000042 20 B7 05         [24]  388 	jb	_P37,00110$
+                                    389 ;	.\src\screens\settingScreen.c:25: while (!SETTING_BUTTON);    // 等待按键释放
+      000045                        390 00106$:
+      000045 30 B7 FD         [24]  391 	jnb	_P37,00106$
+                                    392 ;	.\src\screens\settingScreen.c:26: currentCursor = !currentCursor;
+      000048 B2*00            [12]  393 	cpl	_settingScreen_currentCursor_65536_20
+      00004A                        394 00110$:
+                                    395 ;	.\src\screens\settingScreen.c:30: if (!currentCursor) {   // 控制最高温度
+      00004A 30*00 03         [24]  396 	jnb	_settingScreen_currentCursor_65536_20,00245$
+      00004D 02r00rF2         [24]  397 	ljmp	00140$
+      000050                        398 00245$:
+                                    399 ;	.\src\screens\settingScreen.c:32: splashState = !splashState;
+      000050 B2*02            [12]  400 	cpl	_settingScreen_splashState_65536_20
+                                    401 ;	.\src\screens\settingScreen.c:33: splashState?putStringOnLCD1602(0, 2, blankspaceText):putStringOnLCD1602(0, 0, firstLine);
+      000052 30*02 14         [24]  402 	jnb	_settingScreen_splashState_65536_20,00147$
+      000055 75*00r00         [24]  403 	mov	_putStringOnLCD1602_PARM_3,#_settingScreen_blankspaceText_65536_20
+      000058 75*01 00         [24]  404 	mov	(_putStringOnLCD1602_PARM_3 + 1),#0x00
+      00005B 75*02 40         [24]  405 	mov	(_putStringOnLCD1602_PARM_3 + 2),#0x40
+      00005E 75*00 02         [24]  406 	mov	_putStringOnLCD1602_PARM_2,#0x02
+      000061 75 82 00         [24]  407 	mov	dpl,#0x00
+      000064 12r00r00         [24]  408 	lcall	_putStringOnLCD1602
+      000067 80 12            [24]  409 	sjmp	00148$
+      000069                        410 00147$:
+      000069 75*00r00         [24]  411 	mov	_putStringOnLCD1602_PARM_3,#_firstLine
+      00006C 75*01s00         [24]  412 	mov	(_putStringOnLCD1602_PARM_3 + 1),#(_firstLine >> 8)
+      00006F 75*02 00         [24]  413 	mov	(_putStringOnLCD1602_PARM_3 + 2),#0x00
+      000072 75*00 00         [24]  414 	mov	_putStringOnLCD1602_PARM_2,#0x00
+      000075 75 82 00         [24]  415 	mov	dpl,#0x00
+      000078 12r00r00         [24]  416 	lcall	_putStringOnLCD1602
+      00007B                        417 00148$:
+                                    418 ;	.\src\screens\settingScreen.c:34: if (!ADD_BUTTON) {  // 如果按下ADD_BUTTON则增加最高温度（不超过128摄氏度）
+      00007B 20 B6 34         [24]  419 	jb	_P36,00117$
+                                    420 ;	.\src\screens\settingScreen.c:35: while (!ADD_BUTTON);    // 等待按键释放
+      00007E                        421 00111$:
+      00007E 30 B6 FD         [24]  422 	jnb	_P36,00111$
+                                    423 ;	.\src\screens\settingScreen.c:36: highestTemperature ++;
+      000081 05*00            [12]  424 	inc	_highestTemperature
+      000083 E4               [12]  425 	clr	a
+      000084 B5*00 02         [24]  426 	cjne	a,_highestTemperature,00249$
+      000087 05*01            [12]  427 	inc	(_highestTemperature + 1)
+      000089                        428 00249$:
+                                    429 ;	.\src\screens\settingScreen.c:37: if (highestTemperature > 128) highestTemperature = 128;
+      000089 C3               [12]  430 	clr	c
+      00008A 74 80            [12]  431 	mov	a,#0x80
+      00008C 95*00            [12]  432 	subb	a,_highestTemperature
+      00008E 74 80            [12]  433 	mov	a,#(0x00 ^ 0x80)
+      000090 85*01 F0         [24]  434 	mov	b,(_highestTemperature + 1)
+      000093 63 F0 80         [24]  435 	xrl	b,#0x80
+      000096 95 F0            [12]  436 	subb	a,b
+      000098 50 06            [24]  437 	jnc	00115$
+      00009A 75*00 80         [24]  438 	mov	_highestTemperature,#0x80
+      00009D 75*01 00         [24]  439 	mov	(_highestTemperature + 1),#0x00
+      0000A0                        440 00115$:
+                                    441 ;	.\src\screens\settingScreen.c:39: floatToText(highestTemperature, onScreenHighestTemperature);
+      0000A0 85*00*00         [24]  442 	mov	_floatToText_PARM_2,_onScreenHighestTemperature
+      0000A3 85*01*01         [24]  443 	mov	(_floatToText_PARM_2 + 1),(_onScreenHighestTemperature + 1)
+      0000A6 75*02 00         [24]  444 	mov	(_floatToText_PARM_2 + 2),#0x00
+      0000A9 85*00 82         [24]  445 	mov	dpl,_highestTemperature
+      0000AC 85*01 83         [24]  446 	mov	dph,(_highestTemperature + 1)
+      0000AF 12r00r00         [24]  447 	lcall	_floatToText
+      0000B2                        448 00117$:
+                                    449 ;	.\src\screens\settingScreen.c:41: if (!SUB_BUTTON) {  // 如果按下SUB_BUTTON则减少最高温度（不低于最低温度）
+      0000B2 30 B5 03         [24]  450 	jnb	_P35,00251$
+      0000B5 02r01r8A         [24]  451 	ljmp	00141$
+      0000B8                        452 00251$:
+                                    453 ;	.\src\screens\settingScreen.c:42: while (!SUB_BUTTON);    // 等待按键释放
+      0000B8                        454 00118$:
+      0000B8 30 B5 FD         [24]  455 	jnb	_P35,00118$
+                                    456 ;	.\src\screens\settingScreen.c:43: highestTemperature --;
+      0000BB 15*00            [12]  457 	dec	_highestTemperature
+      0000BD 74 FF            [12]  458 	mov	a,#0xff
+      0000BF B5*00 02         [24]  459 	cjne	a,_highestTemperature,00253$
+      0000C2 15*01            [12]  460 	dec	(_highestTemperature + 1)
+      0000C4                        461 00253$:
+                                    462 ;	.\src\screens\settingScreen.c:44: if (highestTemperature < lowestTemperature) highestTemperature = lowestTemperature;
+      0000C4 C3               [12]  463 	clr	c
+      0000C5 E5*00            [12]  464 	mov	a,_highestTemperature
+      0000C7 95*00            [12]  465 	subb	a,_lowestTemperature
+      0000C9 E5*01            [12]  466 	mov	a,(_highestTemperature + 1)
+      0000CB 64 80            [12]  467 	xrl	a,#0x80
+      0000CD 85*01 F0         [24]  468 	mov	b,(_lowestTemperature + 1)
+      0000D0 63 F0 80         [24]  469 	xrl	b,#0x80
+      0000D3 95 F0            [12]  470 	subb	a,b
+      0000D5 50 06            [24]  471 	jnc	00122$
+      0000D7 85*00*00         [24]  472 	mov	_highestTemperature,_lowestTemperature
+      0000DA 85*01*01         [24]  473 	mov	(_highestTemperature + 1),(_lowestTemperature + 1)
+      0000DD                        474 00122$:
+                                    475 ;	.\src\screens\settingScreen.c:46: floatToText(highestTemperature, onScreenHighestTemperature);
+      0000DD 85*00*00         [24]  476 	mov	_floatToText_PARM_2,_onScreenHighestTemperature
+      0000E0 85*01*01         [24]  477 	mov	(_floatToText_PARM_2 + 1),(_onScreenHighestTemperature + 1)
+      0000E3 75*02 00         [24]  478 	mov	(_floatToText_PARM_2 + 2),#0x00
+      0000E6 85*00 82         [24]  479 	mov	dpl,_highestTemperature
+      0000E9 85*01 83         [24]  480 	mov	dph,(_highestTemperature + 1)
+      0000EC 12r00r00         [24]  481 	lcall	_floatToText
+      0000EF 02r01r8A         [24]  482 	ljmp	00141$
+      0000F2                        483 00140$:
+                                    484 ;	.\src\screens\settingScreen.c:50: splashState = !splashState;
+      0000F2 B2*02            [12]  485 	cpl	_settingScreen_splashState_65536_20
+                                    486 ;	.\src\screens\settingScreen.c:51: splashState?putStringOnLCD1602(0, 11, blankspaceText):putStringOnLCD1602(0, 0, firstLine);
+      0000F4 30*02 14         [24]  487 	jnb	_settingScreen_splashState_65536_20,00149$
+      0000F7 75*00r00         [24]  488 	mov	_putStringOnLCD1602_PARM_3,#_settingScreen_blankspaceText_65536_20
+      0000FA 75*01 00         [24]  489 	mov	(_putStringOnLCD1602_PARM_3 + 1),#0x00
+      0000FD 75*02 40         [24]  490 	mov	(_putStringOnLCD1602_PARM_3 + 2),#0x40
+      000100 75*00 0B         [24]  491 	mov	_putStringOnLCD1602_PARM_2,#0x0b
+      000103 75 82 00         [24]  492 	mov	dpl,#0x00
+      000106 12r00r00         [24]  493 	lcall	_putStringOnLCD1602
+      000109 80 12            [24]  494 	sjmp	00150$
+      00010B                        495 00149$:
+      00010B 75*00r00         [24]  496 	mov	_putStringOnLCD1602_PARM_3,#_firstLine
+      00010E 75*01s00         [24]  497 	mov	(_putStringOnLCD1602_PARM_3 + 1),#(_firstLine >> 8)
+      000111 75*02 00         [24]  498 	mov	(_putStringOnLCD1602_PARM_3 + 2),#0x00
+      000114 75*00 00         [24]  499 	mov	_putStringOnLCD1602_PARM_2,#0x00
+      000117 75 82 00         [24]  500 	mov	dpl,#0x00
+      00011A 12r00r00         [24]  501 	lcall	_putStringOnLCD1602
+      00011D                        502 00150$:
+                                    503 ;	.\src\screens\settingScreen.c:52: if (!ADD_BUTTON) {  // 如果按下ADD_BUTTON则增加最低温度（不高于最高温度）
+      00011D 20 B6 36         [24]  504 	jb	_P36,00131$
+                                    505 ;	.\src\screens\settingScreen.c:53: while (!ADD_BUTTON);    // 等待按键释放
+      000120                        506 00125$:
+      000120 30 B6 FD         [24]  507 	jnb	_P36,00125$
+                                    508 ;	.\src\screens\settingScreen.c:54: lowestTemperature ++;
+      000123 05*00            [12]  509 	inc	_lowestTemperature
+      000125 E4               [12]  510 	clr	a
+      000126 B5*00 02         [24]  511 	cjne	a,_lowestTemperature,00258$
+      000129 05*01            [12]  512 	inc	(_lowestTemperature + 1)
+      00012B                        513 00258$:
+                                    514 ;	.\src\screens\settingScreen.c:55: if (lowestTemperature > highestTemperature) lowestTemperature = highestTemperature;
+      00012B C3               [12]  515 	clr	c
+      00012C E5*00            [12]  516 	mov	a,_highestTemperature
+      00012E 95*00            [12]  517 	subb	a,_lowestTemperature
+      000130 E5*01            [12]  518 	mov	a,(_highestTemperature + 1)
+      000132 64 80            [12]  519 	xrl	a,#0x80
+      000134 85*01 F0         [24]  520 	mov	b,(_lowestTemperature + 1)
+      000137 63 F0 80         [24]  521 	xrl	b,#0x80
+      00013A 95 F0            [12]  522 	subb	a,b
+      00013C 50 06            [24]  523 	jnc	00129$
+      00013E 85*00*00         [24]  524 	mov	_lowestTemperature,_highestTemperature
+      000141 85*01*01         [24]  525 	mov	(_lowestTemperature + 1),(_highestTemperature + 1)
+      000144                        526 00129$:
+                                    527 ;	.\src\screens\settingScreen.c:57: floatToText(lowestTemperature, onScreenLowestTemperature);
+      000144 85*00*00         [24]  528 	mov	_floatToText_PARM_2,_onScreenLowestTemperature
+      000147 85*01*01         [24]  529 	mov	(_floatToText_PARM_2 + 1),(_onScreenLowestTemperature + 1)
+      00014A 75*02 00         [24]  530 	mov	(_floatToText_PARM_2 + 2),#0x00
+      00014D 85*00 82         [24]  531 	mov	dpl,_lowestTemperature
+      000150 85*01 83         [24]  532 	mov	dph,(_lowestTemperature + 1)
+      000153 12r00r00         [24]  533 	lcall	_floatToText
+      000156                        534 00131$:
+                                    535 ;	.\src\screens\settingScreen.c:59: if (!SUB_BUTTON) {  // 如果按下SUB_BUTTON则减少最低温度（不低于-55摄氏度）
+      000156 20 B5 31         [24]  536 	jb	_P35,00141$
+                                    537 ;	.\src\screens\settingScreen.c:60: while (!SUB_BUTTON);    // 等待按键释放
+      000159                        538 00132$:
+      000159 30 B5 FD         [24]  539 	jnb	_P35,00132$
+                                    540 ;	.\src\screens\settingScreen.c:61: lowestTemperature --;
+      00015C 15*00            [12]  541 	dec	_lowestTemperature
+      00015E 74 FF            [12]  542 	mov	a,#0xff
+      000160 B5*00 02         [24]  543 	cjne	a,_lowestTemperature,00262$
+      000163 15*01            [12]  544 	dec	(_lowestTemperature + 1)
+      000165                        545 00262$:
+                                    546 ;	.\src\screens\settingScreen.c:62: if (lowestTemperature < -55) lowestTemperature = -55;
+      000165 C3               [12]  547 	clr	c
+      000166 E5*00            [12]  548 	mov	a,_lowestTemperature
+      000168 94 C9            [12]  549 	subb	a,#0xc9
+      00016A E5*01            [12]  550 	mov	a,(_lowestTemperature + 1)
+      00016C 64 80            [12]  551 	xrl	a,#0x80
+      00016E 94 7F            [12]  552 	subb	a,#0x7f
+      000170 50 06            [24]  553 	jnc	00136$
+      000172 75*00 C9         [24]  554 	mov	_lowestTemperature,#0xc9
+      000175 75*01 FF         [24]  555 	mov	(_lowestTemperature + 1),#0xff
+      000178                        556 00136$:
+                                    557 ;	.\src\screens\settingScreen.c:64: floatToText(lowestTemperature, onScreenLowestTemperature);
+      000178 85*00*00         [24]  558 	mov	_floatToText_PARM_2,_onScreenLowestTemperature
+      00017B 85*01*01         [24]  559 	mov	(_floatToText_PARM_2 + 1),(_onScreenLowestTemperature + 1)
+      00017E 75*02 00         [24]  560 	mov	(_floatToText_PARM_2 + 2),#0x00
+      000181 85*00 82         [24]  561 	mov	dpl,_lowestTemperature
+      000184 85*01 83         [24]  562 	mov	dph,(_lowestTemperature + 1)
+      000187 12r00r00         [24]  563 	lcall	_floatToText
+      00018A                        564 00141$:
+                                    565 ;	.\src\screens\settingScreen.c:67: delayOneMillisecond(300);
+      00018A 90 01 2C         [24]  566 	mov	dptr,#0x012c
+      00018D 12r00r00         [24]  567 	lcall	_delayOneMillisecond
+      000190 02r00r1E         [24]  568 	ljmp	00142$
+      000193                        569 00144$:
+                                    570 ;	.\src\screens\settingScreen.c:71: alartScreen("Writing...");
+      000193 90r00r0B         [24]  571 	mov	dptr,#___str_2
+      000196 75 F0 80         [24]  572 	mov	b,#0x80
+      000199 12r00r00         [24]  573 	lcall	_alartScreen
+                                    574 ;	.\src\screens\settingScreen.c:72: writeAT24C02(0x00, (unsigned char)(highestTemperature));
+      00019C 85*00*00         [24]  575 	mov	_writeAT24C02_PARM_2,_highestTemperature
+      00019F 75 82 00         [24]  576 	mov	dpl,#0x00
+      0001A2 12r00r00         [24]  577 	lcall	_writeAT24C02
+                                    578 ;	.\src\screens\settingScreen.c:73: writeAT24C02(0x01, (unsigned char)(lowestTemperature));
+      0001A5 85*00*00         [24]  579 	mov	_writeAT24C02_PARM_2,_lowestTemperature
+      0001A8 75 82 01         [24]  580 	mov	dpl,#0x01
+                                    581 ;	.\src\screens\settingScreen.c:74: }
+      0001AB 02r00r00         [24]  582 	ljmp	_writeAT24C02
+                                    583 	.area CSEG    (CODE)
+                                    584 	.area CONST   (CODE)
+                                    585 	.area CONST   (CODE)
+      000000                        586 ___str_1:
+      000000 53 65 74 74 69 6E 67   587 	.ascii "Setting..."
+             2E 2E 2E
+      00000A 00                     588 	.db 0x00
+                                    589 	.area CSEG    (CODE)
+                                    590 	.area CONST   (CODE)
+      00000B                        591 ___str_2:
+      00000B 57 72 69 74 69 6E 67   592 	.ascii "Writing..."
+             2E 2E 2E
+      000015 00                     593 	.db 0x00
+                                    594 	.area CSEG    (CODE)
+                                    595 	.area XINIT   (CODE)
+                                    596 	.area CABS    (ABS,CODE)

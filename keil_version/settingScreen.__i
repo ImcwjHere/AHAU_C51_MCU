@@ -1,1 +1,0 @@
-"src\screens\settingScreen.c" ROM(COMPACT) BROWSE DEBUG OBJECTEXTEND PRINT(.\settingScreen.lst) OBJECT(settingScreen.obj)

@@ -1,1 +1,0 @@
-"src\main.c" ROM(COMPACT) BROWSE DEBUG OBJECTEXTEND PRINT(.\main.lst) OBJECT(main.obj)

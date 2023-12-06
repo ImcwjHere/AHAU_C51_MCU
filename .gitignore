@@ -1,7 +1,21 @@
-# dot files
-eide_version/.vscode
-# eide_version/.eide
-eide_version/build
-eide_version/tools
-eide_version/.clang-format
-eide_version/.eide.usr.ctx.json
+
+
+# SDCC 文件夹
+# 忽略 SDCC/build/Debug 文件夹内的所有文件
+./SDCC/build/Debug/*
+# 但不忽略 SDCC/build/Debug 文件夹内的 *.hex 文件
+!./SDCC/build/Debug/*.hex
+# 忽略 SDCC 文件夹内的.vscode子文件夹
+./SDCC/.vscode
+
+# Proteus 文件夹
+# 忽略 Proteus 文件夹内的所有文件
+./Proteus/*
+# 但不忽略 Proteus 文件夹内的 *.pdsprj 文件
+!./Proteus/*.pdsprj
+
+# Keil 文件夹
+# 忽略 Keil 文件夹内的所有文件
+./Keil/*
+# 但不忽略 Keil 文件夹内的 *.uvproj 文件
+!./Keil/*.uvproj

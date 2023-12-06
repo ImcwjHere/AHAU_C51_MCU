@@ -1,0 +1,137 @@
+C51 COMPILER V9.01   MAIN                                                                  12/06/2023 12:06:31 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\main.obj
+COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE ..\eide\src\main.c BROWSE DEBUG OBJECTEXTEND PRINT(.\main.lst
+                    -) OBJECT(.\main.obj)
+
+line level    source
+
+   1          /**
+   2           * CPU: AT89C52
+   3           * FREQ: 12.0000 MHz
+   4           * XTAL: 12.0000 MHz
+   5           * AUTHOR: Wenjun Chen
+   6           * DATE: 2023-11-30
+   7          */
+   8          
+   9          #include <reg52.h>
+  10          #include <stdio.h>
+  11          
+  12          #include "./CONFIGS.h"
+  13          #include "./utils/delay.h"
+  14          #include "./utils/LCD1602.h"
+  15          #include "./utils/AT24C02.h"
+  16          #include "./utils/DS18B20.h"
+  17          #include "./utils/FAN_PWM.h"
+  18          #include "./utils/BEEP.h"
+  19          #include "./utils/FUNCTIONS.h"
+  20          
+  21          #include "./screens/startupScreen.h"
+  22          #include "./screens/alartScreen.h"
+  23          #include "./screens/settingScreen.h"
+  24          #include "./screens/mainScreen.h"
+  25          
+  26          // 全局变量
+  27          // 定时器初值
+  28          int TH_INIT = 0x8E; // 定时器高位初值
+  29          int TL_INIT = 0x8E; // 定时器低位初值
+  30          // 风扇档位，0档: 0%转速，1档: 50%转速, 2档: 75%转速, 3档: 100%转速
+  31          unsigned char fanLevel = 0; // 风扇档位
+  32          // 用于控制风扇转速（0: 关闭, 1: 打开）
+  33          unsigned char fanState[4] = {0, 0, 0, 0}; // 风扇状态数组
+  34          // 当前温度
+  35          float currentTemperature = 0.0; // 当前温度
+  36          // 最高温度
+  37          int highestTemperature = 0;
+  38          // 最低温度
+  39          int lowestTemperature = 0;
+  40          // 屏幕上显示的最高温度指针, 占用 3 个字节
+  41          xdata unsigned char firstLine[] = {'H', ':', 'x', 'x', 'x', (unsigned char)(0xDF), 'C', ' ', ' ', 'L', ':'
+             -, 'x', 'x', 'x', (unsigned char)(0xDF), 'C', '\0'};
+  42          // 屏幕上显示的最低温度指针, 占用 3 个字节
+  43          xdata unsigned char secondLine[] = {'T', ':', 'x', 'x', 'x', '.', 'x', (unsigned char)(0xDF), 'C', ' ', ' 
+             -', 'F', 'A', 'N', ':', 'x', '\0'};
+  44          // 屏幕上显示的当前温度指针, 占用 7 个字节
+  45          xdata unsigned char *onScreenHighestTemperature = &firstLine[2];
+  46          // 屏幕上显示的最低温度指针, 占用 3 个字节
+  47          xdata unsigned char *onScreenLowestTemperature = &firstLine[11];
+  48          // 屏幕上显示的当前温度指针, 占用 7 个字节
+  49          xdata unsigned char *onScreenCurrentTemperature = &secondLine[2];
+  50          // 屏幕上显示的风扇档位指针, 占用 1 个字节
+  51          xdata unsigned char *onScreenFanLevel = &secondLine[15];
+  52          
+C51 COMPILER V9.01   MAIN                                                                  12/06/2023 12:06:31 PAGE 2   
+
+  53          
+  54          void main() {
+  55   1          
+  56   1              initializeEverything();
+  57   1          startupScreen();
+  58   1          alartScreen("Starting...");
+  59   1      
+  60   1          while (1) {
+  61   2              
+  62   2              // 如果按下复位键，将最高/最低温度恢复为默认值
+  63   2              if (!RST_BUTTON) {
+  64   3                  while (!RST_BUTTON);    // 等待按键释放
+  65   3                  alartScreen("Resetting...");
+  66   3                  writeAT24C02(0x00, (unsigned char)(22));
+  67   3                  writeAT24C02(0x01, (unsigned char)(20));
+  68   3              }
+  69   2      
+  70   2              // 如果按下调试键
+  71   2              if (!DEBUG_BUTTON) {
+  72   3                  while (!DEBUG_BUTTON);    // 等待按键释放
+  73   3                  alartScreen("Debugging...");
+  74   3                  initializeBeeper();
+  75   3                  doBeep();
+  76   3              }
+  77   2      
+  78   2              // 如果按下设置键，跳转到设置界面
+  79   2              if (!SETTING_BUTTON) {
+  80   3                  while (!SETTING_BUTTON);    // 等待按键释放
+  81   3                  settingScreen();
+  82   3              }
+  83   2      
+  84   2              // 显示主屏幕
+  85   2              mainScreen();
+  86   2      
+  87   2              // 延时 100ms
+  88   2              // delayOneMillisecond(100);
+  89   2          }
+  90   1      }
+  91          
+  92          
+  93          
+  94          
+  95          
+  96          
+  97          
+  98          
+  99          
+ 100          
+ 101          
+ 102          
+ 103          
+ 104          
+ 105          
+ 106          
+ 107          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     79    ----
+   CONSTANT SIZE    =     38    ----
+   XDATA SIZE       =     46    ----
+   PDATA SIZE       =   ----    ----
+C51 COMPILER V9.01   MAIN                                                                  12/06/2023 12:06:31 PAGE 3   
+
+   DATA SIZE        =     17    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

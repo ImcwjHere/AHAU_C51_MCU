@@ -1,0 +1,1 @@
+--out-fmt-ihx -mmcs51 --iram-size 256 --xram-size 4096 --code-size 8192 -o .\build\Debug\task.ihx .\build\Debug\src\main.rel .\build\Debug\no_entry_bundled.lib
