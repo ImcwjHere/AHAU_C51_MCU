@@ -1,13 +1,5 @@
 # dot files
-eide_version/.vscode
-eide_version/.eide
-
-# project out
-/build
-/bin
-/obj
-/out
-
-# eide template
-*.ept
-*.eide-template
+eide_version/.vscode/*
+eide_version/.eide/*
+eide_version/build/*
+eide_version/tools
